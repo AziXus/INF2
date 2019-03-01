@@ -15,6 +15,7 @@
 
 #ifndef JOUEUR_H
 #define JOUEUR_H
+#include "Carte.h"
 #include <string>
 #include <vector>
 
@@ -24,7 +25,8 @@ using famillesSurTable = std::vector<Carte>;
 class Joueur{
 public:
    Joueur(const std::string& prenom);
-   ajoutCarteMain(Carte)
+   void ajoutCarteMain(Carte& carte);
+   void ajoutFamille(Carte& carte);
 private:
    std::string prenom;
    carteEnMain carteMain;

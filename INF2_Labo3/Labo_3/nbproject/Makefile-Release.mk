@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Carte.o \
 	${OBJECTDIR}/Joueur.o \
 	${OBJECTDIR}/Partie.o \
 	${OBJECTDIR}/main.o
@@ -63,6 +64,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/labo_3.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/labo_3 ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/Carte.o: Carte.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Carte.o Carte.cpp
 
 ${OBJECTDIR}/Joueur.o: Joueur.cpp
 	${MKDIR} -p ${OBJECTDIR}
