@@ -12,10 +12,11 @@
  Compilateur : MinGW-g++ <x.y.z>
  -----------------------------------------------------------------------------------
  */
+#include "Joueur.h"
 
 using namespace std;
 
-Joueur::Joueur(string prenom):prenom(prenom){}
+Joueur::Joueur(const string& prenom):prenom(prenom){}
 string Joueur::getPrenom() const
 {
     return prenom;
