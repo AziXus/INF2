@@ -13,18 +13,3 @@
  -----------------------------------------------------------------------------------
  */
 
-#ifndef JOUEUR_H
-#define JOUEUR_H
-#include <string>
-
-using c
-
-class Joueur{
-public:
-   Joueur(const std::string& prenom);
-private:
-   std::string prenom;
-};
-
-#endif /* JOUEUR_H */
-
