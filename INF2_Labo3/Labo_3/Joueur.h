@@ -16,8 +16,10 @@
 #ifndef JOUEUR_H
 #define JOUEUR_H
 #include <string>
+#include <vector>
 
-using c
+using carteEnMain = std::vector<Carte>;
+using famillesSurTable = std::vector<Carte>;
 
 class Joueur{
 public:
