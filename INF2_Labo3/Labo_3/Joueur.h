@@ -24,8 +24,11 @@ using famillesSurTable = std::vector<Carte>;
 class Joueur{
 public:
    Joueur(const std::string& prenom);
+   ajoutCarteMain(Carte)
 private:
    std::string prenom;
+   carteEnMain carteMain;
+   famillesSurTable carteFamille;
 };
 
 #endif /* JOUEUR_H */
