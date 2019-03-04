@@ -27,6 +27,8 @@ public:
    Joueur(const std::string& prenom);
    void ajoutCarteMain(Carte& carte);
    void ajoutFamille(Carte& carte);
+   Carte demanderCarte();
+   Cartes detecterFamille();
 private:
    std::string prenom;
    carteEnMain carteMain;
