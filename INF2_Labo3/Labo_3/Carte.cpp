@@ -18,10 +18,6 @@ using namespace std;
 
 Carte::Carte(char lettreFamille, unsigned numeroFamille):NUMERO_FAMILLE(lettreFamille), LETTRE_FAMILLE(numeroFamille){}
 
-std::string Carte::toString() const {
-    return to_string(NUMERO_FAMILLE) + LETTRE_FAMILLE;
-}
-
 ostream& operator<<(ostream& os, const Carte& carte) {
    os << carte.NUMERO_FAMILLE << carte.LETTRE_FAMILLE;
    return os;

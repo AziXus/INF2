@@ -1,25 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   main.cpp
- * Author: stéphane
- *
- * Created on March 1, 2019, 11:51 AM
- */
 
 #include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
-/*
- * 
- */
-int main(int argc, char** argv) {
+int main() {
+    Joueur j1 = Joueur("Alice");
+    Joueur j2 = Joueur("Booby");
+    Joueur j3 = Joueur("Carlos");
+    
+    Partie p1({j1,j2,j3}, 7, 5, 3);
+    
+    cout << j1 << endl;
+    cout << j2 << endl;
+    cout << j3 << endl;
+    
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 

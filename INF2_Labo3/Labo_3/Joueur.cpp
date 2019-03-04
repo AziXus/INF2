@@ -22,12 +22,6 @@ string Joueur::getPrenom() const
     return prenom;
 }
 
-
-ostream& operator<<(ostream& os, const Joueur& joueur) {
-   os << joueur.prenom << " : " << joueur.carteMain << " [" << joueur.carteFamille << "]";
-   return os;
-}
-
 ostream& operator<<(ostream& os, const Cartes& cartes) {
    for (int i = 0; i < cartes.size(); ++i) {
       if (i > 0)
@@ -35,5 +29,10 @@ ostream& operator<<(ostream& os, const Cartes& cartes) {
       os << cartes[i];
    }
 
+   return os;
+}
+
+ostream& operator<<(ostream& os, const Joueur& joueur) {
+   os << joueur.prenom << " : " << joueur.carteMain << " [" << joueur.carteFamille << "]";
    return os;
 }

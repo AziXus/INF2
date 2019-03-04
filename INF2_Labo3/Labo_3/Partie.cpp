@@ -38,8 +38,6 @@ Cartes Partie::genererCartes()
     return paquets;
 }
 
-#include "Partie.h"
-
 void Partie::jouerTour() {
    //Pour chaque joueur, on doit choisir un joueur (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
    for (Joueur& joueur : joueurs) {
@@ -68,6 +66,6 @@ void Partie::melangerCartes()
 void Partie::distribuerCartes()
 {
     for(unsigned i = 1; i <= CARTES_PAR_JOUEURS; i++)
-        for(unsigned j = 1; j <= NOMBRE_JOUEURS; j++)
+        for(unsigned j = 0; j < joueurs.size(); j++)
             piocher(joueurs.at(j));
 }
