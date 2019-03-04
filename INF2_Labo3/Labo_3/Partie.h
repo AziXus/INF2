@@ -27,7 +27,7 @@ private:
    const unsigned short CARTES_PAR_FAMILLES;
    const unsigned short NOMBRE_JOUEURS;
    const unsigned short CARTES_PAR_JOUEURS;
-   const Joueurs joueurs;
+   Joueurs joueurs;
    Cartes pioche;
 };
 
