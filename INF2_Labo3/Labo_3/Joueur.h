@@ -26,7 +26,7 @@ class Joueur{
 public:
    Joueur(const std::string& prenom);
    void ajoutCarteMain(Carte& carte);
-   void ajoutFamille(Carte& carte);
+   void ajoutFamille(Cartes& carte);
    Carte demanderCarte();
    Cartes detecterFamille();
 private:
