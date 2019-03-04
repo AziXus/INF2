@@ -68,6 +68,6 @@ void Partie::melangerCartes()
 void Partie::distribuerCartes()
 {
     for(unsigned i = 1; i <= CARTES_PAR_JOUEURS; i++)
-        for(unsigned j = 1; j <= NOMBRE_JOUEURS; j++)
+        for(unsigned j = 0; j < joueurs.size(); j++)
             piocher(joueurs.at(j));
 }
