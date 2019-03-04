@@ -70,5 +70,5 @@ void Partie::distribuerCartes()
 {
     for(unsigned i = 1; i <= CARTES_PAR_JOUEURS; i++)
         for(unsigned j = 1; j <= NOMBRE_JOUEURS; j++)
-            JOUEURS.at(j).ajoutCarteMain(piocher(joueurs.at(i)));
+            piocher(joueurs.at(j));
 }
