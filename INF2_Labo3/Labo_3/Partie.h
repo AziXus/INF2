@@ -16,6 +16,7 @@ public:
 private:
    Cartes genererCartes();
    void distribuerCartes();
+   void melangerCartes();
    const unsigned short NOMBRE_FAMILLES;
    const unsigned short CARTES_PAR_FAMILLES;
    const unsigned short NOMBRE_JOUEURS;

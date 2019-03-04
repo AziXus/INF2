@@ -19,10 +19,11 @@
 
 class Carte {
 public:
+    Carte(char lettreFamille, unsigned numeroFamille);
     std::string toString() const;
 private:
-    unsigned short numeroFamille;
-    char lettreFamille;
+    const unsigned short NUMERO_FAMILLE;
+    const char LETTRE_FAMILLE;
 };
 
 

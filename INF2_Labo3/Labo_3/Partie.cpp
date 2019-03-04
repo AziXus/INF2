@@ -1,3 +1,8 @@
+
+#include <vector>
+
+#include "Partie.h"
+
 /*
  -----------------------------------------------------------------------------------
  Laboratoire : <nn>
@@ -12,15 +17,35 @@
  Compilateur : MinGW-g++ <x.y.z>
  -----------------------------------------------------------------------------------
  */
+#include <algorithm>
+
+using namespace std;
+
 Partie::Partie(Joueurs joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur)
 :JOUEURS(joueurs), NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur)
 {
     pioche = genererCartes();
+    melangerCartes();
     distribuerCartes();
 }
 
-Cartes genererCartes()
+Cartes Partie::genererCartes()
 {
     Cartes paquets;
-    for(size_t i = A; i <= NOMBRE_FAMILLES)
+    for(char lettre = 'A'; lettre <= NOMBRE_FAMILLES; lettre++)
+        for(size_t numero = 1; numero <= CARTES_PAR_FAMILLES; numero++)
+            paquets.push_back(Carte(lettre, numero));
+    return paquets;
+}
+
+void Partie::melangerCartes()
+{
+    random_shuffle(pioche.begin(),pioche.end());
+}
+
+void Partie::distribuerCartes()
+{
+    for(unsigned i = 1; i <= CARTES_PAR_JOUEURS; i++)
+        for(unsigned j = 1; j <= NOMBRE_JOUEURS; j++)
+            JOUEURS.at(j).ajoutCarteMain(piocher(joueurs.at(i)));
 }

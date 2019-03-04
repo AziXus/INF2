@@ -16,6 +16,8 @@
 
 using namespace std;
 
+Carte::Carte(char lettreFamille, unsigned numeroFamille):NUMERO_FAMILLE(lettreFamille), LETTRE_FAMILLE(numeroFamille){}
+
 std::string Carte::toString() const {
-    return to_string(numeroFamille) + lettreFamille;
+    return to_string(NUMERO_FAMILLE) + LETTRE_FAMILLE;
 }
