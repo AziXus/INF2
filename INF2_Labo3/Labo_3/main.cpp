@@ -1,6 +1,8 @@
 
 #include <cstdlib>
 #include <iostream>
+#include "Partie.h"
+
 
 using namespace std;
 

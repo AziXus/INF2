@@ -21,6 +21,15 @@ string Joueur::getPrenom() const
 {
     return prenom;
 }
+void Joueur::ajoutCarteMain(const Carte& carte)
+{
+    carteMain.push_back(carte);
+}
+
+void Joueur::ajoutFamille(const Cartes& carte)
+{
+   
+}
 
 ostream& operator<<(ostream& os, const Cartes& cartes) {
    for (int i = 0; i < cartes.size(); ++i) {

@@ -23,6 +23,7 @@ public:
     Carte(char lettreFamille, unsigned numeroFamille);
 
    friend std::ostream& operator<<(std::ostream& os, const Carte& carte);
+   Carte& operator=(const Carte& carte);
 private:
     const unsigned short NUMERO_FAMILLE;
     const char LETTRE_FAMILLE;

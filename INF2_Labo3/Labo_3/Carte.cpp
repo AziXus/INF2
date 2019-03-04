@@ -18,6 +18,13 @@ using namespace std;
 
 Carte::Carte(char lettreFamille, unsigned numeroFamille):NUMERO_FAMILLE(lettreFamille), LETTRE_FAMILLE(numeroFamille){}
 
+Carte& Carte::operator=(const Carte& carte)
+{
+    (unsigned&) NUMERO_FAMILLE = carte.NUMERO_FAMILLE;
+    (char&) LETTRE_FAMILLE = carte.LETTRE_FAMILLE;
+    return *this;
+}
+
 ostream& operator<<(ostream& os, const Carte& carte) {
    os << carte.NUMERO_FAMILLE << carte.LETTRE_FAMILLE;
    return os;

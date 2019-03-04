@@ -15,7 +15,7 @@
  */
 
 #include "Partie.h"
-
+#include <ctime>
 #include <vector>
 #include <algorithm>
 
@@ -60,6 +60,12 @@ void Partie::poserFamille(Joueur& joueur, const Cartes& famille) {
 
 void Partie::melangerCartes()
 {
+    static bool premierAppel = true;
+    if(premierAppel)
+    {
+        premierAppel = false;
+        srand(time(NULL));
+    }
     random_shuffle(pioche.begin(),pioche.end());
 }
 
