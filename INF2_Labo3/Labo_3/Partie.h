@@ -13,6 +13,10 @@ class Partie{
 public:
    Partie(Joueurs& joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur);
 
+   const Cartes& getPioche() const;
+
+   const Joueurs& getJoueurs() const;
+
    void jouerTour();
 
 private:
