@@ -21,7 +21,7 @@
 
 using namespace std;
 
-Partie::Partie(Joueurs joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur)
+Partie::Partie(Joueurs& joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur)
 :joueurs(joueurs), NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur)
 {
     pioche = genererCartes();
@@ -32,7 +32,7 @@ Partie::Partie(Joueurs joueurs, unsigned nbFamille, unsigned carteParFamille, un
 Cartes Partie::genererCartes()
 {
     Cartes paquets;
-    for(char lettre = 'A'; lettre <= NOMBRE_FAMILLES; lettre++)
+    for(char lettre = 'A'; lettre <= 'A' + NOMBRE_FAMILLES; lettre++)
         for(size_t numero = 1; numero <= CARTES_PAR_FAMILLES; numero++)
             paquets.push_back(Carte(lettre, numero));
     return paquets;

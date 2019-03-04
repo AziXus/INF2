@@ -11,7 +11,7 @@ using Cartes = std::vector<Carte>;
 
 class Partie{
 public:
-   Partie(Joueurs joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur);
+   Partie(Joueurs& joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur);
 
    void jouerTour();
 
