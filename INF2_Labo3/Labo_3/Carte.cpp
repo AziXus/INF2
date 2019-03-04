@@ -16,16 +16,16 @@
 
 using namespace std;
 
-Carte::Carte(char lettreFamille, unsigned numeroFamille):NUMERO_FAMILLE(lettreFamille), LETTRE_FAMILLE(numeroFamille){}
+Carte::Carte(unsigned numeroFamille, char membreFamille) : NUMERO_FAMILLE(numeroFamille), MEMBRE_FAMILLE(membreFamille){}
 
 Carte& Carte::operator=(const Carte& carte)
 {
     (unsigned&) NUMERO_FAMILLE = carte.NUMERO_FAMILLE;
-    (char&) LETTRE_FAMILLE = carte.LETTRE_FAMILLE;
+    (char&) MEMBRE_FAMILLE = carte.MEMBRE_FAMILLE;
     return *this;
 }
 
 ostream& operator<<(ostream& os, const Carte& carte) {
-   os << carte.NUMERO_FAMILLE << carte.LETTRE_FAMILLE;
+   os << carte.NUMERO_FAMILLE << carte.MEMBRE_FAMILLE;
    return os;
 }

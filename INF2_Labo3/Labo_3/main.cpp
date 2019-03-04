@@ -10,13 +10,20 @@ int main() {
     Joueur j1 = Joueur("Alice");
     Joueur j2 = Joueur("Booby");
     Joueur j3 = Joueur("Carlos");
+    vector<Joueur> v1 = {j1, j2, j3};
+
+    Partie p1(v1, 7, 5, 12);
     
-    Partie p1({j1,j2,j3}, 7, 5, 3);
-    
-    cout << j1 << endl;
-    cout << j2 << endl;
-    cout << j3 << endl;
-    
+    cout << p1.getJoueurs()[0] << endl;
+    cout << p1.getJoueurs()[1] << endl;
+    cout << p1.getJoueurs()[2] << endl;
+
+        for (int i = 0; i < p1.getPioche().size(); ++i) {
+            if (i > 0)
+                cout << " ";
+            cout << p1.getPioche()[i];
+        }
+
 
     return EXIT_SUCCESS;
 }

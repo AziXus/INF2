@@ -19,22 +19,30 @@
 #include <vector>
 #include <algorithm>
 
+//Remove
+#include <iostream>
+
 using namespace std;
 
 Partie::Partie(Joueurs joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur)
 :joueurs(joueurs), NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur)
 {
-    pioche = genererCartes();
-    melangerCartes();
-    distribuerCartes();
+   //Si le nombre de carte a distribuer est plus grand que le nombre de cartes totales
+   if (CARTES_PAR_JOUEURS * joueurs.size() > NOMBRE_FAMILLES * CARTES_PAR_FAMILLES)
+      std::cout << "ERREUR!" << endl;
+   else {
+      pioche = genererCartes();
+      melangerCartes();
+      distribuerCartes();
+   }
 }
 
 Cartes Partie::genererCartes()
 {
     Cartes paquets;
-    for(char lettre = 'A'; lettre <= NOMBRE_FAMILLES; lettre++)
-        for(size_t numero = 1; numero <= CARTES_PAR_FAMILLES; numero++)
-            paquets.push_back(Carte(lettre, numero));
+    for(size_t numero = 1; numero <= NOMBRE_FAMILLES; numero++)
+      for(char lettre = 'A'; lettre < 'A' + CARTES_PAR_FAMILLES; lettre++)
+            paquets.push_back(Carte(numero, lettre));
     return paquets;
 }
 
@@ -74,4 +82,12 @@ void Partie::distribuerCartes()
     for(unsigned i = 1; i <= CARTES_PAR_JOUEURS; i++)
         for(unsigned j = 0; j < joueurs.size(); j++)
             piocher(joueurs.at(j));
+}
+
+const Joueurs& Partie::getJoueurs() const {
+   return joueurs;
+}
+
+const Cartes& Partie::getPioche() const {
+   return pioche;
 }
