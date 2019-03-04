@@ -18,9 +18,9 @@
 #include "Carte.h"
 #include <string>
 #include <vector>
+#include <ostream>
 
-using carteEnMain = std::vector<Carte>;
-using famillesSurTable = std::vector<Carte>;
+using Cartes = std::vector<Carte>;
 
 class Joueur{
 public:
@@ -29,10 +29,13 @@ public:
    void ajoutFamille(const Cartes& cartes);
    Carte demanderCarte();
    Cartes detecterFamille();
+
+   friend std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
+
 private:
    std::string prenom;
-   carteEnMain carteMain;
-   famillesSurTable carteFamille;
+   Cartes carteMain;
+   Cartes carteFamille;
 };
 
 #endif /* JOUEUR_H */

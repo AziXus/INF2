@@ -16,11 +16,15 @@
 #define INF2_LABO3_CARTE_H
 
 #include <string>
+#include <ostream>
 
 class Carte {
 public:
     Carte(char lettreFamille, unsigned numeroFamille);
-    std::string toString() const;
+
+   friend std::ostream& operator<<(std::ostream& os, const Carte& carte);
+
+   std::string toString() const;
 private:
     const unsigned short NUMERO_FAMILLE;
     const char LETTRE_FAMILLE;

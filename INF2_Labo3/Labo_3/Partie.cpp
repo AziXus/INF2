@@ -22,7 +22,7 @@
 using namespace std;
 
 Partie::Partie(Joueurs joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur)
-:JOUEURS(joueurs), NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur)
+:joueurs(joueurs), NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur)
 {
     pioche = genererCartes();
     melangerCartes();
@@ -43,7 +43,6 @@ Cartes Partie::genererCartes()
 void Partie::jouerTour() {
    //Pour chaque joueur, on doit choisir un joueur (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
    for (Joueur& joueur : joueurs) {
-
 
    }
 }
