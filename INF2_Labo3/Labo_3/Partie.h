@@ -11,12 +11,12 @@ using Cartes = std::vector<Carte>;
 
 class Partie{
 public:
-   Partie(Joueurs joueurs, unsigned nbFamille, );
+   Partie(Joueurs joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur);
    Cartes paquetCarte()
 private:
    const unsigned short NOMBRE_FAMILLES;
    const unsigned short CARTES_PAR_FAMILLES;
-   const unsigned short NOMBRE_JOUEURS
+   const unsigned short NOMBRE_JOUEURS;
 };
 
 
