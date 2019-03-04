@@ -1,15 +1,18 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
- Fichier     : Message.cpp
- Auteur(s)   : Robin Müller
- Date        : 25.02.2019
+ Labo        : 02
+ File        : Message.h
+ Author(s)   : Robin Müller
+ Date        : 05.03.2019
 
- But         : <à compléter>
+ Purpose     : This class implement various function to create and manipulate a message (email).
+               A message is composed of a sender, a recipient, a date (fixed) and a body.
+               The body of the message is a vector of strings and can only be added line per line.
 
- Remarque(s) : <à compléter>
+ Comment(s)  : The date of the message is constant and is set to the current time at the initialization.
+               The assignment and equality operators are overloaded.
 
- Compilateur : MinGW-g++ 6.3.0
+ Compiler    : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 #ifndef MESSAGE_H
@@ -46,7 +49,7 @@ public:
      */
     std::string toString() const;
 
-    /**
+    /**<à compléter>
      * Print the message with cout.
      */
     void print() const;
@@ -66,7 +69,7 @@ public:
     Message& operator=(const Message& msg);
 
 private:
-    //DATE assigned to current time at ?
+    //DATE assigned to current time at initialization
     const time_t DATE = time(nullptr);
     std::string from;
     std::string to;

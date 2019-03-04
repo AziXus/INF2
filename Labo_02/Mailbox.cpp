@@ -1,16 +1,11 @@
-
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
- Fichier     : Mailbox.cpp
- Auteur(s)   : Robin Müller
- Date        : 25.02.2019
+ Labo       : 02
+ File       : Mailbox.cpp
+ Author(s)  : Robin Müller
+ Date       : 05.03.19
 
- But         : <à compléter>
-
- Remarque(s) : <à compléter>
-
- Compilateur : MinGW-g++ 6.3.0
+ Compiler   : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 
@@ -20,8 +15,8 @@
 Mailbox::Mailbox() : messages() {
 }
 
-Message Mailbox::getMessage(size_t index) const {
-    //vector.at() manages the out of range error
+Message& Mailbox::getMessage(size_t index) {
+    //vector.at() returns an out_of_range exception if index is invalid
     return messages.at(index);
 }
 
@@ -30,7 +25,7 @@ unsigned Mailbox::getMessagesCount() const {
 }
 
 void Mailbox::addMessage(const Message &m) {
-    //If vector does not contain m, add it to the end
+    //If vector does not contain the new message, add it to the end
     if (find(messages.begin(), messages.end(), m) == messages.end()) {
         messages.push_back(m);
     }

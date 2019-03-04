@@ -1,8 +1,4 @@
 
-#include <vector>
-
-#include "Partie.h"
-
 /*
  -----------------------------------------------------------------------------------
  Laboratoire : <nn>
@@ -17,6 +13,10 @@
  Compilateur : MinGW-g++ <x.y.z>
  -----------------------------------------------------------------------------------
  */
+
+#include "Partie.h"
+
+#include <vector>
 #include <algorithm>
 
 using namespace std;
@@ -36,6 +36,29 @@ Cartes Partie::genererCartes()
         for(size_t numero = 1; numero <= CARTES_PAR_FAMILLES; numero++)
             paquets.push_back(Carte(lettre, numero));
     return paquets;
+}
+
+#include "Partie.h"
+
+void Partie::jouerTour() {
+   //Pour chaque joueur, on doit choisir un joueur (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
+   for (Joueur& joueur : joueurs) {
+
+
+   }
+}
+
+void Partie::tourJoueur() {
+
+}
+
+void Partie::piocher(Joueur& joueur) {
+   joueur.ajoutCarteMain(pioche.back());
+   pioche.pop_back();
+}
+
+void Partie::poserFamille(Joueur& joueur, const Cartes& famille) {
+   joueur.ajoutFamille(famille);
 }
 
 void Partie::melangerCartes()

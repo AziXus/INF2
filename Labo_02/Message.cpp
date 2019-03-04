@@ -1,15 +1,11 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
- Fichier     : Message.cpp
- Auteur(s)   : Robin Müller
- Date        : 25.02.2019
+ Labo        : 02
+ File        : Message.cpp
+ Author(s)   : Robin Müller
+ Date        : 05.03.2019
 
- But         : <à compléter>
-
- Remarque(s) : <à compléter>
-
- Compilateur : MinGW-g++ 6.3.0
+ Compiler    : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 #include "Message.h"

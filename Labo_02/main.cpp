@@ -1,15 +1,15 @@
 /*
  -----------------------------------------------------------------------------------
- Labo       :
+ Labo       : 02
  File       : main.cpp
  Author(s)  : Robin Müller
- Date       : 25.02.19
+ Date       : 05.03.19
 
- Purpose    : <to complete>
+ Purpose    : Test the class Message and Mailbox and their different functions.
 
- Comment(s) : <to completer>
+ Comment(s) : -
 
- Compiler : g++ 8.2.1
+ Compiler   : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 
@@ -20,7 +20,7 @@
 
 using namespace std;
 
-void printMailboxSize(Mailbox mailbox);
+void printMailboxSize(const Mailbox& mailbox);
 
 int main() {
     Mailbox mailbox;
@@ -61,9 +61,13 @@ int main() {
     cout << "\nMessage in position 0 :\n";
     mailbox.getMessage(0).print();
 
+    cout << "Adding new line to message in position 0 :\n";
+    mailbox.getMessage(0).addLine("new line");
+    mailbox.getMessage(0).print();
+
     return EXIT_SUCCESS;
 }
 
-void printMailboxSize(Mailbox mailbox) {
+void printMailboxSize(const Mailbox& mailbox) {
     cout << "Mailbox size : " << mailbox.getMessagesCount() << endl;
 }
