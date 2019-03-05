@@ -62,7 +62,7 @@ void Partie::jouerTour() {
       do {
          Carte carte = joueur.demanderCarte();
 
-         cout << joueur.getPrenom() << " demande à " << cible.getPrenom() << " la carte " << carte << endl;
+         cout << joueur.getPrenom() << " demande à " << cible.getPrenom() << " la carte " << demanderCarte() << endl;
 
          //Si la cible possède la carte
          if (cible.carteEnMain(carte)) {

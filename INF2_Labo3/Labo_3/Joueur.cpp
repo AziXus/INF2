@@ -32,15 +32,28 @@ void Joueur::ajoutCarteMain(const Carte& carte) {
 
 void Joueur::ajoutFamille(const Cartes& cartes)
 {
-    for(Carte carte : cartes)
-        carteFamille.push_back(carte);
+    for(const Carte& carte : cartes)
+    {
+        enleverCarteMain(carte);
+        cartesFamille.push_back(carte);
+    }
 }
 
 Carte demanderCarte()
 {
-
+    
 }
-Cartes detecterFamille();
+
+Cartes Joueur::detecterFamille(unsigned cartesParFamilles) {
+   for (const Carte& carte : cartesMain) {
+      if (count(cartesMain.begin(), cartesMain.end(), carte.getNumeroFamille()) == cartesParFamilles) {
+         Cartes famille(cartesParFamilles);
+         copy_if(cartesMain.begin(), cartesMain.end(), famille.begin(), carte);
+         ajoutFamille(famille);
+      }
+   }
+   return Cartes();
+}
 
 ostream& operator<<(ostream& os, const Cartes& cartes) {
    for (int i = 0; i < cartes.size(); ++i) {
@@ -54,18 +67,6 @@ ostream& operator<<(ostream& os, const Cartes& cartes) {
 ostream& operator<<(ostream& os, const Joueur& joueur) {
    os << joueur.prenom << " : " << joueur.cartesMain << " [" << joueur.cartesFamille << "]";
    return os;
-}
-
-Cartes Joueur::detecterFamille(unsigned cartesParFamilles) {
-   for (const Carte& carte : cartesMain) {
-      if (count(cartesMain.begin(), cartesMain.end(), carte) == cartesParFamilles) {
-//         Cartes famille(cartesParFamilles);
-         //copy_if(cartesMain.begin(), cartesMain.end(), famille.begin(), carte);
-
-  //       ajoutFamille(famille);
-      }
-   }
-   return Cartes();
 }
 
 bool Joueur::carteEnMain(const Carte& carte) {

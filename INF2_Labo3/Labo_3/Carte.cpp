@@ -18,6 +18,11 @@ using namespace std;
 
 Carte::Carte(unsigned numeroFamille, char membreFamille) : NUMERO_FAMILLE(numeroFamille), MEMBRE_FAMILLE(membreFamille){}
 
+unsigned Carte::getNumeroFamille() const
+{
+    return NUMERO_FAMILLE;
+}
+
 Carte& Carte::operator=(const Carte& carte)
 {
     (unsigned&)NUMERO_FAMILLE = carte.NUMERO_FAMILLE;
