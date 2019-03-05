@@ -49,17 +49,45 @@ Cartes Partie::genererCartes()
 void Partie::jouerTour() {
    //Pour chaque joueur, on doit choisir un joueur (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
    for (Joueur& joueur : joueurs) {
+      cout << joueur << endl;
+      Joueur cible("");
+      if (joueur.getPrenom() == "Carlos")
+         cible = joueurs.at(0);
+      else if (joueur.getPrenom() == "Booby")
+         cible = joueurs.at(2);
+      else
+         cible = joueurs.at(1);
+
+      bool demanderCarte = true;
+      do {
+         Carte carte = joueur.demanderCarte();
+
+         cout << joueur.getPrenom() << " demande à " << cible.getPrenom() << " la carte " << carte << endl;
+
+         //Si la cible possède la carte
+         if (cible.carteEnMain(carte)) {
+            cout << "\tyes\n";
+            cible.enleverCarteMain(carte);
+            joueur.ajoutCarteMain(carte);
+         } else {
+            cout << "\tnot\n";
+            piocher(joueur);
+            demanderCarte = !demanderCarte;
+         }
+      } while (demanderCarte);
 
    }
 }
 
-void Partie::tourJoueur() {
+void Partie::tourJoueur(Joueur& joueur) {
 
 }
 
 void Partie::piocher(Joueur& joueur) {
-   joueur.ajoutCarteMain(pioche.back());
-   pioche.pop_back();
+   if (pioche.size() > 0) {
+      joueur.ajoutCarteMain(pioche.back());
+      pioche.pop_back();
+   }
 }
 
 void Partie::poserFamille(Joueur& joueur, const Cartes& famille) {
@@ -90,4 +118,12 @@ const Joueurs& Partie::getJoueurs() const {
 
 const Cartes& Partie::getPioche() const {
    return pioche;
+}
+
+void Partie::demarrer() {
+   cout << "Début de la partie\n";
+   for (int i = 1; i <= 100; ++i) {
+      cout << "*** Tour " << i << " ***\n";
+      jouerTour();
+   }
 }

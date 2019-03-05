@@ -17,12 +17,14 @@ public:
 
    const Joueurs& getJoueurs() const;
 
+   void demarrer();
+   bool finie();
    void jouerTour();
 
 private:
    Cartes genererCartes();
    void distribuerCartes();
-   void tourJoueur();
+   void tourJoueur(Joueur& joueur);
    void piocher(Joueur& joueur);
    void poserFamille(Joueur& joueur, const Cartes& famille);
    void melangerCartes();

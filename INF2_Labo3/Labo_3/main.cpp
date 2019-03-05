@@ -12,8 +12,10 @@ int main() {
     Joueur j3 = Joueur("Carlos");
     vector<Joueur> v1 = {j1, j2, j3};
 
-    Partie p1(v1, 7, 5, 12);
-    
+    Partie p1(v1, 7, 5, 5);
+
+    p1.demarrer();
+    return 0;
     cout << p1.getJoueurs()[0] << endl;
     cout << p1.getJoueurs()[1] << endl;
     cout << p1.getJoueurs()[2] << endl;

@@ -20,13 +20,17 @@
 
 class Carte {
 public:
-    Carte(unsigned numeroFamille, char membreFamille);
+   Carte(unsigned numeroFamille, char membreFamille);
 
    friend std::ostream& operator<<(std::ostream& os, const Carte& carte);
-   Carte& operator=(const Carte& carte);
 private:
-    const unsigned short NUMERO_FAMILLE;
-    const char MEMBRE_FAMILLE;
+   const unsigned short NUMERO_FAMILLE;
+public:
+   Carte& operator=(const Carte& carte);
+   bool operator==(const Carte& rhs) const;
+
+private:
+   const char MEMBRE_FAMILLE;
 };
 
 

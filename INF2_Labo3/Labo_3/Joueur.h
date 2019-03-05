@@ -25,18 +25,20 @@ using Cartes = std::vector<Carte>;
 class Joueur{
 public:
    Joueur(const std::string& prenom);
+   void enleverCarteMain(const Carte& carte);
    void ajoutCarteMain(const Carte& carte);
    void ajoutFamille(const Cartes& cartes);
+   bool carteEnMain(const Carte& carte);
    Carte demanderCarte();
-   Cartes detecterFamille();
+   Cartes detecterFamille(unsigned cartesParFamilles);
    std::string getPrenom() const;
    friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
    friend std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
 
 private:
    std::string prenom;
-   Cartes carteMain;
-   Cartes carteFamille;
+   Cartes cartesMain;
+   Cartes cartesFamille;
 };
 
 #endif /* JOUEUR_H */
