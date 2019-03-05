@@ -26,10 +26,17 @@ void Joueur::ajoutCarteMain(const Carte& carte)
     carteMain.push_back(carte);
 }
 
-void Joueur::ajoutFamille(const Cartes& carte)
+void Joueur::ajoutFamille(const Cartes& cartes)
 {
-   
+    for(Carte carte : cartes)
+        carteFamille.push_back(carte);
 }
+
+Carte demanderCarte()
+{
+    
+}
+Cartes detecterFamille();
 
 ostream& operator<<(ostream& os, const Cartes& cartes) {
    for (int i = 0; i < cartes.size(); ++i) {
