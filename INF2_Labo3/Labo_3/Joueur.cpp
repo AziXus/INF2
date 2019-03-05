@@ -39,9 +39,13 @@ void Joueur::ajoutFamille(const Cartes& cartes)
     }
 }
 
-Carte demanderCarte()
+Carte Joueur::demanderCarte()
 {
-    
+    Carte carteADemander(cartesMain.at(0).getNumeroFamille(), (char)rand()%('Z' - 'A' + 1) + 'A');
+    do{
+        carteADemander(cartesMain.at(0).getNumeroFamille(), (char)rand()%('Z' - 'A' + 1) + 'A');
+    }while(find(cartesMain.begin(),cartesMain.end(),carteADemander) != cartesMain.end());
+    return carteADemander;
 }
 
 Cartes Joueur::detecterFamille(unsigned cartesParFamilles) {
