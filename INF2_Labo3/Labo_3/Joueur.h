@@ -24,6 +24,7 @@ using Cartes = std::vector<Carte>;
 
 class Joueur{
 public:
+   Joueur();
    Joueur(const std::string& prenom);
    void enleverCarteMain(const Carte& carte);
    void ajoutCarteMain(const Carte& carte);

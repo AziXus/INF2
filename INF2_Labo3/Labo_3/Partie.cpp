@@ -49,38 +49,33 @@ Cartes Partie::genererCartes()
 void Partie::jouerTour() {
    //Pour chaque joueur, on doit choisir un joueur (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
    for (Joueur& joueur : joueurs) {
-      cout << joueur << endl;
-      Joueur cible("");
-      if (joueur.getPrenom() == "Carlos")
-         cible = joueurs.at(0);
-      else if (joueur.getPrenom() == "Booby")
-         cible = joueurs.at(2);
-      else
-         cible = joueurs.at(1);
 
-      bool demanderCarte = true;
-      do {
-         Carte carte = joueur.demanderCarte();
-
-         cout << joueur.getPrenom() << " demande à " << cible.getPrenom() << " la carte " << demanderCarte() << endl;
-
-         //Si la cible possède la carte
-         if (cible.carteEnMain(carte)) {
-            cout << "\tyes\n";
-            cible.enleverCarteMain(carte);
-            joueur.ajoutCarteMain(carte);
-         } else {
-            cout << "\tnot\n";
-            piocher(joueur);
-            demanderCarte = !demanderCarte;
-         }
-      } while (demanderCarte);
-
+      tourJoueur(joueur);
    }
 }
 
 void Partie::tourJoueur(Joueur& joueur) {
+   Joueur cible = choisirCible(joueur);
 
+   bool demanderCarte = true;
+   do {
+      Carte carte = joueur.demanderCarte();
+
+      cout << joueur.getPrenom() << " demande à " << cible.getPrenom() << " la carte " << carte << endl;
+
+      //Si la cible possède la carte
+      if (cible.carteEnMain(carte)) {
+         cout << "\tet " << cible.getPrenom() << " donne la carte à " << joueur.getPrenom() << endl;
+         cible.enleverCarteMain(carte);
+         joueur.ajoutCarteMain(carte);
+      } else {
+         cout << "\tmais " << cible.getPrenom() << " ne l'a pas\n";
+         piocher(joueur);
+         demanderCarte = !demanderCarte;
+      }
+   } while (demanderCarte);
+
+   piocher(joueur);
 }
 
 void Partie::piocher(Joueur& joueur) {
@@ -126,4 +121,14 @@ void Partie::demarrer() {
       cout << "*** Tour " << i << " ***\n";
       jouerTour();
    }
+}
+
+Joueur& Partie::choisirCible(const Joueur& joueur) {
+   //On choisit aléatoirement une cible différente de joueur
+   size_t pos;
+   do {
+      pos = rand() % joueurs.size();
+   } while (joueur.getPrenom() == joueurs.at(pos).getPrenom());
+
+   return joueurs.at(pos);
 }

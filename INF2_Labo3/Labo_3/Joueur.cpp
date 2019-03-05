@@ -58,7 +58,6 @@ Cartes Joueur::detecterFamille(unsigned cartesParFamilles) {
    }
    return Cartes();
 }
-
 ostream& operator<<(ostream& os, const Cartes& cartes) {
    for (int i = 0; i < cartes.size(); ++i) {
       if (i > 0)
@@ -76,7 +75,6 @@ ostream& operator<<(ostream& os, const Joueur& joueur) {
 bool Joueur::carteEnMain(const Carte& carte) {
    return find(cartesMain.begin(), cartesMain.end(), carte) != cartesMain.end();
 }
+Joueur::Joueur() {
 
-Carte Joueur::demanderCarte() {
-   return cartesMain.back();
 }

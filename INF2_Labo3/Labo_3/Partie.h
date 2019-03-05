@@ -28,6 +28,8 @@ private:
    void piocher(Joueur& joueur);
    void poserFamille(Joueur& joueur, const Cartes& famille);
    void melangerCartes();
+   Joueur& choisirCible(const Joueur& joueur);
+
    const unsigned short NOMBRE_FAMILLES;
    const unsigned short CARTES_PAR_FAMILLES;
    const unsigned short CARTES_PAR_JOUEURS;
