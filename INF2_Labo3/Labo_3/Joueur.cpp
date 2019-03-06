@@ -41,29 +41,41 @@ void Joueur::ajoutFamille(const Cartes& cartes)
 
 Carte Joueur::demanderCarte()
 {
-    /*Carte carteADemander(cartesMain.at(0).getNumeroFamille(), (char)rand()%('Z' - 'A' + 1) + 'A');
+    Carte carteADemander(cartesMain.at(0).getNumeroFamille(), (char)rand()%('Z' - 'A' + 1) + 'A');
     do{
-        carteADemander(cartesMain.at(0).getNumeroFamille(), (char)rand()%('Z' - 'A' + 1) + 'A');
+        carteADemander = Carte(cartesMain.at(0).getNumeroFamille(), (char)rand()%('Z' - 'A' + 1) + 'A');
     }while(find(cartesMain.begin(),cartesMain.end(),carteADemander) != cartesMain.end());
     return carteADemander;
-     */
-    return cartesMain.back();
 }
 
-Cartes Joueur::detecterFamille(unsigned cartesParFamilles) {
+Cartes Joueur::getFamille(const Carte& carte) {
    Cartes famille;
-   famille.reserve(cartesParFamilles);
 
-   for (const Carte& carte : cartesMain) {
-      //Fonctionne pas : no match for ‘operator==’ (operand types are ‘Carte’ and ‘const unsigned int’)
-      if (count_if(cartesMain.begin(), cartesMain.end(), carte.comparerNumero) == cartesParFamilles) {
-         copy_if(cartesMain.begin(), cartesMain.end(), famille.begin(), carte);
-         ajoutFamille(famille);
+   for (const Carte& c : cartesMain) {
+      if (c.getNumeroFamille() == carte.getNumeroFamille()) {
+         famille.push_back(c);
       }
    }
 
    return famille;
 }
+
+bool Joueur::detecterFamille(unsigned cartesParFamilles) {
+   Cartes famille;
+   famille.reserve(cartesParFamilles);
+
+   for (const Carte& carte : cartesMain) {
+      famille = getFamille(carte);
+      //Fonctionne pas : no match for ‘operator==’ (operand types are ‘Carte’ and ‘const unsigned int’)
+      if (famille.size() == cartesParFamilles) {
+         ajoutFamille(famille);
+         return true;
+      }
+   }
+
+   return false;
+}
+
 ostream& operator<<(ostream& os, const Cartes& cartes) {
    for (int i = 0; i < cartes.size(); ++i) {
       if (i > 0)

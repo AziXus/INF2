@@ -31,7 +31,8 @@ public:
    void ajoutFamille(const Cartes& cartes);
    bool carteEnMain(const Carte& carte);
    Carte demanderCarte();
-   Cartes detecterFamille(unsigned cartesParFamilles);
+   Cartes getFamille(const Carte& carte);
+   bool detecterFamille(unsigned cartesParFamilles);
    std::string getPrenom() const;
    friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
    friend std::ostream& operator<<(std::ostream& os, const Joueur& joueur);

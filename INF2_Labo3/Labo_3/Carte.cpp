@@ -23,11 +23,6 @@ unsigned Carte::getNumeroFamille() const
     return NUMERO_FAMILLE;
 }
 
-bool Carte::comparerNumeroFamille(const Carte& carte) const
-{
-    return NUMERO_FAMILLE == carte.NUMERO_FAMILLE;
-}
-
 Carte& Carte::operator=(const Carte& carte)
 {
     (unsigned&)NUMERO_FAMILLE = carte.NUMERO_FAMILLE;

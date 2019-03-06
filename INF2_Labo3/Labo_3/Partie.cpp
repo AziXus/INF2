@@ -49,7 +49,6 @@ Cartes Partie::genererCartes()
 void Partie::jouerTour() {
    //Pour chaque joueur, on doit choisir un joueur (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
    for (Joueur& joueur : joueurs) {
-
       tourJoueur(joueur);
    }
 }
@@ -73,9 +72,9 @@ void Partie::tourJoueur(Joueur& joueur) {
          piocher(joueur);
          demanderCarte = !demanderCarte;
       }
-   } while (demanderCarte);
 
-   piocher(joueur);
+      joueur.detecterFamille(CARTES_PAR_FAMILLES);
+   } while (demanderCarte);
 }
 
 void Partie::piocher(Joueur& joueur) {
