@@ -30,7 +30,7 @@ public:
    void ajoutCarteMain(const Carte& carte);
    void ajoutFamille(const Cartes& cartes);
    bool carteEnMain(const Carte& carte);
-   Carte demanderCarte();
+   Carte demanderCarte(const unsigned cartesParFamille);
    Cartes getFamille(const Carte& carte);
    bool detecterFamille(unsigned cartesParFamilles);
    std::string getPrenom() const;
