@@ -115,9 +115,18 @@ const Cartes& Partie::getPioche() const {
 }
 
 void Partie::demarrer() {
-   cout << "Début de la partie\n";
+   cout << "Debut de la partie\n";
    for (int i = 1; i <= 100; ++i) {
       cout << "*** Tour " << i << " ***\n";
+      cout << getJoueurs()[0] << endl;
+      cout << getJoueurs()[1] << endl;
+      cout << getJoueurs()[2] << endl;
+
+      for (int i = 0; i < getPioche().size(); ++i) {
+         if (i > 0)
+         cout << " ";
+         cout << getPioche()[i];
+      }
       jouerTour();
    }
 }
