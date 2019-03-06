@@ -57,7 +57,8 @@ Message& Message::operator=(const Message& msg) {
 }
 
 string Message::getFormattedDate() const {
-    //Buffer for the time conversion
+    //Buffer for the time conversion, higher size than required to have a margin of error
+    //if time format is slightly changed
     char buffer[20];
 
     //Convert time to the format jj.mm.yyyy HH:MM (e.g.: 24.11.2019 23:54)

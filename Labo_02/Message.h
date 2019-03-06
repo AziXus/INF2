@@ -49,7 +49,7 @@ public:
      */
     std::string toString() const;
 
-    /**<à compléter>
+    /**
      * Print the message with cout.
      */
     void print() const;

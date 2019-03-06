@@ -10,6 +10,8 @@
 
  Comment(s) : The get message function return the message as a reference so that
               it can be modified.
+              Messages are copied to the mailbox and therefore are only modified/removed
+              inside the class.
 
  Compiler   : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
@@ -25,15 +27,16 @@ using Messages = std::vector<Message>;
 class Mailbox {
 public:
     /**
-     * Constructor with no parameters of Mailbox to initialize the object.
+     * Constructor with no parameters to initialize an empty Mailbox.
      */
-    Mailbox();
+    Mailbox() = default;
 
     /**
      * Return a reference to the message at the specified index.
      * If the index is invalid, an out_of_range exception is thrown.
      * @param index of the message to get
      * @return message in reference found on the specified index
+     * @
      */
     Message& getMessage(size_t index);
 
@@ -41,16 +44,17 @@ public:
      * Return the number of messages currently in the mailbox.
      * @return number of messages in mailbox
      */
-    unsigned getMessagesCount() const;
+    size_t getMessagesCount() const;
 
     /**
-     * Add a message at the end of the mailbox if not already in it.
+     * Add a message at the end of the mailbox if not already present.
      * @param m message to add
      */
     void addMessage(const Message& m);
 
     /**
-     * Remove the message on the specified index. If index is invalid, the function does nothing.
+     * Remove the message on the specified index.
+     * If the index is invalid, the function does nothing.
      * @param index of the message to remove
      */
     void removeMessage(size_t index);
@@ -58,6 +62,5 @@ public:
 private:
     Messages messages;
 };
-
 
 #endif //MAILBOX_H
