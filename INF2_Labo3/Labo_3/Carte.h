@@ -22,6 +22,7 @@ class Carte {
 public:
    Carte(unsigned numeroFamille, char membreFamille);
    unsigned getNumeroFamille() const;
+   bool comparerNumeroFamille(const Carte& carte) const;
    Carte& operator=(const Carte& carte);
    bool operator==(const Carte& rhs) const;
    friend std::ostream& operator<<(std::ostream& os, const Carte& carte);
