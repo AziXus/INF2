@@ -49,22 +49,23 @@ Cartes Partie::genererCartes()
 void Partie::jouerTour() {
    //Pour chaque joueur, on doit choisir un joueur (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
    for (Joueur& joueur : joueurs) {
-      tourJoueur(joueur);
+      if(joueur.nbCarteEnMain() != 0)
+        tourJoueur(joueur);
    }
 }
 
 void Partie::tourJoueur(Joueur& joueur) {
-   Joueur cible = choisirCible(joueur);
+   Joueur& cible = choisirCible(joueur);
 
    bool demanderCarte = true;
    do {
-      Carte carte = joueur.demanderCarte();
+      Carte carte = joueur.demanderCarte(CARTES_PAR_FAMILLES);
 
-      cout << joueur.getPrenom() << " demande à " << cible.getPrenom() << " la carte " << carte << endl;
+      cout << joueur.getPrenom() << " demande a " << cible.getPrenom() << " la carte " << carte << endl;
 
       //Si la cible possède la carte
       if (cible.carteEnMain(carte)) {
-         cout << "\tet " << cible.getPrenom() << " donne la carte à " << joueur.getPrenom() << endl;
+         cout << "\tet " << cible.getPrenom() << " donne la carte a " << joueur.getPrenom() << endl;
          cible.enleverCarteMain(carte);
          joueur.ajoutCarteMain(carte);
       } else {
@@ -72,9 +73,9 @@ void Partie::tourJoueur(Joueur& joueur) {
          piocher(joueur);
          demanderCarte = !demanderCarte;
       }
-
       joueur.detecterFamille(CARTES_PAR_FAMILLES);
-   } while (demanderCarte);
+      //if(carteMain.size() == 0) 
+   } while (demanderCarte && joueur.nbCarteEnMain() != 0);
 }
 
 void Partie::piocher(Joueur& joueur) {
@@ -127,6 +128,7 @@ void Partie::demarrer() {
          cout << " ";
          cout << getPioche()[i];
       }
+      cout << endl;
       jouerTour();
    }
 }
@@ -136,7 +138,7 @@ Joueur& Partie::choisirCible(const Joueur& joueur) {
    size_t pos;
    do {
       pos = rand() % joueurs.size();
-   } while (joueur.getPrenom() == joueurs.at(pos).getPrenom());
+   } while (joueur.getPrenom() == joueurs.at(pos).getPrenom() && joueurs.at(pos).nbCarteEnMain() == 0);
 
    return joueurs.at(pos);
 }

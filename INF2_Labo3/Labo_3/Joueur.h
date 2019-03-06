@@ -33,6 +33,7 @@ public:
    Carte demanderCarte(const unsigned cartesParFamille);
    Cartes getFamille(const Carte& carte);
    bool detecterFamille(unsigned cartesParFamilles);
+   unsigned nbCarteEnMain();
    std::string getPrenom() const;
    friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
    friend std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
