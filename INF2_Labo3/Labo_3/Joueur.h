@@ -16,9 +16,7 @@
 #ifndef JOUEUR_H
 #define JOUEUR_H
 #include "Carte.h"
-#include <string>
 #include <vector>
-#include <ostream>
 
 using Cartes = std::vector<Carte>;
 

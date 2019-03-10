@@ -1,7 +1,7 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
- Fichier     : Carte.cpp
+ Laboratoire : 03
+ Fichier     : Carte.h
  Auteur(s)   : Robin Müller
  Date        : 01.03.2019
 
@@ -22,7 +22,6 @@ class Carte {
 public:
    Carte(unsigned numeroFamille, char membreFamille);
    unsigned getNumeroFamille() const;
-
    Carte& operator=(const Carte& carte);
    bool operator==(const Carte& rhs) const;
    friend std::ostream& operator<<(std::ostream& os, const Carte& carte);

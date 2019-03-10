@@ -1,14 +1,10 @@
 
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
- Fichier     : <nom du fichier>.cpp
- Auteur(s)   : <prénom> <nom>
- Date        : <jj.mm.aaaa>
-
- But         : <à compléter>
-
- Remarque(s) : <à compléter>
+ Laboratoire : 03
+ Fichier     : Partie.cpp
+ Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
+ Date        : 15.03.2019
 
  Compilateur : MinGW-g++ <x.y.z>
  -----------------------------------------------------------------------------------
@@ -16,10 +12,7 @@
 
 #include "Partie.h"
 #include <ctime>
-#include <vector>
 #include <algorithm>
-
-//Remove
 #include <iostream>
 
 using namespace std;
@@ -27,13 +20,60 @@ using namespace std;
 Partie::Partie(Joueurs& joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur)
 :joueurs(joueurs), NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur)
 {
-   //Si le nombre de carte a distribuer est plus grand que le nombre de cartes totales
-   if (CARTES_PAR_JOUEURS * joueurs.size() > NOMBRE_FAMILLES * CARTES_PAR_FAMILLES)
-      std::cout << "ERREUR!" << endl;
+    unsigned carteTotal = NOMBRE_FAMILLES * CARTES_PAR_FAMILLES;
+    unsigned carteDistribuer = CARTES_PAR_JOUEURS * joueurs.size();
+   //Si le nombre de carte a distribuer est plus grand que le nombre de cartes totales on retourne une erreur
+   if (carteDistribuer > carteTotal)
+      cout << "ERREUR!" << endl;
    else {
       pioche = genererCartes();
       melangerCartes();
       distribuerCartes();
+   }
+}
+
+const Cartes& Partie::getPioche() const {
+   return pioche;
+}
+
+void Partie::afficherPioche() const
+{
+    for (int i = 0; i < getPioche().size(); ++i) {
+        if (i > 0)
+        cout << " ";
+        cout << getPioche()[i];
+    }
+}
+
+const Joueurs& Partie::getJoueurs() const {
+   return joueurs;
+}
+
+void Partie::afficherJoueur() const
+{
+    for (int i = 0; i < getJoueurs().size(); ++i) {
+        cout << getJoueurs()[i] << endl;
+    }
+}
+
+void Partie::demarrer() {
+   cout << "Debut de la partie\n";
+   for (int i = 1; i <= 100; ++i) {
+      cout << "*** Tour " << i << " ***\n";
+      //Affichage des joueurs
+      afficherJoueur();
+      //Affichage de la pioche
+      afficherPioche();
+      cout << endl;
+      jouerTour();
+   }
+}
+
+void Partie::jouerTour() {
+   //Pour chaque joueur, on doit choisir un joueur (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
+   for (Joueur& joueur : joueurs) {
+      if(joueur.nbCarteEnMain() != 0)
+        tourJoueur(joueur);
    }
 }
 
@@ -46,12 +86,11 @@ Cartes Partie::genererCartes()
     return paquets;
 }
 
-void Partie::jouerTour() {
-   //Pour chaque joueur, on doit choisir un joueur (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
-   for (Joueur& joueur : joueurs) {
-      if(joueur.nbCarteEnMain() != 0)
-        tourJoueur(joueur);
-   }
+void Partie::distribuerCartes()
+{
+    for(unsigned i = 1; i <= CARTES_PAR_JOUEURS; i++)
+        for(unsigned j = 0; j < joueurs.size(); j++)
+            piocher(joueurs.at(j));
 }
 
 void Partie::tourJoueur(Joueur& joueur) {
@@ -98,39 +137,6 @@ void Partie::melangerCartes()
         srand(time(NULL));
     }
     random_shuffle(pioche.begin(),pioche.end());
-}
-
-void Partie::distribuerCartes()
-{
-    for(unsigned i = 1; i <= CARTES_PAR_JOUEURS; i++)
-        for(unsigned j = 0; j < joueurs.size(); j++)
-            piocher(joueurs.at(j));
-}
-
-const Joueurs& Partie::getJoueurs() const {
-   return joueurs;
-}
-
-const Cartes& Partie::getPioche() const {
-   return pioche;
-}
-
-void Partie::demarrer() {
-   cout << "Debut de la partie\n";
-   for (int i = 1; i <= 100; ++i) {
-      cout << "*** Tour " << i << " ***\n";
-      cout << getJoueurs()[0] << endl;
-      cout << getJoueurs()[1] << endl;
-      cout << getJoueurs()[2] << endl;
-
-      for (int i = 0; i < getPioche().size(); ++i) {
-         if (i > 0)
-         cout << " ";
-         cout << getPioche()[i];
-      }
-      cout << endl;
-      jouerTour();
-   }
 }
 
 Joueur& Partie::choisirCible(const Joueur& joueur) {
