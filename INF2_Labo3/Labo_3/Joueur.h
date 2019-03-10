@@ -33,6 +33,18 @@ public:
     */
    Joueur(const std::string& prenom);
    /**
+    * Retourne le prenom du joueur
+    * @return string contenant le prenom du joueur
+    */
+   std::string getPrenom() const;
+   /**
+    * Retourne les cartes que le joueur à dans sa main par rapport à la famille
+    * de la carte passée.
+    * @param carte la carte définissant la famille à utiliser
+    * @return le cartes de la même famille que le joueur a
+    */
+   Cartes getFamille(const Carte& carte);
+   /**
     * Enlève une carte de la main du joueur
     * @param carte la carte à enlever de la mian du joueur
     */
@@ -48,16 +60,28 @@ public:
     */
    void ajoutFamille(const Cartes& cartes);
    /**
-    * Permet de savoir si le joueur
-    * @param carte
-    * @return 
+    * Permet de savoir si le joueur à la carte dans sa main
+    * @param carte carte à chercher dans sa main
+    * @return vrai si la carte est trouvée faux sinon
     */
    bool carteEnMain(const Carte& carte);
+   /**
+    * Fonction permettant de générer la carte à demander à un autre joueur
+    * @param cartesParFamille Nb de carte par famille
+    * @return la carte à demander
+    */
    Carte demanderCarte(const unsigned cartesParFamille);
-   Cartes getFamille(const Carte& carte);
+   /**
+    * 
+    * @param cartesParFamilles
+    * @return 
+    */
    bool detecterFamille(unsigned cartesParFamilles);
+   /**
+    * 
+    * @return 
+    */
    unsigned nbCarteEnMain();
-   std::string getPrenom() const;
    friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
    friend std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
 
@@ -66,6 +90,20 @@ private:
    Cartes cartesMain;
    Cartes cartesFamille;
 };
+/**
+ * 
+ * @param os
+ * @param cartes
+ * @return 
+ */
+std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
+/**
+ * 
+ * @param os
+ * @param joueur
+ * @return 
+ */
+std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
 
 #endif /* JOUEUR_H */
 

@@ -18,8 +18,21 @@
 using namespace std;
 
 Joueur::Joueur(const string& prenom):prenom(prenom){}
+
 string Joueur::getPrenom() const {
    return prenom;
+}
+
+Cartes Joueur::getFamille(const Carte& carte) {
+   Cartes famille;
+
+   for (const Carte& c : cartesMain) {
+      if (c.getNumeroFamille() == carte.getNumeroFamille()) {
+         famille.push_back(c);
+      }
+   }
+
+   return famille;
 }
 
 void Joueur::enleverCarteMain(const Carte& carte) {
@@ -39,6 +52,10 @@ void Joueur::ajoutFamille(const Cartes& cartes)
     }
 }
 
+bool Joueur::carteEnMain(const Carte& carte) {
+   return find(cartesMain.begin(), cartesMain.end(), carte) != cartesMain.end();
+}
+
 Carte Joueur::demanderCarte(const unsigned cartesParFamille)
 {
     Carte carteADemander(cartesMain.at(0).getNumeroFamille(), (char)(rand()%(cartesParFamille + 1) + 'A'));
@@ -46,18 +63,6 @@ Carte Joueur::demanderCarte(const unsigned cartesParFamille)
         carteADemander = Carte(cartesMain.at(0).getNumeroFamille(), (char)(rand()%(cartesParFamille) + 1) + 'A');
     }while(find(cartesMain.begin(),cartesMain.end(),carteADemander) != cartesMain.end());
     return carteADemander;
-}
-
-Cartes Joueur::getFamille(const Carte& carte) {
-   Cartes famille;
-
-   for (const Carte& c : cartesMain) {
-      if (c.getNumeroFamille() == carte.getNumeroFamille()) {
-         famille.push_back(c);
-      }
-   }
-
-   return famille;
 }
 
 bool Joueur::detecterFamille(unsigned cartesParFamilles) {
@@ -93,8 +98,4 @@ ostream& operator<<(ostream& os, const Cartes& cartes) {
 ostream& operator<<(ostream& os, const Joueur& joueur) {
    os << joueur.prenom << " : " << joueur.cartesMain << " [" << joueur.cartesFamille << "]";
    return os;
-}
-
-bool Joueur::carteEnMain(const Carte& carte) {
-   return find(cartesMain.begin(), cartesMain.end(), carte) != cartesMain.end();
 }

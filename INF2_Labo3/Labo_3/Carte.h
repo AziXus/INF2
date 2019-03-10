@@ -20,9 +20,28 @@
 
 class Carte {
 public:
+   /**
+    * 
+    * @param numeroFamille
+    * @param membreFamille
+    */
    Carte(unsigned numeroFamille, char membreFamille);
+   /**
+    * 
+    * @return 
+    */
    unsigned getNumeroFamille() const;
+   /**
+    * 
+    * @param carte
+    * @return 
+    */
    Carte& operator=(const Carte& carte);
+   /**
+    * 
+    * @param rhs
+    * @return 
+    */
    bool operator==(const Carte& rhs) const;
    friend std::ostream& operator<<(std::ostream& os, const Carte& carte);
 private:
@@ -30,5 +49,6 @@ private:
    const char MEMBRE_FAMILLE;
 };
 
+std::ostream& operator<<(std::ostream& os, const Carte& carte);
 
 #endif //INF2_LABO3_CARTE_H
