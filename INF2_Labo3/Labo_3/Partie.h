@@ -81,8 +81,15 @@ private:
     * @param joueur joueur devant piocher
     */
    void piocher(Joueur& joueur);
-   void poserFamille(Joueur& joueur, const Cartes& famille);
-   void melangerCartes();
+   /**
+    * melange la pioche de la partie
+    */
+   void melangerPioche();
+   /**
+    * Permet à la partie de choisir une cible pour un joueur
+    * @param joueur joueur demandant une cible
+    * @return la joueur cible
+    */
    Joueur& choisirCible(const Joueur& joueur);
 
    const unsigned short NOMBRE_FAMILLES;
@@ -91,7 +98,6 @@ private:
    Joueurs joueurs;
    Cartes pioche;
 };
-
 
 #endif /* PARTIE_H */
 

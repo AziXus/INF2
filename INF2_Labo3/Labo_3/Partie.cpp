@@ -26,8 +26,9 @@ Partie::Partie(Joueurs& joueurs, unsigned nbFamille, unsigned carteParFamille, u
    if (carteDistribuer > carteTotal)
       cout << "ERREUR!" << endl;
    else {
+      //les cartes générées vont d'abord toutes dans la pioche puis elles sont mélangées et ensuite distribuer
       pioche = genererCartes();
-      melangerCartes();
+      melangerPioche();
       distribuerCartes();
    }
 }
@@ -82,6 +83,7 @@ Cartes Partie::genererCartes()
     Cartes paquets;
     for(size_t numero = 1; numero <= NOMBRE_FAMILLES; numero++)
       for(char lettre = 'A'; lettre < 'A' + CARTES_PAR_FAMILLES; lettre++)
+            //création des cartes et ajout de celle-ci dans un vecteur de carte
             paquets.push_back(Carte(numero, lettre));
     return paquets;
 }
@@ -95,8 +97,8 @@ void Partie::distribuerCartes()
 
 void Partie::tourJoueur(Joueur& joueur) {
    Joueur& cible = choisirCible(joueur);
-
    bool demanderCarte = true;
+   
    do {
       Carte carte = joueur.demanderCarte(CARTES_PAR_FAMILLES);
 
@@ -124,11 +126,7 @@ void Partie::piocher(Joueur& joueur) {
    }
 }
 
-void Partie::poserFamille(Joueur& joueur, const Cartes& famille) {
-   joueur.ajoutFamille(famille);
-}
-
-void Partie::melangerCartes()
+void Partie::melangerPioche()
 {
     static bool premierAppel = true;
     if(premierAppel)
@@ -140,11 +138,12 @@ void Partie::melangerCartes()
 }
 
 Joueur& Partie::choisirCible(const Joueur& joueur) {
-   //On choisit aléatoirement une cible différente de joueur
+   //On choisit aléatoirement une cible(joueur) différente
+   //On reste dans la boucle si la cible est le joueur lui-même ou que la cible n'a plus de cartes
    size_t pos;
    do {
       pos = rand() % joueurs.size();
    } while (joueur.getPrenom() == joueurs.at(pos).getPrenom() && joueurs.at(pos).nbCarteEnMain() == 0);
-
+   
    return joueurs.at(pos);
 }
