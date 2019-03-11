@@ -85,7 +85,7 @@ public:
     */
    virtual Carte demanderCarte(const unsigned cartesParFamille);
    /**
-    * 
+    * Depose une famille  
     * @param cartesParFamilles
     * @return 
     */
