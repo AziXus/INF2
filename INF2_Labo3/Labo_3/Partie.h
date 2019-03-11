@@ -9,7 +9,7 @@
                La partie fait jouer les différents joueurs.
 
  Remarque(s) : La partie est constituée de 1 à plusieurs joueurs et 1 à plusieurs familles.
-               Le nombre de carte par joueur ainsi que les cartes par famille sont également défini
+               Le nombre de carte par jouer ainsi que les cartes par famille sont également défini
                pour une partie et ne peuvent pas être changés.               
 
  Compilateur : MinGW-g++ <x.y.z>
@@ -22,10 +22,9 @@
 #include "Carte.h"
 
 using Joueurs = std::vector<Joueur>;
-//On en a besoin ?
-using Cartes = std::vector<Carte>;
 
 class Partie{
+   friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
 public:
    /**
     * Constructeur spécifique pour la classe Partie
@@ -34,7 +33,7 @@ public:
     * @param carteParFamille entier non-signé indiquant le nombre de carte par famille
     * @param carteParJoueur entier non-signé indiquant le nombre de carte par joueur
     */
-   Partie(Joueurs& joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur);
+   Partie(Joueurs& joueurs, unsigned short nbFamille, unsigned short carteParFamille, unsigned short carteParJoueur);
    /**
     * Retourne la pioche de la partie
     * @return la pioche de la partie sous forme de vecteur de carte
@@ -43,6 +42,7 @@ public:
    /**
     * Permet d'afficher la pioche
     */
+
    void afficherPioche() const;
    /**
     * Retourne les joueurs de la partie
@@ -54,13 +54,28 @@ public:
     */
    void afficherJoueur() const;
    /**
-    * Fonction permmetant de démarrer une partie.
+    * Fonction permettant de démarrer une partie.
     */
-   void demarrer();
+   void jouer();
    /**
     * Fonction permettant de faire jouer un tour au joueurs
     */
    void jouerTour();
+
+   /**
+    * Détermine si la partie est terminée. Une partie se termine lorsque plus personne n'a de cartes en main et que la
+    * pioche est vide.
+    * @return true si la partie est terminée, false sinon
+    */
+   bool estTerminee();
+
+   /**
+    * Retourne le score du joueur desiré.
+    * @param joueur joueur dont on doit calculer le score
+    * @return score du joueur désiré
+    */
+   unsigned scoreJoueur(const Joueur& joueur);
+
 private:
    /**
     * Génère les cartes pour la partie en fonction du nombre de familles et de carte par famille
@@ -85,6 +100,7 @@ private:
     * melange la pioche de la partie
     */
    void melangerPioche();
+
    /**
     * Permet à la partie de choisir une cible pour un joueur
     * @param joueur joueur demandant une cible
@@ -97,6 +113,7 @@ private:
    const unsigned short CARTES_PAR_JOUEURS;
    Joueurs joueurs;
    Cartes pioche;
+   unsigned nbTour = 0;
 };
 
 #endif /* PARTIE_H */

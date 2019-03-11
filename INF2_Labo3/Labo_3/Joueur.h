@@ -8,7 +8,7 @@
  But         : Classe joueur permttant de gérer un joeur est ses cartes.
                Un joueur est composé d'un nombre de carte et des familles qu'ils possèdent 
 
- Remarque(s) : Les cartes en main du joueur et les familles qu'ils possèdent sont des vecteurs de cartes
+ Remarque(s) : Les cartes en main du jouer et les familles qu'ils possèdent sont des vecteurs de cartes
 
  Compilateur : MinGW-g++ <x.y.z>
  -----------------------------------------------------------------------------------
@@ -22,6 +22,8 @@
 using Cartes = std::vector<Carte>;
 
 class Joueur{
+   friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
+   friend std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
 public:
    /**
     * Constructeur par défaut de la classe joueur
@@ -44,11 +46,21 @@ public:
     * @return le cartes de la même famille que le joueur a
     */
    Cartes getFamille(const Carte& carte);
+
+   const Cartes& getCartesMain() const;
+
+   /**
+    * Retourne le nombre de familles déposées par le joueur
+    * @return nombre de familles
+    */
+   unsigned int getNbFamilles() const;
+
    /**
     * Enlève une carte de la main du joueur
     * @param carte la carte à enlever de la mian du joueur
     */
    void enleverCarteMain(const Carte& carte);
+
    /**
     * Ajoute une carte à la main du joueur
     * @param carte la carte à ajouter à la main du joueur
@@ -65,28 +77,30 @@ public:
     * @return vrai si la carte est trouvée faux sinon
     */
    bool carteEnMain(const Carte& carte);
+
    /**
     * Fonction permettant de générer la carte à demander à un autre joueur
     * @param cartesParFamille Nb de carte par famille
     * @return la carte à demander
     */
-   Carte demanderCarte(const unsigned cartesParFamille);
+   virtual Carte demanderCarte(const unsigned cartesParFamille);
    /**
     * 
     * @param cartesParFamilles
     * @return 
     */
-   bool detecterFamille(unsigned cartesParFamilles);
+   bool deposerFamille(unsigned cartesParFamilles);
    /**
     * 
     * @return 
     */
-   unsigned nbCarteEnMain();
-   friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
-   friend std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
+   size_t nbCarteEnMain();
+
+   bool operator==(const Joueur& rhs) const;
 
 private:
    std::string prenom;
+   unsigned nbFamilles = 0;
    Cartes cartesMain;
    Cartes cartesFamille;
 };

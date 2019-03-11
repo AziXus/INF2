@@ -17,11 +17,12 @@
 
 using namespace std;
 
-Partie::Partie(Joueurs& joueurs, unsigned nbFamille, unsigned carteParFamille, unsigned carteParJoueur)
-:joueurs(joueurs), NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur)
+Partie::Partie(Joueurs& joueurs, unsigned short nbFamille, unsigned short carteParFamille,
+               unsigned short carteParJoueur)
+:NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur), joueurs(joueurs)
 {
     unsigned carteTotal = NOMBRE_FAMILLES * CARTES_PAR_FAMILLES;
-    unsigned carteDistribuer = CARTES_PAR_JOUEURS * joueurs.size();
+    unsigned carteDistribuer = CARTES_PAR_JOUEURS * (unsigned)joueurs.size();
    //Si le nombre de carte a distribuer est plus grand que le nombre de cartes totales on retourne une erreur
    if (carteDistribuer > carteTotal)
       cout << "ERREUR!" << endl;
@@ -39,11 +40,14 @@ const Cartes& Partie::getPioche() const {
 
 void Partie::afficherPioche() const
 {
-    for (int i = 0; i < getPioche().size(); ++i) {
-        if (i > 0)
-        cout << " ";
-        cout << getPioche()[i];
-    }
+   cout << "Pioche :";
+
+   for (size_t i = 0; i < getPioche().size(); ++i) {
+     if (i > 0)
+     cout << " ";
+     cout << getPioche()[i];
+   }
+   cout << endl;
 }
 
 const Joueurs& Partie::getJoueurs() const {
@@ -52,15 +56,16 @@ const Joueurs& Partie::getJoueurs() const {
 
 void Partie::afficherJoueur() const
 {
-    for (int i = 0; i < getJoueurs().size(); ++i) {
+    for (size_t i = 0; i < getJoueurs().size(); ++i) {
         cout << getJoueurs()[i] << endl;
     }
 }
 
-void Partie::demarrer() {
-   cout << "Debut de la partie\n";
-   for (int i = 1; i <= 100; ++i) {
-      cout << "*** Tour " << i << " ***\n";
+void Partie::jouer() {
+   cout << "Debut de la partie de " << NOMBRE_FAMILLES << " familles\n";
+
+   while (!estTerminee()) {
+      cout << "*** Tour " << ++nbTour << " ***\n";
       //Affichage des joueurs
       afficherJoueur();
       //Affichage de la pioche
@@ -68,10 +73,15 @@ void Partie::demarrer() {
       cout << endl;
       jouerTour();
    }
+
+   cout << "\nLa partie est finie !" << endl;
+   afficherJoueur();
+   afficherPioche();
+   cout << "Nombre de tours : " << nbTour << endl;
 }
 
 void Partie::jouerTour() {
-   //Pour chaque joueur, on doit choisir un joueur (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
+   //Pour chaque joueur, on doit choisir un jouer (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
    for (Joueur& joueur : joueurs) {
       if(joueur.nbCarteEnMain() != 0)
         tourJoueur(joueur);
@@ -81,10 +91,10 @@ void Partie::jouerTour() {
 Cartes Partie::genererCartes()
 {
     Cartes paquets;
-    for(size_t numero = 1; numero <= NOMBRE_FAMILLES; numero++)
+    for(unsigned numero = 1; numero <= NOMBRE_FAMILLES; numero++)
       for(char lettre = 'A'; lettre < 'A' + CARTES_PAR_FAMILLES; lettre++)
             //création des cartes et ajout de celle-ci dans un vecteur de carte
-            paquets.push_back(Carte(numero, lettre));
+            paquets.push_back(Carte((unsigned short)numero, lettre));
     return paquets;
 }
 
@@ -98,7 +108,9 @@ void Partie::distribuerCartes()
 void Partie::tourJoueur(Joueur& joueur) {
    Joueur& cible = choisirCible(joueur);
    bool demanderCarte = true;
-   
+
+   while (joueur.deposerFamille(CARTES_PAR_FAMILLES));
+
    do {
       Carte carte = joueur.demanderCarte(CARTES_PAR_FAMILLES);
 
@@ -114,8 +126,8 @@ void Partie::tourJoueur(Joueur& joueur) {
          piocher(joueur);
          demanderCarte = !demanderCarte;
       }
-      joueur.detecterFamille(CARTES_PAR_FAMILLES);
-      //if(carteMain.size() == 0) 
+      joueur.deposerFamille(CARTES_PAR_FAMILLES);
+
    } while (demanderCarte && joueur.nbCarteEnMain() != 0);
 }
 
@@ -132,18 +144,34 @@ void Partie::melangerPioche()
     if(premierAppel)
     {
         premierAppel = false;
-        srand(time(NULL));
+        srand((unsigned)time(NULL));
     }
     random_shuffle(pioche.begin(),pioche.end());
 }
 
 Joueur& Partie::choisirCible(const Joueur& joueur) {
-   //On choisit aléatoirement une cible(joueur) différente
-   //On reste dans la boucle si la cible est le joueur lui-même ou que la cible n'a plus de cartes
+   //On choisit aléatoirement une cible(jouer) différente
+   //On reste dans la boucle si la cible est le jouer lui-même ou que la cible n'a plus de cartes
    size_t pos;
    do {
       pos = rand() % joueurs.size();
    } while (joueur.getPrenom() == joueurs.at(pos).getPrenom() && joueurs.at(pos).nbCarteEnMain());
-   
+
    return joueurs.at(pos);
+}
+
+bool Partie::estTerminee() {
+   if (!pioche.empty())
+      return false;
+
+   for (Joueur j: joueurs) {
+      if (j.nbCarteEnMain() != 0)
+         return false;
+   }
+
+   return true;
+}
+
+unsigned Partie::scoreJoueur(const Joueur& joueur) {
+   return (*find(joueurs.begin(), joueurs.end(), joueur)).getNbFamilles();
 }

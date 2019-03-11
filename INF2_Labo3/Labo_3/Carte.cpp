@@ -31,7 +31,7 @@ Carte& Carte::operator=(const Carte& carte)
 }
 
 bool Carte::operator==(const Carte& rhs) const {
-   return NUMERO_FAMILLE == rhs.NUMERO_FAMILLE &&
+   return NUMERO_FAMILLE == rhs.NUMERO_FAMILLE and
           MEMBRE_FAMILLE == rhs.MEMBRE_FAMILLE;
 }
 

@@ -36,7 +36,46 @@ private:
 unsigned Objet::nextN   = 1;
 unsigned Objet::counter = 0;
 
+#include <vector>
+#include <iostream>
+
+class Func {
+public:
+    virtual void call() {
+        std::cout<< "Func -> call()" << std::endl;
+    }
+};
+
+class Foo : public Func {
+public:
+    void call() {
+        std::cout<< "Foo -> call()" << std::endl;
+    }
+};
+
+class Bar : public Func {
+public:
+    void call() {
+        std::cout<< "Bar -> call()" << std::endl;
+    }
+};
+
 int main() {
+    std::vector<Func*> functors;
+
+    Func func = Func();
+    Foo foo = Foo();
+    Bar bar = Bar();
+
+    functors.push_back( &func );
+    functors.push_back( &foo );
+    functors.push_back( &bar );
+
+    std::vector<Func*>::iterator iter;
+    for (iter = functors.begin(); iter != functors.end(); ++iter)
+        (*iter)->call();
+
+    return 0;
     Objet obj1;
     Objet obj2;
     Objet obj3;

@@ -35,6 +35,14 @@ Cartes Joueur::getFamille(const Carte& carte) {
    return famille;
 }
 
+const Cartes& Joueur::getCartesMain() const {
+   return cartesMain;
+}
+
+unsigned Joueur::getNbFamilles() const {
+   return nbFamilles;
+}
+
 void Joueur::enleverCarteMain(const Carte& carte) {
    cartesMain.erase(remove(cartesMain.begin(), cartesMain.end(), carte), cartesMain.end());
 }
@@ -60,20 +68,21 @@ Carte Joueur::demanderCarte(const unsigned cartesParFamille)
 {
     Carte carteADemander(cartesMain.at(0).getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
     do{
-        carteADemander = Carte(cartesMain.at(0).getNumeroFamille(), (char)((rand()%cartesParFamille + 'A'));
+        carteADemander = Carte(cartesMain.at(0).getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
     }while(find(cartesMain.begin(),cartesMain.end(),carteADemander) != cartesMain.end());
     return carteADemander;
 }
 
-bool Joueur::detecterFamille(unsigned cartesParFamilles) {
+bool Joueur::deposerFamille(unsigned cartesParFamilles) {
    Cartes famille;
    famille.reserve(cartesParFamilles);
 
    for (const Carte& carte : cartesMain) {
       famille = getFamille(carte);
-      //Fonctionne pas : no match for ‘operator==’ (operand types are ‘Carte’ and ‘const unsigned int’)
+
       if (famille.size() == cartesParFamilles) {
          ajoutFamille(famille);
+         ++nbFamilles;
          return true;
       }
    }
@@ -81,13 +90,13 @@ bool Joueur::detecterFamille(unsigned cartesParFamilles) {
    return false;
 }
 
-unsigned Joueur::nbCarteEnMain()
+size_t Joueur::nbCarteEnMain()
 {
     return cartesMain.size();
 }
 
 ostream& operator<<(ostream& os, const Cartes& cartes) {
-   for (int i = 0; i < cartes.size(); ++i) {
+   for (size_t i = 0; i < cartes.size(); ++i) {
       if (i > 0)
          os << " ";
       os << cartes[i];
@@ -98,4 +107,8 @@ ostream& operator<<(ostream& os, const Cartes& cartes) {
 ostream& operator<<(ostream& os, const Joueur& joueur) {
    os << joueur.prenom << " : " << joueur.cartesMain << " [" << joueur.cartesFamille << "]";
    return os;
+}
+
+bool Joueur::operator==(const Joueur& rhs) const {
+   return prenom == rhs.prenom;
 }
