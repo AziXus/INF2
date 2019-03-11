@@ -90,7 +90,7 @@ bool Joueur::deposerFamille(unsigned cartesParFamilles) {
    return false;
 }
 
-size_t Joueur::nbCarteEnMain() const
+short unsigned Joueur::nbCarteEnMain() const
 {
     return cartesEnMain.size();
 }

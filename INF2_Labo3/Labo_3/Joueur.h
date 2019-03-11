@@ -85,17 +85,21 @@ public:
     */
    virtual Carte demanderCarte(const unsigned cartesParFamille);
    /**
-    * Depose une famille  
-    * @param cartesParFamilles
-    * @return 
+    * Depose une famille si une famille est detectée 
+    * @param cartesParFamilles entier non-signé nombre de carte par famille
+    * @return true si une famille a été posée, false sinon
     */
    bool deposerFamille(unsigned cartesParFamilles);
    /**
-    * 
+    * Retourne le nombre de carte dans la main du joueur
+    * @return un entier non-signé court indiquant le nombre de carte
+    */
+   short unsigned nbCarteEnMain() const;
+   /**
+    * Surcharge de l'opérateur on en a plus besoin
+    * @param rhs
     * @return 
     */
-   size_t nbCarteEnMain() const;
-
    bool operator==(const Joueur& rhs) const;
 
 private:
