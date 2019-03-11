@@ -25,12 +25,12 @@ public:
     * @param numeroFamille
     * @param membreFamille
     */
-   Carte(unsigned numeroFamille, char membreFamille);
+   Carte(unsigned short numeroFamille, char membreFamille);
    /**
     * 
     * @return 
     */
-   unsigned getNumeroFamille() const;
+   short unsigned getNumeroFamille() const;
    /**
     * 
     * @param carte
