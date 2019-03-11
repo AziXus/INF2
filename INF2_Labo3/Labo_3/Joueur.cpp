@@ -26,7 +26,7 @@ string Joueur::getPrenom() const {
 Cartes Joueur::getFamille(const Carte& carte) {
    Cartes famille;
 
-   for (const Carte& c : cartesMain) {
+   for (const Carte& c : cartesEnMain) {
       if (c.getNumeroFamille() == carte.getNumeroFamille()) {
          famille.push_back(c);
       }
@@ -36,7 +36,7 @@ Cartes Joueur::getFamille(const Carte& carte) {
 }
 
 const Cartes& Joueur::getCartesMain() const {
-   return cartesMain;
+   return cartesEnMain;
 }
 
 unsigned Joueur::getNbFamilles() const {
@@ -44,11 +44,11 @@ unsigned Joueur::getNbFamilles() const {
 }
 
 void Joueur::enleverCarteMain(const Carte& carte) {
-   cartesMain.erase(remove(cartesMain.begin(), cartesMain.end(), carte), cartesMain.end());
+   cartesEnMain.erase(remove(cartesEnMain.begin(), cartesEnMain.end(), carte), cartesEnMain.end());
 }
 
 void Joueur::ajoutCarteMain(const Carte& carte) {
-   cartesMain.push_back(carte);
+   cartesEnMain.push_back(carte);
 }
 
 void Joueur::ajoutFamille(const Cartes& cartes)
@@ -56,20 +56,20 @@ void Joueur::ajoutFamille(const Cartes& cartes)
     for(const Carte& carte : cartes)
     {
         enleverCarteMain(carte);
-        cartesFamille.push_back(carte);
+        famillesSurTable.push_back(carte);
     }
 }
 
 bool Joueur::carteEnMain(const Carte& carte) {
-   return find(cartesMain.begin(), cartesMain.end(), carte) != cartesMain.end();
+   return find(cartesEnMain.begin(), cartesEnMain.end(), carte) != cartesEnMain.end();
 }
 
 Carte Joueur::demanderCarte(const unsigned cartesParFamille)
 {
-    Carte carteADemander(cartesMain.at(0).getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
+    Carte carteADemander(cartesEnMain.at(0).getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
     do{
-        carteADemander = Carte(cartesMain.at(0).getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
-    }while(find(cartesMain.begin(),cartesMain.end(),carteADemander) != cartesMain.end());
+        carteADemander = Carte(cartesEnMain.at(0).getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
+    }while(find(cartesEnMain.begin(),cartesEnMain.end(),carteADemander) != cartesEnMain.end());
     return carteADemander;
 }
 
@@ -77,7 +77,7 @@ bool Joueur::deposerFamille(unsigned cartesParFamilles) {
    Cartes famille;
    famille.reserve(cartesParFamilles);
 
-   for (const Carte& carte : cartesMain) {
+   for (const Carte& carte : cartesEnMain) {
       famille = getFamille(carte);
 
       if (famille.size() == cartesParFamilles) {
@@ -90,9 +90,9 @@ bool Joueur::deposerFamille(unsigned cartesParFamilles) {
    return false;
 }
 
-size_t Joueur::nbCarteEnMain()
+size_t Joueur::nbCarteEnMain() const
 {
-    return cartesMain.size();
+    return cartesEnMain.size();
 }
 
 ostream& operator<<(ostream& os, const Cartes& cartes) {
@@ -105,7 +105,7 @@ ostream& operator<<(ostream& os, const Cartes& cartes) {
 }
 
 ostream& operator<<(ostream& os, const Joueur& joueur) {
-   os << joueur.prenom << " : " << joueur.cartesMain << " [" << joueur.cartesFamille << "]";
+   os << joueur.prenom << " : " << joueur.cartesEnMain << " [" << joueur.famillesSurTable << "]";
    return os;
 }
 

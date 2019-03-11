@@ -123,7 +123,11 @@ void Partie::tourJoueur(Joueur& joueur) {
          joueur.ajoutCarteMain(carte);
       } else {
          cout << "\tmais " << cible.getPrenom() << " ne l'a pas\n";
-         piocher(joueur);
+         if(!pioche.empty())
+         {
+            cout << joueur.getPrenom() << " prend une carte dans la pioche (" << pioche.back() <<  ")" << endl;
+            piocher(joueur);
+         }
          demanderCarte = !demanderCarte;
       }
       joueur.deposerFamille(CARTES_PAR_FAMILLES);
@@ -132,10 +136,8 @@ void Partie::tourJoueur(Joueur& joueur) {
 }
 
 void Partie::piocher(Joueur& joueur) {
-   if (pioche.size() > 0) {
-      joueur.ajoutCarteMain(pioche.back());
-      pioche.pop_back();
-   }
+    joueur.ajoutCarteMain(pioche.back());
+    pioche.pop_back();
 }
 
 void Partie::melangerPioche()
@@ -155,7 +157,7 @@ Joueur& Partie::choisirCible(const Joueur& joueur) {
    size_t pos;
    do {
       pos = rand() % joueurs.size();
-   } while (joueur.getPrenom() == joueurs.at(pos).getPrenom() && joueurs.at(pos).nbCarteEnMain());
+   } while (joueur.getPrenom() == joueurs.at(pos).getPrenom() || joueurs.at(pos).nbCarteEnMain() == 0);
 
    return joueurs.at(pos);
 }

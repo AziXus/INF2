@@ -94,15 +94,15 @@ public:
     * 
     * @return 
     */
-   size_t nbCarteEnMain();
+   size_t nbCarteEnMain() const;
 
    bool operator==(const Joueur& rhs) const;
 
 private:
    std::string prenom;
    unsigned nbFamilles = 0;
-   Cartes cartesMain;
-   Cartes cartesFamille;
+   Cartes cartesEnMain;
+   Cartes famillesSurTable;
 };
 /**
  * 
