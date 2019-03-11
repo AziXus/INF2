@@ -58,9 +58,9 @@ bool Joueur::carteEnMain(const Carte& carte) {
 
 Carte Joueur::demanderCarte(const unsigned cartesParFamille)
 {
-    Carte carteADemander(cartesMain.at(0).getNumeroFamille(), (char)(rand()%(cartesParFamille + 1) + 'A'));
+    Carte carteADemander(cartesMain.at(0).getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
     do{
-        carteADemander = Carte(cartesMain.at(0).getNumeroFamille(), (char)((rand()%(cartesParFamille) + 1) + 'A'));
+        carteADemander = Carte(cartesMain.at(0).getNumeroFamille(), (char)((rand()%cartesParFamille + 'A'));
     }while(find(cartesMain.begin(),cartesMain.end(),carteADemander) != cartesMain.end());
     return carteADemander;
 }
