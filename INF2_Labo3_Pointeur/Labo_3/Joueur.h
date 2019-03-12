@@ -124,17 +124,17 @@ private:
    Cartes famillesSurTable;
 };
 /**
- * 
- * @param os
- * @param cartes
- * @return 
+ * Surcharge de l'opérateur de flux pour pouvoir afficher un paquet de cartes
+ * @param os flux de sortie dans lequel écrire
+ * @param cartes cartes à afficher
+ * @return référence du flux sur lequel on a écrit
  */
 std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
 /**
- * 
- * @param os
- * @param joueur
- * @return 
+ * Surcharge de l'opérateur de flux pour pouvoir afficher un joueur
+ * @param os flux de sortie dans lequel écrire
+ * @param joueur joueur à afficher
+ * @return référence du flux sur lequel on a écrit
  */
 std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
 
