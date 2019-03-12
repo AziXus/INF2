@@ -45,7 +45,7 @@ void Partie::afficherPioche() const
    for (size_t i = 0; i < getPioche().size(); ++i) {
      if (i > 0)
      cout << " ";
-     cout << *getPioche()[i];
+     cout << getPioche()[i];
    }
    cout << endl;
 }
@@ -100,7 +100,7 @@ Cartes Partie::genererCartes()
     for(unsigned numero = 1; numero <= NOMBRE_FAMILLES; numero++)
       for(char lettre = 'A'; lettre < 'A' + CARTES_PAR_FAMILLES; lettre++)
             //création des cartes et ajout de celle-ci dans un vecteur de carte
-            paquets.push_back(new Carte((unsigned short)numero, lettre));
+            paquets.push_back(Carte((unsigned short)numero, lettre));
     return paquets;
 }
 
@@ -126,8 +126,8 @@ void Partie::tourJoueur(Joueur& joueur) {
       //Si la cible possède la carte
       if (cible.carteEnMain(carte)) {
          cout << "\tet " << cible.getPrenom() << " donne la carte a " << joueur.getPrenom() << endl;
-         const Carte* carteEchange = cible.enleverCarteMain(carte);
-         joueur.ajoutCarteMain(*carteEchange);
+         cible.enleverCarteMain(carte);
+         joueur.ajoutCarteMain(carte);
       } else {
          cout << "\tmais " << cible.getPrenom() << " ne l'a pas\n";
          piocher(joueur);
@@ -139,7 +139,7 @@ void Partie::tourJoueur(Joueur& joueur) {
 
 void Partie::piocher(Joueur& joueur) {
    if (pioche.size() > 0) {
-      joueur.ajoutCarteMain(*pioche.back());
+      joueur.ajoutCarteMain(pioche.back());
       pioche.pop_back();
    }
 }

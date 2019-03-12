@@ -43,9 +43,6 @@ public:
     * @return 
     */
    bool operator==(const Carte& rhs) const;
-
-   //Surcharge de l'opérateur == entre un pointeur et une carte
-   friend bool operator==(const Carte* lhs, const Carte& rhs);
    friend std::ostream& operator<<(std::ostream& os, const Carte& carte);
 private:
    const unsigned short NUMERO_FAMILLE;

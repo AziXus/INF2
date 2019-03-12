@@ -74,6 +74,6 @@ int main() {
 
    supprimerJoueurs(joueurs);
 
-   return EXIT_FAILURE;
+   return EXIT_SUCCESS;
 }
 

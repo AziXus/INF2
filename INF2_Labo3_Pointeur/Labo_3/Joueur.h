@@ -19,7 +19,7 @@
 #include "Carte.h"
 #include <vector>
 
-using Cartes = std::vector<const Carte*>;
+using Cartes = std::vector<Carte>;
 
 class Joueur{
    friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
@@ -69,7 +69,7 @@ public:
     * Enlève une carte de la main du joueur
     * @param carte la carte à enlever de la mian du joueur
     */
-   const Carte* enleverCarteMain(const Carte& carte);
+   void enleverCarteMain(const Carte& carte);
 
    /**
     * Ajoute une carte à la main du joueur
@@ -114,10 +114,8 @@ private:
    std::string prenom;
    unsigned nbFamilles = 0;
    unsigned score = 0;
-
-private:
-   Cartes cartesMain;
-   Cartes cartesFamille;
+   Cartes cartesEnMain;
+   Cartes famillesSurTable;
 };
 /**
  * 
@@ -137,7 +135,6 @@ std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
 class MeilleurJoueur : public Joueur {
 public:
    MeilleurJoueur(const std::string& prenom);
-   ~MeilleurJoueur() = default;
 
    Carte demanderCarte(unsigned cartesParFamille) override;
 private:
