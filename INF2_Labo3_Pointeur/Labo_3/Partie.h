@@ -34,29 +34,34 @@ public:
     * @param carteParJoueur entier non-signé indiquant le nombre de carte par joueur
     */
    Partie(Joueurs& joueurs, unsigned short nbFamille, unsigned short carteParFamille, unsigned short carteParJoueur);
+
    /**
     * Retourne la pioche de la partie
     * @return la pioche de la partie sous forme de vecteur de carte
     */
    const Cartes& getPioche() const;
+
    /**
     * Permet d'afficher la pioche
     */
-
    void afficherPioche() const;
+
    /**
     * Retourne les joueurs de la partie
     * @return les joueurs de la partie sous forme de vecteur de joueur
     */
    const Joueurs& getJoueurs() const;
+
    /**
     * Permet d'afficher les jouerus
     */
    void afficherJoueur() const;
+
    /**
     * Fonction permettant de démarrer une partie.
     */
    void jouer();
+
    /**
     * Fonction permettant de faire jouer un tour au joueurs
     */
@@ -82,20 +87,24 @@ private:
     * @return un vecteur de cartes avec les cartes générées
     */
    Cartes genererCartes();
+
    /**
     * Distribue les cartes au joueurs
     */
    void distribuerCartes();
+
    /**
     * 
     * @param joueur
     */
    void tourJoueur(Joueur& joueur);
+
    /**
     * Fait piocher la dernière carte de la picohe à un joueur
     * @param joueur joueur devant piocher
     */
    void piocher(Joueur& joueur);
+
    /**
     * melange la pioche de la partie
     */

@@ -19,6 +19,13 @@
 #include <ostream>
 
 class Carte {
+   /**
+   * Surcharge de l'opérateur de flux pour pouvoir afficher une carte sous le format %NUMERO_FAMILLE%%MEMBRE_FAMILLE% (1A, 1B, 2A, ...)
+   * @param os flux de sortie dans lequel écrire
+   * @param carte carte à afficher
+   * @return référence du flux sur lequel on a écrit
+   */
+   friend std::ostream& operator<<(std::ostream& os, const Carte& carte);
 public:
    /**
     * 
@@ -26,29 +33,30 @@ public:
     * @param membreFamille
     */
    Carte(unsigned short numeroFamille, char membreFamille);
+
    /**
     * 
     * @return 
     */
    short unsigned getNumeroFamille() const;
+
    /**
     * 
     * @param carte
     * @return 
     */
    Carte& operator=(const Carte& carte);
+
    /**
     * 
     * @param rhs
     * @return 
     */
    bool operator==(const Carte& rhs) const;
-   friend std::ostream& operator<<(std::ostream& os, const Carte& carte);
+
 private:
    const unsigned short NUMERO_FAMILLE;
    const char MEMBRE_FAMILLE;
 };
-
-std::ostream& operator<<(std::ostream& os, const Carte& carte);
 
 #endif //INF2_LABO3_CARTE_H

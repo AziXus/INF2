@@ -87,7 +87,7 @@ void Partie::jouer() {
 }
 
 void Partie::jouerTour() {
-   //Pour chaque joueur, on doit choisir un jouer (une cible), demander une carte tant qu'il en a une, et finir par piocher une carte.
+   //Pour chaque joueur dans la partie, on joue son tour s'il a encore des cartes en main
    for (Joueur* joueur : joueurs) {
       if(joueur->nbCarteEnMain() != 0)
         tourJoueur(*joueur);
@@ -131,6 +131,7 @@ void Partie::tourJoueur(Joueur& joueur) {
       } else {
          cout << "\tmais " << cible.getPrenom() << " ne l'a pas\n";
          piocher(joueur);
+         cout << joueur.getPrenom() << " prend une carte dans la pioche (" << joueur.getCartesMain().back() << ")\n";
          demanderCarte = !demanderCarte;
       }
       joueur.deposerFamille(CARTES_PAR_FAMILLES);
@@ -138,7 +139,8 @@ void Partie::tourJoueur(Joueur& joueur) {
 }
 
 void Partie::piocher(Joueur& joueur) {
-   if (pioche.size() > 0) {
+   //Si la pioche n'est pas vide, on ajoute la dernière carte de la pioche au joueur puis on la supprime de la pioche
+   if (!pioche.empty()) {
       joueur.ajoutCarteMain(pioche.back());
       pioche.pop_back();
    }
@@ -146,13 +148,14 @@ void Partie::piocher(Joueur& joueur) {
 
 void Partie::melangerPioche()
 {
-    static bool premierAppel = true;
-    if(premierAppel)
-    {
-        premierAppel = false;
-        srand((unsigned)time(NULL));
-    }
-    random_shuffle(pioche.begin(),pioche.end());
+   //On initialize la seed du random au temps actuel lors du premier appel
+   static bool premierAppel = true;
+   if(premierAppel)
+   {
+       premierAppel = false;
+       srand((unsigned)time(NULL));
+   }
+   random_shuffle(pioche.begin(),pioche.end());
 }
 
 Joueur& Partie::choisirCible(const Joueur& joueur) {
@@ -161,7 +164,7 @@ Joueur& Partie::choisirCible(const Joueur& joueur) {
    size_t pos;
    do {
       pos = rand() % joueurs.size();
-   } while (joueur.getPrenom() == joueurs.at(pos)->getPrenom() && joueurs.at(pos)->nbCarteEnMain());
+   } while (joueur.getPrenom() == joueurs.at(pos)->getPrenom() or joueurs.at(pos)->nbCarteEnMain() == 0);
 
    return *joueurs.at(pos);
 }
@@ -170,11 +173,13 @@ bool Partie::estTerminee() {
    if (!pioche.empty())
       return false;
 
+   //Vérifie qu'aucun des joueurs n'ai de cartes en main
    for (const Joueur* j: joueurs) {
       if (j->nbCarteEnMain() != 0)
          return false;
    }
 
+   //La partie est terminée si la pioche est vide et plus personne n'a de cartes en main
    return true;
 }
 
