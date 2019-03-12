@@ -1,13 +1,9 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
- Fichier     : <nom du fichier>.cpp
- Auteur(s)   : <prénom> <nom>
- Date        : <jj.mm.aaaa>
-
- But         : <à compléter>
-
- Remarque(s) : <à compléter>
+ Laboratoire : 03
+ Fichier     : Partie.h
+ Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
+ Date        : 15.03.2019
 
  Compilateur : MinGW-g++ <x.y.z>
  -----------------------------------------------------------------------------------

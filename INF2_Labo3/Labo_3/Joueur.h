@@ -96,9 +96,10 @@ public:
     */
    short unsigned nbCarteEnMain() const;
    /**
-    * Surcharge de l'opérateur on en a plus besoin
-    * @param rhs
-    * @return 
+    * Surcharge de l'opérateur == pour un joueur
+    * Créer pour pouvoir utilisé la commande find
+    * @param rhs joueur à comparer
+    * @return vrai si les joueurs sont égaux, faux sinon
     */
    bool operator==(const Joueur& rhs) const;
 

@@ -29,13 +29,11 @@ public:
     * Constructeur par défaut de la classe joueur
     */
    Joueur() = default;
-
    /**
     * Destructeur par défaut de Joueur.
     * Virtuel afin de pouvoir le surcharger dans les classes heritées.
     */
    virtual ~Joueur() = default;
-
    /**
     * Constructeur spécifique de la classe joueur
     * @param prenom string contenant le prenom du joueur
@@ -46,9 +44,11 @@ public:
     * @return string contenant le prenom du joueur
     */
    std::string getPrenom() const;
-
+   /**
+    * Retourne le score du joueur(nombre de famille posée)
+    * @return entier non-signé indiquant le score su joueur
+    */
    unsigned int getScore() const;
-
    /**
     * Retourne les cartes que le joueur à dans sa main par rapport à la famille
     * de la carte passée.
@@ -56,21 +56,21 @@ public:
     * @return le cartes de la même famille que le joueur a
     */
    Cartes getFamille(const Carte& carte);
-
+   /**
+    * Retourne le paquet de carte que le joueur à dans sa main
+    * @return les cartes en main du joueur
+    */
    const Cartes& getCartesMain() const;
-
    /**
     * Retourne le nombre de familles déposées par le joueur
     * @return nombre de familles
     */
    unsigned int getNbFamilles() const;
-
    /**
     * Enlève une carte de la main du joueur
     * @param carte la carte à enlever de la mian du joueur
     */
    void enleverCarteMain(const Carte& carte);
-
    /**
     * Ajoute une carte à la main du joueur
     * @param carte la carte à ajouter à la main du joueur
@@ -87,7 +87,6 @@ public:
     * @return vrai si la carte est trouvée faux sinon
     */
    bool carteEnMain(const Carte& carte);
-
    /**
     * Fonction permettant de générer la carte à demander à un autre joueur
     * @param cartesParFamille Nb de carte par famille
@@ -95,19 +94,26 @@ public:
     */
    virtual Carte demanderCarte(unsigned cartesParFamille);
    /**
-    * 
-    * @param cartesParFamilles
-    * @return 
+    * Depose une famille si une famille est detectée 
+    * @param cartesParFamilles entier non-signé nombre de carte par famille
+    * @return true si une famille a été posée, false sinon
     */
    bool deposerFamille(unsigned cartesParFamilles);
    /**
-    * 
-    * @return 
+    * Retourne le nombre de carte dans la main du joueur
+    * @return un entier non-signé court indiquant le nombre de carte
     */
    size_t nbCarteEnMain() const;
-
+   /**
+    * Fonction permettant au joueur de rendre tout ces cartes au jeu 
+    */
    void rendreCarte();
-
+   /**
+    * Surcharge de l'opérateur == pour un joueur
+    * Créer pour pouvoir utilisé la commande find
+    * @param rhs joueur à comparer
+    * @return vrai si les joueurs sont égaux, faux sinon
+    */
    bool operator==(const Joueur& rhs) const;
 
 private:
@@ -135,7 +141,12 @@ std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
 class MeilleurJoueur : public Joueur {
 public:
    MeilleurJoueur(const std::string& prenom);
-
+   /**
+    * Surcharge de la fonction demanderCarte pour pouvoir modifier l'algorithm si le joueur
+    * est de la classe MeilleurJoueur
+    * @param cartesParFamille Nb de carte par famille
+    * @return la carte à demander
+    */
    Carte demanderCarte(unsigned cartesParFamille) override;
 private:
 };
