@@ -24,14 +24,6 @@ using Cartes = std::vector<Carte>;
 
 class Joueur {
    /**
-    * Surcharge de l'opérateur de flux pour pouvoir afficher un paquet de cartes
-    * @param os flux de sortie dans lequel écrire
-    * @param cartes cartes à afficher
-    * @return référence du flux sur lequel on a écrit
-    */
-   friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
-
-   /**
    * Surcharge de l'opérateur de flux pour pouvoir afficher un joueur
    * @param os flux de sortie dans lequel écrire
    * @param joueur joueur à afficher
@@ -135,9 +127,9 @@ public:
    size_t nbCarteEnMain() const;
 
    /**
-    * Fonction permettant au joueur de rendre tout ces cartes au jeu 
+    * Fonction permettant au joueur de mettre les cartes et les familles du joueurs à 0
     */
-   void rendreCarte();
+   void resetCartes();
 
    /**
     * Surcharge de l'opérateur == pour un joueur
@@ -169,6 +161,15 @@ public:
 
 private:
 };
+
+/**
+ * Permet d'afficher un vecteur de Cartes
+ * La fonction n'est pas en friend pour pouvoir l'utiliser dans tout le programme
+ * @param os
+ * @param cartes
+ * @return
+ */
+std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
 
 #endif /* JOUEUR_H */
 

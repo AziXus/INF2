@@ -1,15 +1,11 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
+ Laboratoire : 03
  Fichier     : Carte.cpp
- Auteur(s)   : Robin Müller
- Date        : 01.03.2019
+ Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
+ Date        : 15.03.2019
 
- But         : <à compléter>
-
- Remarque(s) : <à compléter>
-
- Compilateur : MinGW-g++ 6.3.0
+ Compilateur : MinGW-g++ <x.y.z>
  -----------------------------------------------------------------------------------
  */
 #include "Carte.h"
@@ -38,4 +34,8 @@ bool Carte::operator==(const Carte& rhs) const {
 ostream& operator<<(ostream& os, const Carte& carte) {
    os << carte.NUMERO_FAMILLE << carte.MEMBRE_FAMILLE;
    return os;
+}
+
+char Carte::getMembreFamille() const {
+   return MEMBRE_FAMILLE;
 }

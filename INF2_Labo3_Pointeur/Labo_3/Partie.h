@@ -24,7 +24,6 @@
 using Joueurs = std::vector<Joueur*>;
 
 class Partie{
-   friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
 public:
    /**
     * Constructeur spécifique pour la classe Partie
@@ -42,11 +41,6 @@ public:
    const Cartes& getPioche() const;
 
    /**
-    * Permet d'afficher la pioche
-    */
-   void afficherPioche() const;
-
-   /**
     * Retourne les joueurs de la partie
     * @return les joueurs de la partie sous forme de vecteur de joueur
     */
@@ -55,7 +49,7 @@ public:
    /**
     * Permet d'afficher les jouerus
     */
-   void afficherJoueur() const;
+   void afficherJoueurs() const;
 
    /**
     * Fonction permettant de démarrer une partie.

@@ -18,6 +18,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <algorithm>
 #include "Partie.h"
 
 using namespace std;
@@ -28,7 +29,7 @@ Joueurs genererJoueurs(unsigned nbJoueurs) {
    Joueurs joueurs(nbJoueurs);
 
    //Le premier joueur est le meilleur joueur
-   joueurs[0] = new MeilleurJoueur("Joueur0");
+   joueurs[0] = new MeilleurJoueur("MeilleurJoueur");
 
    for (size_t i = 1; i < nbJoueurs; ++i) {
       joueurs[i] = new Joueur("Joueur" + to_string(i));
@@ -53,10 +54,8 @@ int main() {
 
    Joueurs joueurs = genererJoueurs(NB_JOUEURS);
 
+   //Ordre des joueurs fixes (croissant)
    for (unsigned i = 1; i <= NB_PARTIES; ++i) {
-      //On change l'ordre des joueurs
-      //Améliorer la création des joueurs
-
       cout << "********** PARTIE " << i << " **********\n";
       Partie p(joueurs, NB_FAMILLES, CARTES_PAR_FAMILLE, CARTES_PAR_JOUEURS);
 
@@ -66,8 +65,37 @@ int main() {
       cout << "\n********** FIN PARTIE " << i << " **********\n";
    }
 
+   //Le perdant joue en premier
+   /*for (unsigned i = 1; i <= NB_PARTIES; ++i) {
+      //On calcul le joueur ayant le nombre de familles le plus petit
+      auto perdant = min_element(joueurs.begin(), joueurs.end(), [](const Joueur* j1, const Joueur* j2) {return j1->getNbFamilles() < j2->getNbFamilles();});
+      rotate(joueurs.begin(), perdant, joueurs.end());
+
+      cout << "********** PARTIE " << i << " **********\n";
+      Partie p(joueurs, NB_FAMILLES, CARTES_PAR_FAMILLE, CARTES_PAR_JOUEURS);
+
+      //Lancement de la partie
+      p.jouer();
+
+      cout << "\n********** FIN PARTIE " << i << " **********\n";
+   }*/
+
+   //On fait tourner l'ordre des joueurs à chaque tour
+   /*for (unsigned i = 1; i <= NB_PARTIES; ++i) {
+      //On calcul le joueur ayant le nombre de familles le plus petit
+      rotate(joueurs.begin(), joueurs.begin() + 1, joueurs.end());
+
+      cout << "********** PARTIE " << i << " **********\n";
+      Partie p(joueurs, NB_FAMILLES, CARTES_PAR_FAMILLE, CARTES_PAR_JOUEURS);
+
+      //Lancement de la partie
+      p.jouer();
+
+      cout << "\n********** FIN PARTIE " << i << " **********\n";
+   }*/
+
    for (const Joueur* j: joueurs) {
-      cout << "Le score total de " << j->getPrenom() << " est " << round((double)j->getScore() / NB_FAMILLES / NB_PARTIES * 100.) << "%" << endl;
+      cout << "Le score total de " << j->getPrenom() << " est ~" << round((double)j->getScore() / (NB_FAMILLES * NB_PARTIES) * 100.) << "%" << endl;
    }
 
    supprimerJoueurs(joueurs);
