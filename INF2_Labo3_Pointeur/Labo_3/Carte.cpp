@@ -18,7 +18,7 @@ using namespace std;
 
 Carte::Carte(unsigned short numeroFamille, char membreFamille) : NUMERO_FAMILLE(numeroFamille), MEMBRE_FAMILLE(membreFamille){}
 
-short unsigned Carte::getNumeroFamille() const
+unsigned short Carte::getNumeroFamille() const
 {
    return NUMERO_FAMILLE;
 }

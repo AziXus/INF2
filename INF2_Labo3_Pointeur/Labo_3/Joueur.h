@@ -5,7 +5,7 @@
  Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
  Date        : 15.03.2019
 
- But         : Classe joueur permttant de gérer un joeur est ses cartes.
+ But         : Classe joueur permettant de gérer un joeur est ses cartes.
                Un joueur est composé d'un nombre de carte et des familles qu'ils possèdent 
 
  Remarque(s) : Les cartes en main du jouer et les familles qu'ils possèdent sont des vecteurs de cartes
@@ -16,18 +16,19 @@
 
 #ifndef JOUEUR_H
 #define JOUEUR_H
+
 #include "Carte.h"
 #include <vector>
 
 using Cartes = std::vector<Carte>;
 
 class Joueur {
-  /**
-   * Surcharge de l'opérateur de flux pour pouvoir afficher un paquet de cartes
-   * @param os flux de sortie dans lequel écrire
-   * @param cartes cartes à afficher
-   * @return référence du flux sur lequel on a écrit
-   */
+   /**
+    * Surcharge de l'opérateur de flux pour pouvoir afficher un paquet de cartes
+    * @param os flux de sortie dans lequel écrire
+    * @param cartes cartes à afficher
+    * @return référence du flux sur lequel on a écrit
+    */
    friend std::ostream& operator<<(std::ostream& os, const Cartes& cartes);
 
    /**
@@ -37,6 +38,7 @@ class Joueur {
    * @return référence du flux sur lequel on a écrit
    */
    friend std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
+
 public:
    /**
     * Constructeur par défaut de la classe joueur
@@ -44,16 +46,16 @@ public:
    Joueur() = default;
 
    /**
-    * Destructeur par défaut de Joueur.
-    * Virtuel afin de pouvoir le surcharger dans les classes heritées.
-    */
-   virtual ~Joueur() = default;
-
-   /**
     * Constructeur spécifique de la classe joueur
     * @param prenom string contenant le prenom du joueur
     */
    Joueur(const std::string& prenom);
+
+   /**
+    * Destructeur par défaut de Joueur.
+    * Virtuel afin de pouvoir le surcharger dans les classes heritées.
+    */
+   virtual ~Joueur() = default;
 
    /**
     * Retourne le prenom du joueur
@@ -164,6 +166,7 @@ public:
     * @return la carte à demander
     */
    Carte demanderCarte(unsigned cartesParFamille);
+
 private:
 };
 

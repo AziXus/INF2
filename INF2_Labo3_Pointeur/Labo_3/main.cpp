@@ -18,9 +18,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <string>
 #include "Partie.h"
-
 
 using namespace std;
 
@@ -47,11 +45,11 @@ void supprimerJoueurs(Joueurs& joueurs) {
 
 
 int main() {
-   const unsigned NB_PARTIES  =   100,
-           NB_JOUEURS         =     4,
-           NB_FAMILLES        =     9,
-           CARTES_PAR_FAMILLE =     4,
-           CARTES_PAR_JOUEURS =     5;
+   const unsigned NB_PARTIES         =   100,
+                  NB_JOUEURS         =     4,
+                  NB_FAMILLES        =     9,
+                  CARTES_PAR_FAMILLE =     4,
+                  CARTES_PAR_JOUEURS =     5;
 
    Joueurs joueurs = genererJoueurs(NB_JOUEURS);
 

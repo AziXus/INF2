@@ -102,8 +102,9 @@ private:
    /**
     * Fait piocher la dernière carte de la picohe à un joueur
     * @param joueur joueur devant piocher
+    * @return true si une carte a été pioché, false sinon
     */
-   void piocher(Joueur& joueur);
+   bool piocher(Joueur& joueur);
 
    /**
     * melange la pioche de la partie

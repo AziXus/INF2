@@ -13,7 +13,7 @@
 
 using namespace std;
 
-Joueur::Joueur(const string& prenom):prenom(prenom){}
+Joueur::Joueur(const string& prenom) : prenom(prenom) {}
 
 string Joueur::getPrenom() const {
    return prenom;
@@ -47,10 +47,8 @@ void Joueur::ajoutCarteMain(const Carte& carte) {
    cartesEnMain.push_back(carte);
 }
 
-void Joueur::ajoutFamille(const Cartes& cartes)
-{
-   for(const Carte& carte : cartes)
-   {
+void Joueur::ajoutFamille(const Cartes& cartes) {
+   for (const Carte& carte : cartes) {
       enleverCarteMain(carte);
       famillesSurTable.push_back(carte);
    }
@@ -60,11 +58,10 @@ bool Joueur::carteEnMain(const Carte& carte) {
    return find(cartesEnMain.begin(), cartesEnMain.end(), carte) != cartesEnMain.end();
 }
 
-Carte Joueur::demanderCarte(const unsigned cartesParFamille)
-{
-   Carte carteADemander(cartesEnMain.front().getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
-   while(find(cartesEnMain.begin(),cartesEnMain.end(),carteADemander) != cartesEnMain.end()) {
-       carteADemander = Carte(cartesEnMain.front().getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
+Carte Joueur::demanderCarte(const unsigned cartesParFamille) {
+   Carte carteADemander(cartesEnMain.front().getNumeroFamille(), (char) (rand() % cartesParFamille + 'A'));
+   while (find(cartesEnMain.begin(), cartesEnMain.end(), carteADemander) != cartesEnMain.end()) {
+      carteADemander = Carte(cartesEnMain.front().getNumeroFamille(), (char) (rand() % cartesParFamille + 'A'));
    }
    return carteADemander;
 }
@@ -86,9 +83,8 @@ bool Joueur::deposerFamille(unsigned cartesParFamilles) {
    return false;
 }
 
-size_t Joueur::nbCarteEnMain() const
-{
-    return cartesEnMain.size();
+size_t Joueur::nbCarteEnMain() const {
+   return cartesEnMain.size();
 }
 
 ostream& operator<<(ostream& os, const Cartes& cartes) {
@@ -138,9 +134,9 @@ Carte MeilleurJoueur::demanderCarte(const unsigned cartesParFamille) {
    }
 
    //Generer demande de carte
-   Carte carteADemander(plusGrandeFamille.front().getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
-   while(find(plusGrandeFamille.begin(),plusGrandeFamille.end(),carteADemander) != plusGrandeFamille.end()){
-      carteADemander = Carte(plusGrandeFamille.front().getNumeroFamille(), (char)(rand()%cartesParFamille + 'A'));
+   Carte carteADemander(plusGrandeFamille.front().getNumeroFamille(), (char) (rand() % cartesParFamille + 'A'));
+   while (find(plusGrandeFamille.begin(), plusGrandeFamille.end(), carteADemander) != plusGrandeFamille.end()) {
+      carteADemander = Carte(plusGrandeFamille.front().getNumeroFamille(), (char) (rand() % cartesParFamille + 'A'));
    }
    return carteADemander;
 }
