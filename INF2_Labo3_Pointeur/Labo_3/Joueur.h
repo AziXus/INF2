@@ -114,11 +114,11 @@ public:
    virtual Carte demanderCarte(unsigned cartesParFamille);
 
    /**
-    * Depose une famille si une famille est detectée 
+    * Cherche dans les cartes en main si une famille est complete et la dépose dans familles sur table si c'est le cas
     * @param cartesParFamilles entier non-signé nombre de carte par famille
     * @return true si une famille a été posée, false sinon
     */
-   bool deposerFamille(unsigned cartesParFamilles);
+   bool detecterFamille(unsigned cartesParFamilles);
 
    /**
     * Retourne le nombre de carte dans la main du joueur

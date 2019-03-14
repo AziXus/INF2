@@ -112,6 +112,14 @@ private:
     */
    Joueur& choisirCible(const Joueur& joueur);
 
+   /**
+    * Calcul le nombres de cibles possibles en fonction du joueur
+    * @param joueur joueur à exclure
+    * @return
+    */
+   unsigned nbJoueursEnJeu();
+
+
    const unsigned short NOMBRE_FAMILLES;
    const unsigned short CARTES_PAR_FAMILLES;
    const unsigned short CARTES_PAR_JOUEURS;

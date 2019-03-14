@@ -63,12 +63,12 @@ Carte Joueur::demanderCarte(const unsigned cartesParFamille) {
    char lettre;
    do {
       lettre = (char)(rand() % cartesParFamille + 'A');
-   } while (find_if(cartesEnMain.begin(), cartesEnMain.end(), [lettre, numero](const Carte& c) { return c.getMembreFamille() == lettre and c.getNumeroFamille() == numero;}) != cartesEnMain.end());
+   } while (find(cartesEnMain.begin(), cartesEnMain.end(), Carte(numero, lettre)) != cartesEnMain.end());
 
-   return Carte(cartesEnMain.front().getNumeroFamille(), lettre);
+   return Carte(numero, lettre);
 }
 
-bool Joueur::deposerFamille(unsigned cartesParFamilles) {
+bool Joueur::detecterFamille(unsigned cartesParFamilles) {
    Cartes famille;
    famille.reserve(cartesParFamilles);
 
@@ -122,7 +122,7 @@ Carte MeilleurJoueur::demanderCarte(const unsigned cartesParFamille) {
    for (const Carte& carte : getCartesMain()) {
       familleActuel = getFamille(carte);
 
-      if (familleActuel.size() > plusGrandeFamille.size())
+      if (familleActuel.size() >  plusGrandeFamille.size())
          plusGrandeFamille = familleActuel;
    }
 
@@ -131,7 +131,7 @@ Carte MeilleurJoueur::demanderCarte(const unsigned cartesParFamille) {
    unsigned short numero = plusGrandeFamille.front().getNumeroFamille();
    do {
       lettre = (char)(rand() % cartesParFamille + 'A');
-   } while (find_if(plusGrandeFamille.begin(), plusGrandeFamille.end(), [lettre, numero](const Carte& c) { return c.getMembreFamille() == lettre and c.getNumeroFamille() == numero;}) != plusGrandeFamille.end());
+   } while (find(plusGrandeFamille.begin(), plusGrandeFamille.end(), Carte(numero, lettre)) != plusGrandeFamille.end());
 
    return Carte(numero, lettre);
 }
