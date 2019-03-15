@@ -35,10 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/8c3c5305/Carte.o \
-	${OBJECTDIR}/_ext/8c3c5305/Joueur.o \
-	${OBJECTDIR}/_ext/8c3c5305/Partie.o \
-	${OBJECTDIR}/_ext/8c3c5305/main.o
+	${OBJECTDIR}/Carte.o \
+	${OBJECTDIR}/Joueur.o \
+	${OBJECTDIR}/Partie.o \
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -65,25 +65,25 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/labo3_pointeur.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/labo3_pointeur ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/_ext/8c3c5305/Carte.o: ../Labo_3/Carte.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/8c3c5305
+${OBJECTDIR}/Carte.o: Carte.cpp
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/8c3c5305/Carte.o ../Labo_3/Carte.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Carte.o Carte.cpp
 
-${OBJECTDIR}/_ext/8c3c5305/Joueur.o: ../Labo_3/Joueur.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/8c3c5305
+${OBJECTDIR}/Joueur.o: Joueur.cpp
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/8c3c5305/Joueur.o ../Labo_3/Joueur.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Joueur.o Joueur.cpp
 
-${OBJECTDIR}/_ext/8c3c5305/Partie.o: ../Labo_3/Partie.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/8c3c5305
+${OBJECTDIR}/Partie.o: Partie.cpp
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/8c3c5305/Partie.o ../Labo_3/Partie.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Partie.o Partie.cpp
 
-${OBJECTDIR}/_ext/8c3c5305/main.o: ../Labo_3/main.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/8c3c5305
+${OBJECTDIR}/main.o: main.cpp
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/8c3c5305/main.o ../Labo_3/main.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
