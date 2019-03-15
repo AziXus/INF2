@@ -55,11 +55,11 @@ void supprimerJoueurs(Joueurs& joueurs) {
 
 
 int main() {
-   const unsigned NOMBRE_PARTIES = 100,
-                  NOMBRE_JOUEURS = 4,
-                  NOMBRE_FAMILLES = 9,
-                  CARTES_PAR_FAMILLE = 4,
-                  CARTES_PAR_JOUEURS = 5;
+   const unsigned NOMBRE_PARTIES     = 100,
+                  NOMBRE_JOUEURS     =   4,
+                  NOMBRE_FAMILLES    =   9,
+                  CARTES_PAR_FAMILLE =   4,
+                  CARTES_PAR_JOUEURS =   5;
 
    Joueurs joueurs = genererJoueurs(NOMBRE_JOUEURS);
 
