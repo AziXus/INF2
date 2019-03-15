@@ -17,10 +17,8 @@
 
 using namespace std;
 
-Partie::Partie(Joueurs& joueurs, unsigned short nbFamille, unsigned short carteParFamille,
-               unsigned short carteParJoueur)
-        : NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur),
-          joueurs(joueurs) {
+Partie::Partie(Joueurs& joueurs, unsigned short nbFamille, unsigned short carteParFamille, unsigned short carteParJoueur)
+:NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur), joueurs(joueurs) {
    unsigned carteTotal = NOMBRE_FAMILLES * CARTES_PAR_FAMILLES;
    unsigned carteDistribuer = CARTES_PAR_JOUEURS * (unsigned)joueurs.size();
    //Si le nombre de carte a distribuer est plus grand que le nombre de cartes totales on retourne une erreur

@@ -64,7 +64,7 @@ int main() {
    Joueurs joueurs = genererJoueurs(NOMBRE_JOUEURS);
 
    //Ordre des joueurs fixes
-/*   for (unsigned i = 1; i <= NOMBRE_PARTIES; ++i) {
+   /*for (unsigned i = 1; i <= NOMBRE_PARTIES; ++i) {
       cout << "********** PARTIE " << i << " **********\n";
       Partie p(joueurs, NOMBRE_FAMILLES, CARTES_PAR_FAMILLE, CARTES_PAR_JOUEURS);
 
@@ -75,7 +75,7 @@ int main() {
    }*/
 
    //Le perdant joue en premier
-/*   for (unsigned i = 1; i <= NOMBRE_PARTIES; ++i) {
+   /*for (unsigned i = 1; i <= NOMBRE_PARTIES; ++i) {
       //On calcul le joueur ayant le nombre de familles le plus petit et donc le perdant
       auto perdant = min_element(joueurs.begin(), joueurs.end(), [](const Joueur* j1, const Joueur* j2) {return j1->getNbFamilles() < j2->getNbFamilles();});
       rotate(joueurs.begin(), perdant, joueurs.end());
