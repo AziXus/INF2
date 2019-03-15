@@ -12,15 +12,13 @@
 
 using namespace std;
 
-Carte::Carte(unsigned short numeroFamille, char membreFamille) : NUMERO_FAMILLE(numeroFamille), MEMBRE_FAMILLE(membreFamille){}
+Carte::Carte(unsigned short numeroFamille, char membreFamille) : NUMERO_FAMILLE(numeroFamille), MEMBRE_FAMILLE(membreFamille) {}
 
-unsigned short Carte::getNumeroFamille() const
-{
+unsigned short Carte::getNumeroFamille() const {
    return NUMERO_FAMILLE;
 }
 
-Carte& Carte::operator=(const Carte& carte)
-{
+Carte& Carte::operator=(const Carte& carte) {
    (unsigned&)NUMERO_FAMILLE = carte.NUMERO_FAMILLE;
    (char&)MEMBRE_FAMILLE = carte.MEMBRE_FAMILLE;
    return *this;

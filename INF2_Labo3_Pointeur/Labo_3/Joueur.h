@@ -94,7 +94,8 @@ public:
    bool carteEnMain(const Carte& carte);
 
    /**
-    * Fonction permettant de générer la carte à demander à un autre joueur
+    * Fonction permettant de générer la carte à demander à un autre joueur.
+    * En cas de problème lors de la demande, une carte invalide (00) est retourné.
     * @param cartesParFamille Nb de carte par famille
     * @return la carte à demander
     */
@@ -140,7 +141,8 @@ public:
    MeilleurJoueur(const std::string& prenom);
 
    /**
-    * Surcharge de la fonction demanderCarte améliorant l'algorithme
+    * Surcharge de la fonction demanderCarte améliorant l'algorithme.
+    * En cas de problème lors de la demande, une carte invalide (00) est retourné.
     * @param cartesParFamille Nb de cartes par famille
     * @return la carte à demander
     */

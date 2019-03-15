@@ -9,7 +9,7 @@
                La partie sera suivi grâce à un affchage de chaque tour.
                Le système utilise les classes Joueur, Partie et Carte.
 
- Remarque(s) : Les joueurs sont contenus dans un vecteur de jouer.
+ Remarque(s) : Les joueurs sont contenus dans un vecteur de pointeur de joueurs.
 
  Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ using Joueurs = vector<Joueur*>;
  */
 Joueurs genererJoueurs(unsigned nbJoueurs) {
    Joueurs joueurs(nbJoueurs);
-   
+
    //Le premier joueur est le meilleur joueur
    joueurs[0] = new MeilleurJoueur("MeilleurJoueur");
 
@@ -55,11 +55,11 @@ void supprimerJoueurs(Joueurs& joueurs) {
 
 
 int main() {
-   const unsigned NOMBRE_PARTIES     =   100,
-                  NOMBRE_JOUEURS     =     4,
-                  NOMBRE_FAMILLES    =     9,
-                  CARTES_PAR_FAMILLE =     4,
-                  CARTES_PAR_JOUEURS =     5;
+   const unsigned NOMBRE_PARTIES = 100,
+                  NOMBRE_JOUEURS = 4,
+                  NOMBRE_FAMILLES = 9,
+                  CARTES_PAR_FAMILLE = 4,
+                  CARTES_PAR_JOUEURS = 5;
 
    Joueurs joueurs = genererJoueurs(NOMBRE_JOUEURS);
 
@@ -105,7 +105,8 @@ int main() {
 
    cout << "\nPourcentage de familles posees apres " << NOMBRE_PARTIES << " parties jouees :\n";
    for (const Joueur* j: joueurs) {
-      cout << "Le score total de " << j->getPrenom() << " est ~" << round((double)j->getScore() / (NOMBRE_FAMILLES * NOMBRE_PARTIES) * 100.) << "%" << endl;
+      cout << "Le score total de " << j->getPrenom() << " est ~"
+           << round((double)j->getScore() / (NOMBRE_FAMILLES * NOMBRE_PARTIES) * 100.) << "%" << endl;
    }
 
    supprimerJoueurs(joueurs);

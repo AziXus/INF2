@@ -91,11 +91,12 @@ private:
    void melangerPioche();
 
    /**
-    * Permet à la partie de choisir la cible d'un joueur
+    * Permet à la partie de choisir la cible d'un joueur.
+    * Si aucune cible n'est disponible, le joueur en paramètre est retourné
     * @param joueur joueur demandant une cible
     * @return le joueur ciblé
     */
-   Joueur& choisirCible(const Joueur& joueur);
+   Joueur& choisirCible(Joueur& joueur);
 
    /**
     * Calcul le nombre de joueur en jeu qui ont encore des cartes en main

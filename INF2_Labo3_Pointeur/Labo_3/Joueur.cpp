@@ -53,7 +53,17 @@ bool Joueur::carteEnMain(const Carte& carte) {
 }
 
 Carte Joueur::demanderCarte(const unsigned cartesParFamille) {
-   unsigned short numero = cartesEnMain.front().getNumeroFamille();
+   //Si le joueur n'a pas de cartes en main
+   if (cartesEnMain.empty())
+      return Carte(0, '0'); //Carte invalide
+
+   Carte premiereCarte = cartesEnMain.front();
+
+   //On vérifie que la famille ne soit pas déjà complète évite une boucle infinie
+   if (trouverFamille(premiereCarte).size() == cartesParFamille)
+      return Carte(0, '0'); //Carte invalide
+
+   unsigned short numero = premiereCarte.getNumeroFamille();
    char lettre;
    do {
       lettre = (char)(rand() % cartesParFamille + 'A');
@@ -66,9 +76,9 @@ bool Joueur::detecterFamille(unsigned cartesParFamilles) {
    Cartes famille;
    famille.reserve(cartesParFamilles);
 
+   //S'il y a une famille dans les cartes en main alors on dépose la famille et on augmente le score
    for (const Carte& carte : cartesEnMain) {
       famille = trouverFamille(carte);
-
       if (famille.size() == cartesParFamilles) {
          ajoutFamille(famille);
          ++nbFamilles;
@@ -91,9 +101,12 @@ void Joueur::resetCartes() {
 }
 
 void Joueur::ajoutFamille(const Cartes& cartes) {
+   //On ajoute la famille uniquement si elle n'est pas déjà dans le tas
    for (const Carte& carte : cartes) {
-      enleverCarteMain(carte);
-      famillesSurTable.push_back(carte);
+      if (find(famillesSurTable.begin(), famillesSurTable.end(), carte) == famillesSurTable.end()) {
+         enleverCarteMain(carte);
+         famillesSurTable.push_back(carte);
+      }
    }
 }
 
@@ -107,20 +120,29 @@ ostream& operator<<(ostream& os, const Joueur& joueur) {
 MeilleurJoueur::MeilleurJoueur(const std::string& prenom) : Joueur(prenom) {}
 
 Carte MeilleurJoueur::demanderCarte(const unsigned cartesParFamille) {
-   //Compter la famille avec le plus de cartes
+   //Si le joueur n'a pas de cartes en main
+   if (getCartesMain().empty())
+      return Carte(0, '0'); //Carte invalide
+
+   //Compte la famille avec le plus de cartes
    Cartes plusGrandeFamille;
    Cartes familleActuel;
 
    for (const Carte& carte : getCartesMain()) {
       familleActuel = trouverFamille(carte);
 
-      if (familleActuel.size() >  plusGrandeFamille.size())
+      if (familleActuel.size() > plusGrandeFamille.size())
          plusGrandeFamille = familleActuel;
    }
 
-   //Generer demande de carte
+   Carte cartePlusGrandeFamille = plusGrandeFamille.front();
+
+   //On vérifie que la famille ne soit pas déjà complète évite une boucle infinie
+   if (trouverFamille(cartePlusGrandeFamille).size() == cartesParFamille)
+      return Carte(0, '0'); //Carte invalide
+   //Genère une demande de carte
    char lettre;
-   unsigned short numero = plusGrandeFamille.front().getNumeroFamille();
+   unsigned short numero = cartePlusGrandeFamille.getNumeroFamille();
    do {
       lettre = (char)(rand() % cartesParFamille + 'A');
    } while (find(plusGrandeFamille.begin(), plusGrandeFamille.end(), Carte(numero, lettre)) != plusGrandeFamille.end());

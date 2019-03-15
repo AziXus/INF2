@@ -17,8 +17,10 @@
 
 using namespace std;
 
-Partie::Partie(Joueurs& joueurs, unsigned short nbFamille, unsigned short carteParFamille, unsigned short carteParJoueur)
-        : NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur), joueurs(joueurs) {
+Partie::Partie(Joueurs& joueurs, unsigned short nbFamille, unsigned short carteParFamille,
+               unsigned short carteParJoueur)
+        : NOMBRE_FAMILLES(nbFamille), CARTES_PAR_FAMILLES(carteParFamille), CARTES_PAR_JOUEURS(carteParJoueur),
+          joueurs(joueurs) {
    unsigned carteTotal = NOMBRE_FAMILLES * CARTES_PAR_FAMILLES;
    unsigned carteDistribuer = CARTES_PAR_JOUEURS * (unsigned)joueurs.size();
    //Si le nombre de carte a distribuer est plus grand que le nombre de cartes totales on retourne une erreur
@@ -61,7 +63,7 @@ void Partie::jouer() {
 
    cout << "\nLa partie est finie !" << endl;
    afficherJoueurs();
-   cout << "Pioche : "          << pioche << endl;
+   cout << "Pioche : " << pioche << endl;
    cout << "Nombre de tours : " << numeroTour << endl;
 }
 
@@ -156,16 +158,23 @@ void Partie::melangerPioche() {
    random_shuffle(pioche.begin(), pioche.end());
 }
 
-Joueur& Partie::choisirCible(const Joueur& joueur) {
-   //On choisit aléatoirement une cible(jouer) différente
-   //On reste dans la boucle si la cible est le jouer lui-même ou que la cible n'a plus de cartes
+Joueur& Partie::choisirCible(Joueur& joueur) {
+   //On choisit aléatoirement une cible(joueur) différente
+   //On reste dans la boucle si la cible est le joueur lui-même ou que la cible n'a plus de cartes
+
+   //Si on aucun joueur n'a de carte ou que l'on est le seul joueur en jeu avec des cartes, on retourne le joueur lui-même
+   if ((nbJoueursEnJeu() == 0) or (nbJoueursEnJeu() == 1 and joueur.nbCartesEnMain() > 0))
+      return joueur;
+
    size_t pos;
    do {
       pos = rand() % joueurs.size();
-   } while (joueur.getPrenom() == joueurs.at(pos)->getPrenom() or joueurs.at(pos)->nbCartesEnMain() == 0);
-   
+   } while (&joueur == joueurs.at(pos) or joueurs.at(pos)->nbCartesEnMain() == 0);
+
+
    return *joueurs.at(pos);
 }
+
 
 unsigned Partie::nbJoueursEnJeu() {
    //Calcul le nombre de joueurs avec des cartes en main
