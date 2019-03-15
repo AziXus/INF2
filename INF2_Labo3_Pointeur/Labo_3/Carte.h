@@ -5,8 +5,8 @@
  Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
  Date        : 15.03.2019
 
- But         : Classe Carte permettant de stocker une carte du jeu des 7 familles.
-               Une carte est composé d'un numéro de famille ainsi qu'une lettre qui définit son index dans la famille.
+ But         : Classe Carte permettant de stocker une carte du jeu des "N" familles.
+               Une carte est composée d'un numéro de famille ainsi qu'une lettre qui définit son index dans la famille.
 
  Remarque(s) : -
 
@@ -30,7 +30,7 @@ class Carte {
 
 public:
    /**
-    * Constructeur spécifique de la classe Carte avec le numero et le membre de la famille specifié
+    * Constructeur spécifique de la classe Carte avec le numéro et le membre de la famille specifiés
     * @param numeroFamille numéro de la famille de la carte
     * @param membreFamille lettre de la carte
     */
