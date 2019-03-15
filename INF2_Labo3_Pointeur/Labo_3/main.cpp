@@ -32,7 +32,7 @@ using Joueurs = vector<Joueur*>;
  */
 Joueurs genererJoueurs(unsigned nbJoueurs) {
    Joueurs joueurs(nbJoueurs);
-
+   
    //Le premier joueur est le meilleur joueur
    joueurs[0] = new MeilleurJoueur("MeilleurJoueur");
 
