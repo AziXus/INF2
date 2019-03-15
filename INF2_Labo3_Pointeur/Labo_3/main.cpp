@@ -16,7 +16,7 @@
  */
 #include <cstdlib>
 #include <iostream>
-#include <cmath>
+#include <cmath>//Utilisation du round
 #include <vector>
 #include <algorithm>
 #include "Partie.h"
@@ -76,7 +76,7 @@ int main() {
 
    //Le perdant joue en premier
 /*   for (unsigned i = 1; i <= NOMBRE_PARTIES; ++i) {
-      //On calcul le joueur ayant le nombre de familles le plus petit
+      //On calcul le joueur ayant le nombre de familles le plus petit et donc le perdant
       auto perdant = min_element(joueurs.begin(), joueurs.end(), [](const Joueur* j1, const Joueur* j2) {return j1->getNbFamilles() < j2->getNbFamilles();});
       rotate(joueurs.begin(), perdant, joueurs.end());
 
@@ -91,7 +91,7 @@ int main() {
 
    //On fait tourner l'ordre des joueurs à chaque tour
    for (unsigned i = 1; i <= NOMBRE_PARTIES; ++i) {
-      //On calcul le joueur ayant le nombre de familles le plus petit
+      //On fait tourner les joueurs vers la gauche
       rotate(joueurs.begin(), joueurs.begin() + 1, joueurs.end());
 
       cout << "********** PARTIE " << i << " **********\n";
