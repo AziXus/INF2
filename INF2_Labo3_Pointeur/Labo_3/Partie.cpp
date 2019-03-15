@@ -163,8 +163,7 @@ Joueur& Partie::choisirCible(const Joueur& joueur) {
    do {
       pos = rand() % joueurs.size();
    } while (joueur.getPrenom() == joueurs.at(pos)->getPrenom() or joueurs.at(pos)->nbCartesEnMain() == 0);
-
-
+   
    return *joueurs.at(pos);
 }
 

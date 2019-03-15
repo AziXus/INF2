@@ -25,7 +25,7 @@ unsigned int Joueur::getScore() const {
 
 Cartes Joueur::trouverFamille(const Carte& carte) {
    Cartes famille;
-
+   //rempli le vecteur famille avec les carte en main de la même famille que la carte donnée  
    for (const Carte& c : cartesEnMain) {
       if (c.getNumeroFamille() == carte.getNumeroFamille()) {
          famille.push_back(c);
