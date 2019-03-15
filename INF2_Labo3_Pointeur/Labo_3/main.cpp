@@ -46,7 +46,7 @@ void supprimerJoueurs(Joueurs& joueurs) {
 
 
 int main() {
-   const unsigned NOMBRE_PARTIES     =   300,
+   const unsigned NOMBRE_PARTIES     =   100,
                   NOMBRE_JOUEURS     =     4,
                   NOMBRE_FAMILLES    =     9,
                   CARTES_PAR_FAMILLE =     4,
@@ -94,7 +94,7 @@ int main() {
       cout << "\n********** FIN PARTIE " << i << " **********\n";
    }
 
-   cout << "\nPourcentage de familles posées après " << NOMBRE_PARTIES << " parties jouées :\n";
+   cout << "\nPourcentage de familles posees apres " << NOMBRE_PARTIES << " parties jouees :\n";
    for (const Joueur* j: joueurs) {
       cout << "Le score total de " << j->getPrenom() << " est ~" << round((double)j->getScore() / (NOMBRE_FAMILLES * NOMBRE_PARTIES) * 100.) << "%" << endl;
    }
