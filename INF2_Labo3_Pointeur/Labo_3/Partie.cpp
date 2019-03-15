@@ -65,6 +65,20 @@ void Partie::jouer() {
    cout << "Nombre de tours : " << numeroTour << endl;
 }
 
+bool Partie::estTerminee() {
+   if (!pioche.empty())
+      return false;
+
+   //Vérifie qu'aucun des joueurs n'ai de cartes en main
+   for (const Joueur* j: joueurs) {
+      if (j->nbCartesEnMain() != 0)
+         return false;
+   }
+
+   //La partie est terminée si la pioche est vide et plus personne n'a de cartes en main
+   return true;
+}
+
 void Partie::jouerTour() {
    //Pour chaque joueur dans la partie, on joue son tour s'il a encore des cartes en main
    for (Joueur* joueur : joueurs) {
@@ -153,20 +167,6 @@ Joueur& Partie::choisirCible(const Joueur& joueur) {
 
 
    return *joueurs.at(pos);
-}
-
-bool Partie::estTerminee() {
-   if (!pioche.empty())
-      return false;
-
-   //Vérifie qu'aucun des joueurs n'ai de cartes en main
-   for (const Joueur* j: joueurs) {
-      if (j->nbCartesEnMain() != 0)
-         return false;
-   }
-
-   //La partie est terminée si la pioche est vide et plus personne n'a de cartes en main
-   return true;
 }
 
 unsigned Partie::nbJoueursEnJeu() {

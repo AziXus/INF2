@@ -19,6 +19,10 @@ string Joueur::getPrenom() const {
    return prenom;
 }
 
+unsigned int Joueur::getScore() const {
+   return score;
+}
+
 Cartes Joueur::trouverFamille(const Carte& carte) {
    Cartes famille;
 
@@ -42,13 +46,6 @@ void Joueur::enleverCarteMain(const Carte& carte) {
 
 void Joueur::ajoutCarteMain(const Carte& carte) {
    cartesEnMain.push_back(carte);
-}
-
-void Joueur::ajoutFamille(const Cartes& cartes) {
-   for (const Carte& carte : cartes) {
-      enleverCarteMain(carte);
-      famillesSurTable.push_back(carte);
-   }
 }
 
 bool Joueur::carteEnMain(const Carte& carte) {
@@ -87,21 +84,23 @@ size_t Joueur::nbCartesEnMain() const {
    return cartesEnMain.size();
 }
 
-ostream& operator<<(ostream& os, const Joueur& joueur) {
-   os << joueur.prenom << " : " << joueur.cartesEnMain << " [" << joueur.famillesSurTable << "]";
-   return os;
-}
-
 void Joueur::resetCartes() {
    cartesEnMain.clear();
    famillesSurTable.clear();
    nbFamilles = 0;
 }
 
-unsigned int Joueur::getScore() const {
-   return score;
+void Joueur::ajoutFamille(const Cartes& cartes) {
+   for (const Carte& carte : cartes) {
+      enleverCarteMain(carte);
+      famillesSurTable.push_back(carte);
+   }
 }
 
+ostream& operator<<(ostream& os, const Joueur& joueur) {
+   os << joueur.prenom << " : " << joueur.cartesEnMain << " [" << joueur.famillesSurTable << "]";
+   return os;
+}
 
 //Fonctions de la classe MeilleurJoueur
 
