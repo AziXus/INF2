@@ -37,8 +37,8 @@ Partie::Partie(Joueurs& joueurs, unsigned short nbFamille, unsigned short carteP
 }
 
 void Partie::afficherJoueurs() const {
-   for (size_t i = 0; i < joueurs.size(); ++i) {
-      cout << *joueurs[i] << endl;
+   for (const Joueur* joueur : joueurs) {
+      cout << *joueur << endl;
    }
 }
 
@@ -109,8 +109,8 @@ Cartes Partie::genererCartes() {
 
 void Partie::distribuerCartes() {
    for (unsigned i = 1; i <= CARTES_PAR_JOUEURS; i++)
-      for (unsigned j = 0; j < joueurs.size(); j++) {
-         joueurs.at(j)->ajoutCarteMain(pioche.back());
+      for (Joueur* joueur : joueurs) {
+         joueur->ajoutCarteMain(pioche.back());
          pioche.pop_back();
       }
 }
@@ -135,7 +135,6 @@ void Partie::echangerCartes(Joueur& joueur, Joueur& cible) {
 
       joueur.detecterFamille(CARTES_PAR_FAMILLES);
    }
-
 }
 
 void Partie::piocher(Joueur& joueur) {

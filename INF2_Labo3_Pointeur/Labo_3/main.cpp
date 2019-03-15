@@ -25,6 +25,11 @@ using namespace std;
 
 using Joueurs = vector<Joueur*>;
 
+/**
+ * Alloue dynamiquement des joueurs et retourne un vecteur de pointeur de joueurs
+ * @param nbJoueurs nombre de joueurs à créer
+ * @return vecteur de pointeur de joueurs
+ */
 Joueurs genererJoueurs(unsigned nbJoueurs) {
    Joueurs joueurs(nbJoueurs);
 
@@ -38,6 +43,10 @@ Joueurs genererJoueurs(unsigned nbJoueurs) {
    return joueurs;
 }
 
+/**
+ * Supprime les joueurs dans un vecteur de pointeur de joueurs alloué dynamiquement.
+ * @param joueurs vecteur de pointeurs de joueurs à supprimer
+ */
 void supprimerJoueurs(Joueurs& joueurs) {
    for (Joueur* j: joueurs) {
       delete j;
@@ -54,7 +63,7 @@ int main() {
 
    Joueurs joueurs = genererJoueurs(NOMBRE_JOUEURS);
 
-   //Ordre des joueurs fixes (croissant)
+   //Ordre des joueurs fixes
 /*   for (unsigned i = 1; i <= NOMBRE_PARTIES; ++i) {
       cout << "********** PARTIE " << i << " **********\n";
       Partie p(joueurs, NOMBRE_FAMILLES, CARTES_PAR_FAMILLE, CARTES_PAR_JOUEURS);
@@ -103,4 +112,3 @@ int main() {
 
    return EXIT_SUCCESS;
 }
-
