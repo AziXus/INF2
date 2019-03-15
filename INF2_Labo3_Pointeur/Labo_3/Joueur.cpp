@@ -65,6 +65,7 @@ Carte Joueur::demanderCarte(const unsigned cartesParFamille) {
 
    unsigned short numero = premiereCarte.getNumeroFamille();
    char lettre;
+   //Genère une demande de carte
    do {
       lettre = (char)(rand() % cartesParFamille + 'A');
    } while (find(cartesEnMain.begin(), cartesEnMain.end(), Carte(numero, lettre)) != cartesEnMain.end());
@@ -115,6 +116,15 @@ ostream& operator<<(ostream& os, const Joueur& joueur) {
    return os;
 }
 
+ostream& operator<<(ostream& os, const Cartes& cartes) {
+   for (size_t i = 0; i < cartes.size(); ++i) {
+      if (i > 0)
+         os << " ";
+      os << cartes[i];
+   }
+   return os;
+}
+
 //Fonctions de la classe MeilleurJoueur
 
 MeilleurJoueur::MeilleurJoueur(const std::string& prenom) : Joueur(prenom) {}
@@ -148,13 +158,4 @@ Carte MeilleurJoueur::demanderCarte(const unsigned cartesParFamille) {
    } while (find(plusGrandeFamille.begin(), plusGrandeFamille.end(), Carte(numero, lettre)) != plusGrandeFamille.end());
 
    return Carte(numero, lettre);
-}
-
-ostream& operator<<(ostream& os, const Cartes& cartes) {
-   for (size_t i = 0; i < cartes.size(); ++i) {
-      if (i > 0)
-         os << " ";
-      os << cartes[i];
-   }
-   return os;
 }

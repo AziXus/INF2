@@ -25,7 +25,7 @@ Partie::Partie(Joueurs& joueurs, unsigned short nbFamille, unsigned short carteP
    if (carteDistribuer > carteTotal)
       cout << "ERREUR!" << endl;
    else {
-      //On nettoye les cartes des joueurs
+      //On nettoye les cartes des joueurs avant chaque partie
       for (Joueur* j: joueurs)
          j->resetCartes();
 
@@ -48,7 +48,6 @@ void Partie::jouer() {
    //En début de partie, on regarde si des familles sont déjà dans les mains des joueurs et on les déposent
    for (Joueur* j: joueurs)
       while (j->detecterFamille(CARTES_PAR_FAMILLES));
-
 
    while (!estTerminee()) {
       cout << "*** Tour " << ++numeroTour << " ***\n";
@@ -108,6 +107,7 @@ Cartes Partie::genererCartes() {
 }
 
 void Partie::distribuerCartes() {
+   //Ditribue le nombre de carte au différent joueur depuis la pioche
    for (unsigned i = 1; i <= CARTES_PAR_JOUEURS; i++)
       for (Joueur* joueur : joueurs) {
          joueur->ajoutCarteMain(pioche.back());
@@ -147,7 +147,7 @@ void Partie::piocher(Joueur& joueur) {
 }
 
 void Partie::melangerPioche() {
-   //On initialize la seed du random au temps actuel lors du premier appel
+   //On initialise la seed du random au temps actuel lors du premier appel
    static bool premierAppel = true;
    if (premierAppel) {
       premierAppel = false;
@@ -168,7 +168,6 @@ Joueur& Partie::choisirCible(Joueur& joueur) {
    do {
       pos = rand() % joueurs.size();
    } while (&joueur == joueurs.at(pos) or joueurs.at(pos)->nbCartesEnMain() == 0);
-
 
    return *joueurs.at(pos);
 }
