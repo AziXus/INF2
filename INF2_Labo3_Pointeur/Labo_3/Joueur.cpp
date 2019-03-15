@@ -39,6 +39,9 @@ const Cartes& Joueur::getCartesMain() const {
    return cartesEnMain;
 }
 
+unsigned Joueur::getNbFamilles() const {
+   return nbFamilles;
+}
 
 void Joueur::enleverCarteMain(const Carte& carte) {
    cartesEnMain.erase(remove(cartesEnMain.begin(), cartesEnMain.end(), carte), cartesEnMain.end());

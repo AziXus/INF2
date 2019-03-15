@@ -75,6 +75,12 @@ public:
    const Cartes& getCartesMain() const;
 
    /**
+   * Retourne le nombre de familles déposées par le joueur
+   * @return nombre de familles
+   */
+   unsigned int getNbFamilles() const;
+
+   /**
     * Enlève une carte de la main du joueur
     * @param carte la carte à enlever de la main du joueur
     */
