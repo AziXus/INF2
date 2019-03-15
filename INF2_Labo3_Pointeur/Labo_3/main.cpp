@@ -91,7 +91,7 @@ int main() {
 
    //On fait tourner l'ordre des joueurs à chaque tour
    for (unsigned i = 1; i <= NOMBRE_PARTIES; ++i) {
-      //On fait tourner les joueurs vers la gauche
+      //On fait une rotation circulaire à gauche
       rotate(joueurs.begin(), joueurs.begin() + 1, joueurs.end());
 
       cout << "********** PARTIE " << i << " **********\n";
