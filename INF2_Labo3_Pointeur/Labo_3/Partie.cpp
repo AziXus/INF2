@@ -6,7 +6,7 @@
  Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
  Date        : 15.03.2019
 
- Compilateur : MinGW-g++ <x.y.z>
+ Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 
@@ -36,17 +36,9 @@ Partie::Partie(Joueurs& joueurs, unsigned short nbFamille, unsigned short carteP
    }
 }
 
-const Cartes& Partie::getPioche() const {
-   return pioche;
-}
-
-const Joueurs& Partie::getJoueurs() const {
-   return joueurs;
-}
-
 void Partie::afficherJoueurs() const {
-   for (size_t i = 0; i < getJoueurs().size(); ++i) {
-      cout << *getJoueurs()[i] << endl;
+   for (size_t i = 0; i < joueurs.size(); ++i) {
+      cout << *joueurs[i] << endl;
    }
 }
 
@@ -59,7 +51,7 @@ void Partie::jouer() {
 
 
    while (!estTerminee()) {
-      cout << "*** Tour " << ++nbTour << " ***\n";
+      cout << "*** Tour " << ++numeroTour << " ***\n";
       //Affichage des joueurs
       afficherJoueurs();
       //Affichage de la pioche
@@ -70,14 +62,25 @@ void Partie::jouer() {
    cout << "\nLa partie est finie !" << endl;
    afficherJoueurs();
    cout << "Pioche : "          << pioche << endl;
-   cout << "Nombre de tours : " << nbTour << endl;
+   cout << "Nombre de tours : " << numeroTour << endl;
 }
 
 void Partie::jouerTour() {
    //Pour chaque joueur dans la partie, on joue son tour s'il a encore des cartes en main
    for (Joueur* joueur : joueurs) {
-      if (joueur->nbCarteEnMain() != 0 or !pioche.empty())
-         tourJoueur(*joueur);
+      //S'il reste encore un autre joueur en jeu et qu'on a des cartes, on echange des cartes
+      if (joueur->nbCartesEnMain() != 0 and nbJoueursEnJeu() >= 2) {
+         Joueur& cible = choisirCible(*joueur);
+         echangerCartes(*joueur, cible);
+      }
+
+      //En fin de tour un joueur pioche une carte.
+      if (!pioche.empty()) {
+         //Si le joueur pioche une carte et dépose une famille mais qu'il vide sa main, il peut piocher une seconde carte
+         do {
+            piocher(*joueur);
+         } while (joueur->detecterFamille(CARTES_PAR_FAMILLES) and joueur->nbCartesEnMain() == 0);
+      }
    }
 }
 
@@ -92,62 +95,42 @@ Cartes Partie::genererCartes() {
 
 void Partie::distribuerCartes() {
    for (unsigned i = 1; i <= CARTES_PAR_JOUEURS; i++)
-      for (unsigned j = 0; j < joueurs.size(); j++);
-         //piocher(*joueurs.at(j));
+      for (unsigned j = 0; j < joueurs.size(); j++) {
+         joueurs.at(j)->ajoutCarteMain(pioche.back());
+         pioche.pop_back();
+      }
 }
 
-void Partie::tourJoueur(Joueur& joueur) {
-   //Si aucun des joueurs n'a de carte, on pioche et on sort de la fonction
-   //Fonction nbJoueursSansCarte();
-   //unsigned joueursSansCarte = (unsigned)count_if(joueurs.begin(), joueurs.end(), [](const Joueur* j) { return j->nbCarteEnMain() == 0; });
-   //Si un seul joueur n'a de cartes, on pioche uniquement
-   /*if (joueursSansCarte == joueurs.size() - 1) {
-      piocher(joueur);
-      cout << joueur.getPrenom() << " prend une carte dans la pioche (" << joueur.getCartesMain().back() << ")\n";
-      joueur.detecterFamille(CARTES_PAR_FAMILLES);
-      return;
-   }*/
+void Partie::echangerCartes(Joueur& joueur, Joueur& cible) {
+   bool demanderCarte = true;
 
-   //S'il reste encore un autre joueur en jeu, on echange les cartes
-   if (nbJoueursEnJeu() >= 2) {
-      Joueur& cible = choisirCible(joueur);
-      bool demanderCarte = true;
+   //Demander des cartes tant que le joueur et la cible en possèdent et que la cible possède la carte demandée
+   while (demanderCarte and joueur.nbCartesEnMain() != 0 and cible.nbCartesEnMain() != 0) {
+      Carte carte = joueur.demanderCarte(CARTES_PAR_FAMILLES);
+      cout << joueur.getPrenom() << " demande a " << cible.getPrenom() << " la carte " << carte << endl;
 
-      //Demander des cartes tant que le joueur et la cible en possèdes et que la cible possède la carte demandée
-      while (demanderCarte and joueur.nbCarteEnMain() != 0 and cible.nbCarteEnMain() != 0) {
-         Carte carte = joueur.demanderCarte(CARTES_PAR_FAMILLES);
-         cout << joueur.getPrenom() << " demande a " << cible.getPrenom() << " la carte " << carte << endl;
-
-         //Si la cible possède la carte
-         if (cible.carteEnMain(carte)) {
-            cible.enleverCarteMain(carte);
-            joueur.ajoutCarteMain(carte);
-            cout << "\tet " << cible.getPrenom() << " donne la carte a " << joueur.getPrenom() << endl;
-         } else {
-            cout << "\tmais " << cible.getPrenom() << " ne l'a pas\n";
-            demanderCarte = !demanderCarte;
-         }
-
-         joueur.detecterFamille(CARTES_PAR_FAMILLES);
+      //Si la cible possède la carte
+      if (cible.carteEnMain(carte)) {
+         cible.enleverCarteMain(carte);
+         joueur.ajoutCarteMain(carte);
+         cout << "\tet " << cible.getPrenom() << " donne la carte a " << joueur.getPrenom() << endl;
+      } else {
+         cout << "\tmais " << cible.getPrenom() << " ne l'a pas\n";
+         demanderCarte = !demanderCarte;
       }
+
+      joueur.detecterFamille(CARTES_PAR_FAMILLES);
    }
 
-   //En fin de tour un joueur pioche une carte.
-   //Si le joueur pioche une carte et dépose une famille mais qu'il vide sa main, il peut piocher une seconde carte
-   do {
-      if (piocher(joueur))
-         cout << joueur.getPrenom() << " prend une carte dans la pioche (" << joueur.getCartesMain().back() << ")\n";
-   } while (joueur.detecterFamille(CARTES_PAR_FAMILLES) and joueur.nbCarteEnMain() == 0);
 }
 
-bool Partie::piocher(Joueur& joueur) {
+void Partie::piocher(Joueur& joueur) {
    //Si la pioche n'est pas vide, on ajoute la dernière carte de la pioche au joueur puis on la supprime de la pioche
    if (!pioche.empty()) {
       joueur.ajoutCarteMain(pioche.back());
+      cout << joueur.getPrenom() << " prend une carte dans la pioche (" << pioche.back() << ")\n";
       pioche.pop_back();
-      return true;
    }
-   return false;
 }
 
 void Partie::melangerPioche() {
@@ -166,7 +149,7 @@ Joueur& Partie::choisirCible(const Joueur& joueur) {
    size_t pos;
    do {
       pos = rand() % joueurs.size();
-   } while (joueur.getPrenom() == joueurs.at(pos)->getPrenom() or joueurs.at(pos)->nbCarteEnMain() == 0);
+   } while (joueur.getPrenom() == joueurs.at(pos)->getPrenom() or joueurs.at(pos)->nbCartesEnMain() == 0);
 
 
    return *joueurs.at(pos);
@@ -178,7 +161,7 @@ bool Partie::estTerminee() {
 
    //Vérifie qu'aucun des joueurs n'ai de cartes en main
    for (const Joueur* j: joueurs) {
-      if (j->nbCarteEnMain() != 0)
+      if (j->nbCartesEnMain() != 0)
          return false;
    }
 
@@ -186,11 +169,7 @@ bool Partie::estTerminee() {
    return true;
 }
 
-unsigned Partie::scoreJoueur(const Joueur& joueur) {
-   return (*find(joueurs.begin(), joueurs.end(), &joueur))->getNbFamilles();
-}
-
 unsigned Partie::nbJoueursEnJeu() {
    //Calcul le nombre de joueurs avec des cartes en main
-   return (unsigned)count_if(joueurs.begin(), joueurs.end(), [](const Joueur* j) { return j->nbCarteEnMain() > 0; });
+   return (unsigned)count_if(joueurs.begin(), joueurs.end(), [](const Joueur* j) { return j->nbCartesEnMain() > 0; });
 }

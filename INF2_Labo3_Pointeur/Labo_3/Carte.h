@@ -10,7 +10,7 @@
 
  Remarque(s) : -
 
- Compilateur : MinGW-g++ <x.y.z>
+ Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 #ifndef CARTE_H
@@ -41,12 +41,6 @@ public:
     * @return numero de la famille
     */
    unsigned short getNumeroFamille() const;
-
-   /**
-    * Retourne la lettre de la famille de la carte
-    * @return lettre de la famille
-    */
-   char getMembreFamille() const;
 
    /**
     * Surcharge de l'opérateur d'affectation pour les fonctions de la STL

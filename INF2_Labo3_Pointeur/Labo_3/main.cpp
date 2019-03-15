@@ -11,7 +11,7 @@
 
  Remarque(s) : Les joueurs sont contenus dans un vecteur de jouer.
 
- Compilateur : MinGW-g++ <x.y.z>
+ Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 #include <cstdlib>
@@ -46,7 +46,7 @@ void supprimerJoueurs(Joueurs& joueurs) {
 
 
 int main() {
-   const unsigned NOMBRE_PARTIES     =   100,
+   const unsigned NOMBRE_PARTIES     =   300,
                   NOMBRE_JOUEURS     =     4,
                   NOMBRE_FAMILLES    =     9,
                   CARTES_PAR_FAMILLE =     4,
@@ -94,7 +94,7 @@ int main() {
       cout << "\n********** FIN PARTIE " << i << " **********\n";
    }
 
-   cout << "\nPourcentage de familles posées après " << 100 << " parties jouées :\n";
+   cout << "\nPourcentage de familles posées après " << NOMBRE_PARTIES << " parties jouées :\n";
    for (const Joueur* j: joueurs) {
       cout << "Le score total de " << j->getPrenom() << " est ~" << round((double)j->getScore() / (NOMBRE_FAMILLES * NOMBRE_PARTIES) * 100.) << "%" << endl;
    }

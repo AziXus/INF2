@@ -5,7 +5,7 @@
  Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
  Date        : 15.03.2019
 
- Compilateur : MinGW-g++ <x.y.z>
+ Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 #include "Carte.h"
@@ -34,8 +34,4 @@ bool Carte::operator==(const Carte& rhs) const {
 ostream& operator<<(ostream& os, const Carte& carte) {
    os << carte.NUMERO_FAMILLE << carte.MEMBRE_FAMILLE;
    return os;
-}
-
-char Carte::getMembreFamille() const {
-   return MEMBRE_FAMILLE;
 }

@@ -5,7 +5,7 @@
  Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
  Date        : 15.03.2019
 
- Compilateur : MinGW-g++ <x.y.z>
+ Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 #include "Joueur.h"
@@ -19,7 +19,7 @@ string Joueur::getPrenom() const {
    return prenom;
 }
 
-Cartes Joueur::getFamille(const Carte& carte) {
+Cartes Joueur::trouverFamille(const Carte& carte) {
    Cartes famille;
 
    for (const Carte& c : cartesEnMain) {
@@ -35,9 +35,6 @@ const Cartes& Joueur::getCartesMain() const {
    return cartesEnMain;
 }
 
-unsigned Joueur::getNbFamilles() const {
-   return nbFamilles;
-}
 
 void Joueur::enleverCarteMain(const Carte& carte) {
    cartesEnMain.erase(remove(cartesEnMain.begin(), cartesEnMain.end(), carte), cartesEnMain.end());
@@ -73,7 +70,7 @@ bool Joueur::detecterFamille(unsigned cartesParFamilles) {
    famille.reserve(cartesParFamilles);
 
    for (const Carte& carte : cartesEnMain) {
-      famille = getFamille(carte);
+      famille = trouverFamille(carte);
 
       if (famille.size() == cartesParFamilles) {
          ajoutFamille(famille);
@@ -86,17 +83,13 @@ bool Joueur::detecterFamille(unsigned cartesParFamilles) {
    return false;
 }
 
-size_t Joueur::nbCarteEnMain() const {
+size_t Joueur::nbCartesEnMain() const {
    return cartesEnMain.size();
 }
 
 ostream& operator<<(ostream& os, const Joueur& joueur) {
    os << joueur.prenom << " : " << joueur.cartesEnMain << " [" << joueur.famillesSurTable << "]";
    return os;
-}
-
-bool Joueur::operator==(const Joueur& rhs) const {
-   return prenom == rhs.prenom;
 }
 
 void Joueur::resetCartes() {
@@ -120,7 +113,7 @@ Carte MeilleurJoueur::demanderCarte(const unsigned cartesParFamille) {
    Cartes familleActuel;
 
    for (const Carte& carte : getCartesMain()) {
-      familleActuel = getFamille(carte);
+      familleActuel = trouverFamille(carte);
 
       if (familleActuel.size() >  plusGrandeFamille.size())
          plusGrandeFamille = familleActuel;
