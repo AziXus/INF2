@@ -40,6 +40,7 @@
         <ccTool>
           <stripSymbols>true</stripSymbols>
           <standard>8</standard>
+          <commandLine>-Wall -Wconversion -Wextra -pedantic</commandLine>
         </ccTool>
       </compileType>
       <item path="../Fraction.h" ex="false" tool="3" flavor2="0">

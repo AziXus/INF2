@@ -22,6 +22,7 @@ template <typename T>
 std::ostream& operator<<(std::ostream& os, Fraction<T> fraction)
 {
     os << fraction.numerateur << "/" << fraction.denominateur; 
+    return os;
 }
 
 template <typename T>
