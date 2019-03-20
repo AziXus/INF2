@@ -37,7 +37,7 @@ Fraction<T>::operator double() {
 
 template<typename T>
 Fraction<T> Fraction<T>::simplifier() {
-    Fraction irreductible;
+    Fraction<T> irreductible = *this;
     //On calcul le plus grand commun diviseur
     T diviseur = pgcd();
 
