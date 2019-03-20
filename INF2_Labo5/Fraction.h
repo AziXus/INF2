@@ -14,9 +14,19 @@
  */
 #ifndef FRACTION_H
 #define FRACTION_H
+#include <ostream>
+
+template <typename T> class Fraction;
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, Fraction<T> fraction)
+{
+    os << fraction.numerateur << "/" << fraction.denominateur; 
+}
 
 template <typename T>
 class Fraction {
+    friend std::ostream& operator<< <T>(std::ostream& os, Fraction<T> fraction);
 public:
     Fraction() = default;
     Fraction(T numerateur, T denominateur);
