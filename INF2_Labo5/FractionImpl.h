@@ -16,11 +16,13 @@
 #define FRACTIONIMPL_H
 
 #include <cmath>
+#include <limits>
+#include <stdexcept>
 
 template <typename T>
 Fraction<T>::Fraction(T numerateur, T denominateur) : numerateur(numerateur), denominateur(denominateur) {
     if (denominateur == 0) {
-        throw;
+        throw std::domain_error("Le dominateur ne peut pas valoir 0");
     }
     
     //Comme on souhaite que le numérateur porte le signe, on le multiplie
@@ -42,7 +44,7 @@ bool Fraction<T>::operator==(const Fraction<T>& rhs) const {
 //    return copieThis.numerateur   == copieRhs.numerateur and
 //           copieThis.denominateur == copieRhs.denominateur;
 
-    double epsilon = 0.00000001;
+    double epsilon = 0.000000000001;
 
     return fabs((double)*this - (double)rhs) < epsilon;
 }
@@ -56,18 +58,22 @@ int x = <something>;
 if ((x > 0) && (a > INT_MAX - x)) // `a + x` would overflow;
 if ((x < 0) && (a < INT_MIN - x)) // `a + x` would underflow;
 */
-    //Si a * b > MAX, alors a > MAX / b
+    //Si a * b > MAX, alors a > MAX /       b
 
     //rhs en copie pour modifications
 
     //Si le même denominateur, addition du numerateur
-    if (denominateur == rhs.denominateur)
+    if (denominateur == rhs.denominateur) {
+        if (numerateur > std::numeric_limits<T>::max() - rhs.numerateur)
+            throw std::overflow_error("Depassement detecte avant l'addition de la fraction");
+
         numerateur += rhs.numerateur;
-    else {
+    } else {
         //Trouver le plus petit multiple commun
         T multiple = ppcm(denominateur, rhs.denominateur);
 
         //Multiplier le dénominateur et le numérateur
+        //On multiplie par une autre fraction afin de détecter un possible overflow
         rhs *= Fraction(multiple / rhs.denominateur, multiple / rhs.denominateur);
         *this *= Fraction(multiple / denominateur, multiple / denominateur);
 
@@ -89,7 +95,12 @@ if ((a < INT_MIN / x)) // `a * x` would underflow;
 // there may be need to check for -1 for two's complement machines
 if ((a == -1) && (x == INT_MIN)) // `a * x` can overflow
 if ((x == -1) && (a == INT_MIN)) // `a * x` (or `a / x`) can overflow*/
-    //Si a + b > MAX, alors a > MAX - b
+    //Si a * b > MAX, alors a > MAX / b
+    if (numerateur > std::numeric_limits<T>::max() / rhs.numerateur)
+        throw std::overflow_error("Depassement detecte avant la multiplication du numerateur de la fraction");
+    if (denominateur > std::numeric_limits<T>::max() / rhs.denominateur)
+        throw std::overflow_error("Depassement detecte avant la multiplication du denominateur de la fraction");
+
     numerateur *= rhs.numerateur;
     denominateur *= rhs.denominateur;
 
@@ -146,6 +157,25 @@ T Fraction<T>::pgcd(T a, T b) const {
 template<typename T>
 T Fraction<T>::ppcm(T a, T b) const {
     return abs(a * b) / pgcd(a, b);
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, Fraction<T> fraction)
+{
+    os << fraction.numerateur << "/" << fraction.denominateur;
+    return os;
+}
+
+template <typename T>
+Fraction<T> operator+(Fraction<T> lhs, const Fraction<T>& rhs) {
+    lhs += rhs;
+    return lhs;
+}
+
+template <typename T>
+Fraction<T> operator*(Fraction<T> lhs, const Fraction<T>& rhs) {
+    lhs *= rhs;
+    return lhs;
 }
 
 

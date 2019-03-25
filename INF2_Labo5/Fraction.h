@@ -19,23 +19,13 @@
 template <typename T> class Fraction;
 
 template <typename T>
-std::ostream& operator<<(std::ostream& os, Fraction<T> fraction)
-{
-    os << fraction.numerateur << "/" << fraction.denominateur;
-    return os;
-}
+Fraction<T> operator+(Fraction<T> lhs, const Fraction<T>& rhs);
 
 template <typename T>
-Fraction<T> operator+(Fraction<T> lhs, const Fraction<T>& rhs) {
-    lhs += rhs;
-    return lhs;
-}
+Fraction<T> operator*(Fraction<T> lhs, const Fraction<T>& rhs);
 
 template <typename T>
-Fraction<T> operator*(Fraction<T> lhs, const Fraction<T>& rhs) {
-    lhs *= rhs;
-    return lhs;
-}
+std::ostream& operator<<(std::ostream& os, Fraction<T> fraction);
 
 template <typename T>
 class Fraction {
