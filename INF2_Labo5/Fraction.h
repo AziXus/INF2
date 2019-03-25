@@ -21,27 +21,47 @@ template <typename T> class Fraction;
 template <typename T>
 std::ostream& operator<<(std::ostream& os, Fraction<T> fraction)
 {
-    os << fraction.numerateur << "/" << fraction.denominateur; 
+    os << fraction.numerateur << "/" << fraction.denominateur;
     return os;
+}
+
+template <typename T>
+Fraction<T> operator+(Fraction<T> lhs, const Fraction<T>& rhs) {
+    lhs += rhs;
+    return lhs;
+}
+
+template <typename T>
+Fraction<T> operator*(Fraction<T> lhs, const Fraction<T>& rhs) {
+    lhs *= rhs;
+    return lhs;
 }
 
 template <typename T>
 class Fraction {
     friend std::ostream& operator<< <T>(std::ostream& os, Fraction<T> fraction);
+    friend Fraction<T> operator+ <T>(Fraction<T> lhs, const Fraction<T>& rhs);
+    friend Fraction<T> operator* <T>(Fraction<T> lhs, const Fraction<T>& rhs);
 public:
     Fraction() = default;
     Fraction(T numerateur, T denominateur);
 
-    operator float();
-    operator double();
+    bool operator==(const Fraction<T>& rhs) const;
+    Fraction<T>& operator+=(Fraction<T> rhs);
+    Fraction<T>& operator*=(const Fraction<T>& rhs);
 
+    operator float() const;
+    operator double() const;
+
+    bool identite(const Fraction<T>& rhs) const;
     Fraction<T> simplifier();
 
 private:
     T numerateur;
     T denominateur;
 
-    T pgcd();
+    T pgcd(T a, T b) const;
+    T ppcm(T a, T b) const;
 };
 
 #include "FractionImpl.h"
