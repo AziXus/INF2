@@ -18,11 +18,12 @@
 #include <cmath>
 #include <limits>
 #include <stdexcept>
+#include <algorithm>
 
 template <typename T>
 Fraction<T>::Fraction(T numerateur, T denominateur) : numerateur(numerateur), denominateur(denominateur) {
     if (denominateur == 0) {
-        throw std::domain_error("Le dominateur ne peut pas valoir 0");
+        throw std::invalid_argument("Le denominateur ne peut pas valoir 0");
     }
     
     //Comme on souhaite que le numérateur porte le signe, on le multiplie
@@ -51,21 +52,12 @@ bool Fraction<T>::operator==(const Fraction<T>& rhs) const {
 
 template<typename T>
 Fraction<T>& Fraction<T>::operator+=(Fraction<T> rhs) {
- /*for addition
-#include <limits.h>
-int a = <something>;
-int x = <something>;
-if ((x > 0) && (a > INT_MAX - x)) // `a + x` would overflow;
-if ((x < 0) && (a < INT_MIN - x)) // `a + x` would underflow;
-*/
-    //Si a * b > MAX, alors a > MAX /       b
-
     //rhs en copie pour modifications
 
     //Si le même denominateur, addition du numerateur
     if (denominateur == rhs.denominateur) {
-        if (numerateur > std::numeric_limits<T>::max() - rhs.numerateur)
-            throw std::overflow_error("Depassement detecte avant l'addition de la fraction");
+        if (numerateur > std::numeric_limits<T>::max() - std::abs(rhs.numerateur))
+            throw std::overflow_error("Depassement detecte lors l'addition de la fraction");
 
         numerateur += rhs.numerateur;
     } else {
@@ -74,8 +66,12 @@ if ((x < 0) && (a < INT_MIN - x)) // `a + x` would underflow;
 
         //Multiplier le dénominateur et le numérateur
         //On multiplie par une autre fraction afin de détecter un possible overflow
-        rhs *= Fraction(multiple / rhs.denominateur, multiple / rhs.denominateur);
-        *this *= Fraction(multiple / denominateur, multiple / denominateur);
+        try {
+            rhs *= Fraction(multiple / rhs.denominateur, multiple / rhs.denominateur);
+            *this *= Fraction(multiple / denominateur, multiple / denominateur);
+        } catch (std::overflow_error& e) {
+            throw std::overflow_error("Depassement detecte lors de l'addition de la fraction");
+        }
 
         //Additioner
         *this += rhs;
@@ -86,20 +82,12 @@ if ((x < 0) && (a < INT_MIN - x)) // `a + x` would underflow;
 
 template<typename T>
 Fraction<T>& Fraction<T>::operator*=(const Fraction<T>& rhs) {
-/*// for multiplication
-#include <limits.h>
-int a = <something>;
-int x = <something>;
-if (a > INT_MAX / x) // `a * x` would overflow;
-if ((a < INT_MIN / x)) // `a * x` would underflow;
-// there may be need to check for -1 for two's complement machines
-if ((a == -1) && (x == INT_MIN)) // `a * x` can overflow
-if ((x == -1) && (a == INT_MIN)) // `a * x` (or `a / x`) can overflow*/
+
     //Si a * b > MAX, alors a > MAX / b
     if (numerateur > std::numeric_limits<T>::max() / rhs.numerateur)
-        throw std::overflow_error("Depassement detecte avant la multiplication du numerateur de la fraction");
+        throw std::overflow_error("Depassement detecte lors la multiplication du numerateur de la fraction");
     if (denominateur > std::numeric_limits<T>::max() / rhs.denominateur)
-        throw std::overflow_error("Depassement detecte avant la multiplication du denominateur de la fraction");
+        throw std::overflow_error("Depassement detecte lors la multiplication du denominateur de la fraction");
 
     numerateur *= rhs.numerateur;
     denominateur *= rhs.denominateur;
@@ -140,23 +128,18 @@ Fraction<T> Fraction<T>::simplifier() {
 
 template<typename T>
 T Fraction<T>::pgcd(T a, T b) const {
-    //L'algorithme fonctionne uniquement avec des nombres positifs
-    a = abs(a),
-    b = abs(b);
-
-    while (a != b) {
-        if (a > b)
-            a -= b;
-        else
-            b -= a;
-    }
-
-    return a;
+    if (a == 0)
+        return b;
+    //Utilisation de fmod afin de pouvoir faire un modulo de double/float.
+    return pgcd((T)std::fmod(b, a), a);
 }
 
 template<typename T>
 T Fraction<T>::ppcm(T a, T b) const {
-    return abs(a * b) / pgcd(a, b);
+    if (a > std::numeric_limits<T>::max() / b)
+        throw std::overflow_error("Depassement detecte lors du calcul du ppcm");
+
+    return std::abs(a * b) / pgcd(a, b);
 }
 
 template <typename T>
