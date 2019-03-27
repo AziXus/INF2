@@ -5,6 +5,37 @@
 
 using namespace std;
 
+template <typename T>
+void calculApproximationPi(int numerateur)
+{
+    int k = 1;
+    Fraction<T> pi(numerateur, 1);
+    //try catch dans 
+    try {       
+        while (true) {
+            pi += Fraction<T>((T)pow(-1, k) * numerateur, 2*k + 1);
+            ++k;
+        }
+    } catch (overflow_error& e) {
+        cout << "Overflow lors de l'addition " << k << " \npi : " << pi.simplifier() << " = " << (double)pi << endl;  
+    }
+}
+
+template <typename T>
+void calculApproximationPi2(int numerateur)
+{
+    int k = 1;
+    Fraction<T> pi2(3, 1);
+    try {
+        while (true) {
+            pi2 += Fraction<T>((T)pow(-1, k - 1) * numerateur, (2 * k)*(2 * k + 1)*(2 * k + 2));
+            ++k;
+        }
+    } catch (overflow_error& e) {
+        cout << "Overflow lors de l'addition " << k << " \npi : " << pi2.simplifier() << " = " << (double)pi2 << endl;
+    }
+}
+
 int main() {
     Fraction<int> f1(4, 6);
     Fraction<int> f2(2, 3);
@@ -33,54 +64,14 @@ int main() {
     cout << "f1 * f2 = " << f1 * f2 << endl;
 
     cout << "\n***** Approximation de pi avec int *****\n";
-
     int numerateur = 4;
-    int k = 1;
-    Fraction<int> pi(numerateur, 1);
-
-    try {
-        while (true) {
-            pi += Fraction<int>((int)pow(-1, k) * numerateur, 2*k + 1);
-            ++k;
-        }
-    } catch (overflow_error& e) {
-        cout << "Overflow lors de l'addition " << k << " \npi : " << pi.simplifier() << " = " << (double)pi << endl;
-    }
-
-    Fraction<int> pi2(3, 1);
-    k = 1;
-    try {
-        while (true) {
-            pi2 += Fraction<int>((int)pow(-1, k - 1) * numerateur, (2 * k)*(2 * k + 1)*(2 * k + 2));
-            ++k;
-        }
-    } catch (overflow_error& e) {
-        cout << "Overflow lors de l'addition " << k << " \npi : " << pi2.simplifier() << " = " << (double)pi2 << endl;
-    }
-
+    
+    calculApproximationPi<int>(numerateur);
+    calculApproximationPi2<int>(numerateur);
 
     cout << "\n***** Approximation de pi avec long long *****\n";
-    Fraction<long long> pi3(numerateur, 1);
-    k = 1;
-    try {
-        while (true) {
-            pi3 += Fraction<long long>((long long)pow(-1, k) * numerateur, 2*k + 1);
-            ++k;
-        }
-    } catch (overflow_error& e) {
-        cout << "Overflow lors de l'addition " << k << " \npi : " << pi3 << " = " << (double)pi3 << endl;
-    }
-
-    Fraction<long long> pi4(3, 1);
-    k = 1;
-    try {
-        while (true) {
-            pi4 += Fraction<long long>((long long)pow(-1, k - 1) * numerateur, (2 * k)*(2 * k + 1)*(2 * k + 2));
-            ++k;
-        }
-    } catch (overflow_error& e) {
-        cout << "Overflow lors de l'addition " << k << " \npi : " << pi4.simplifier() << " = " << (double)pi4 << endl;
-    }
+    calculApproximationPi<long long>(numerateur);
+    calculApproximationPi2<long long>(numerateur);
 
     return EXIT_SUCCESS;
 }

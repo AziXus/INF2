@@ -16,6 +16,7 @@
 #define FRACTION_H
 #include <ostream>
 
+
 template <typename T> class Fraction;
 
 template <typename T>
