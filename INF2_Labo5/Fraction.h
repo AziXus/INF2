@@ -24,10 +24,10 @@
 template<typename T> class Fraction;
 
 /**
- *
- * @tparam T
- * @param lhs
- * @param rhs
+ * Surcharge de l'opérateur + pour pouvoir additoner 2 fractions
+ * @tparam T défini le type de l'opérateur
+ * @param lhs Fraction de type T 
+ * @param rhs Fraction de type T pour 
  * @return
  */
 template<typename T>
