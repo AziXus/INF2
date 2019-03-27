@@ -8,31 +8,43 @@ using namespace std;
 template <typename T>
 void calculApproximationPi(int numerateur)
 {
+    cout << "Approximation avec la série de Leibniz" << endl;
     int k = 1;
     Fraction<T> pi(numerateur, 1);
-    //try catch dans 
     try {       
         while (true) {
-            pi += Fraction<T>((T)pow(-1, k) * numerateur, 2*k + 1);
+            Fraction<T> fraction((T)pow(-1, k) * numerateur, 2*k + 1);
+
+            cout << "k = " << k << " : " << pi << " + " << fraction << " = ";
+            pi += fraction;
+            cout << pi << endl;
+
             ++k;
         }
     } catch (overflow_error& e) {
-        cout << "Overflow lors de l'addition " << k << " \npi : " << pi.simplifier() << " = " << (double)pi << endl;  
+        cout << "Overflow lors de l'addition " << k << " \nApproximation finale de pi : " << pi.simplifier() << " = " << (double)pi << endl;
     }
 }
 
 template <typename T>
 void calculApproximationPi2(int numerateur)
 {
+    cout << "Approximation avec la série de Nilakantha" << endl;
+
     int k = 1;
     Fraction<T> pi2(3, 1);
     try {
         while (true) {
-            pi2 += Fraction<T>((T)pow(-1, k - 1) * numerateur, (2 * k)*(2 * k + 1)*(2 * k + 2));
+            Fraction<T> fraction((T)pow(-1, k - 1) * numerateur, (2 * k)*(2 * k + 1)*(2 * k + 2));
+
+            cout << "k = " << k << " : " << pi2 << " + " << fraction << " = ";
+            pi2 += fraction;
+            cout << pi2 << endl;
+
             ++k;
         }
     } catch (overflow_error& e) {
-        cout << "Overflow lors de l'addition " << k << " \npi : " << pi2.simplifier() << " = " << (double)pi2 << endl;
+        cout << "Overflow lors de l'addition " << k << " \nApproximation finale de pi : " << pi2.simplifier() << " = " << (double)pi2 << endl;
     }
 }
 
@@ -67,10 +79,12 @@ int main() {
     int numerateur = 4;
     
     calculApproximationPi<int>(numerateur);
+    cout << endl;
     calculApproximationPi2<int>(numerateur);
 
     cout << "\n***** Approximation de pi avec long long *****\n";
     calculApproximationPi<long long>(numerateur);
+    cout << endl;
     calculApproximationPi2<long long>(numerateur);
 
 

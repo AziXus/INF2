@@ -120,7 +120,7 @@ private:
     static T pgcd(T a, T b);
 
     /**
-     *
+     * Fonction statique permettant de calculer le plus petit commun multiples de deux élèments.
      * @param a
      * @param b
      * @return
