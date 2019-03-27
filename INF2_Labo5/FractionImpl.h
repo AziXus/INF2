@@ -18,7 +18,6 @@
 #include <cmath>
 #include <limits>
 #include <stdexcept>
-#include <algorithm>
 
 template <typename T>
 Fraction<T>::Fraction(T numerateur, T denominateur) : numerateur(numerateur), denominateur(denominateur) {
@@ -36,15 +35,6 @@ Fraction<T>::Fraction(T numerateur, T denominateur) : numerateur(numerateur), de
 
 template<typename T>
 bool Fraction<T>::operator==(const Fraction<T>& rhs) const {
-//    Fraction<T> copieRhs = rhs;
-//    Fraction<T> copieThis = *this;
-//
-//    copieRhs.simplifier();
-//    copieThis.simplifier();
-//
-//    return copieThis.numerateur   == copieRhs.numerateur and
-//           copieThis.denominateur == copieRhs.denominateur;
-
     double epsilon = 0.000000000001;
 
     return fabs((double)*this - (double)rhs) < epsilon;
@@ -61,19 +51,15 @@ Fraction<T>& Fraction<T>::operator+=(Fraction<T> rhs) {
 
         numerateur += rhs.numerateur;
     } else {
-        //Trouver le plus petit multiple commun
+        //Trouve le plus petit multiple commun
         T multiple = ppcm(denominateur, rhs.denominateur);
 
         //Multiplier le dénominateur et le numérateur
         //On multiplie par une autre fraction afin de détecter un possible overflow
-        try {
-            rhs *= Fraction(multiple / rhs.denominateur, multiple / rhs.denominateur);
-            *this *= Fraction(multiple / denominateur, multiple / denominateur);
-        } catch (std::overflow_error& e) {
-            throw std::overflow_error("Depassement detecte lors de l'addition de la fraction");
-        }
+        rhs   *= Fraction(multiple / rhs.denominateur, multiple / rhs.denominateur);
+        *this *= Fraction(multiple / denominateur, multiple / denominateur);
 
-        //Additioner
+        //Maintenant que les fractions ont le même dénominateur, on rappel la fonction +=
         *this += rhs;
     }
 
@@ -82,7 +68,6 @@ Fraction<T>& Fraction<T>::operator+=(Fraction<T> rhs) {
 
 template<typename T>
 Fraction<T>& Fraction<T>::operator*=(const Fraction<T>& rhs) {
-
     //Si a * b > MAX, alors a > MAX / b
     if (numerateur > std::numeric_limits<T>::max() / rhs.numerateur)
         throw std::overflow_error("Depassement detecte lors la multiplication du numerateur de la fraction");
@@ -127,19 +112,19 @@ Fraction<T> Fraction<T>::simplifier() {
 }
 
 template<typename T>
-T Fraction<T>::pgcd(T a, T b) const {
-    if (a == 0)
-        return b;
-    //Utilisation de fmod afin de pouvoir faire un modulo de double/float.
-    return pgcd((T)std::fmod(b, a), a);
-}
-
-template<typename T>
-T Fraction<T>::ppcm(T a, T b) const {
+T Fraction<T>::ppcm(T a, T b) {
     if (a > std::numeric_limits<T>::max() / b)
         throw std::overflow_error("Depassement detecte lors du calcul du ppcm");
 
     return std::abs(a * b) / pgcd(a, b);
+}
+
+template<typename T>
+T Fraction<T>::pgcd(T a, T b) {
+    if (a == 0)
+        return b;
+    //Utilisation de fmod afin de pouvoir faire un modulo de double/float.
+    return pgcd((T)std::fmod(b, a), a);
 }
 
 template <typename T>

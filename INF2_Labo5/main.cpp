@@ -73,5 +73,6 @@ int main() {
     calculApproximationPi<long long>(numerateur);
     calculApproximationPi2<long long>(numerateur);
 
+
     return EXIT_SUCCESS;
 }
