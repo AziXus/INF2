@@ -6,9 +6,9 @@
 using namespace std;
 
 template <typename T>
-void calculApproximationPi(int numerateur)
+void calculApproximationPiLeibniz(int numerateur)
 {
-    cout << "Approximation avec la série de Leibniz" << endl;
+    cout << "Approximation de PI avec la serie de Leibniz" << endl;
     int k = 1;
     Fraction<T> pi(numerateur, 1);
     try {       
@@ -22,14 +22,15 @@ void calculApproximationPi(int numerateur)
             ++k;
         }
     } catch (overflow_error& e) {
-        cout << "Overflow lors de l'addition " << k << " \nApproximation finale de pi : " << pi.simplifier() << " = " << (double)pi << endl;
+        cout << "Overflow lors de l'addition " << k << endl
+             << "Approximation finale de pi (Leibniz) : " << pi.simplifier() << " = " << (double)pi << endl;
     }
 }
 
 template <typename T>
-void calculApproximationPi2(int numerateur)
+void calculApproximationPiNilakantha(int numerateur)
 {
-    cout << "Approximation avec la série de Nilakantha" << endl;
+    cout << "Approximation de PI avec la serie de Nilakantha" << endl;
 
     int k = 1;
     Fraction<T> pi2(3, 1);
@@ -44,7 +45,8 @@ void calculApproximationPi2(int numerateur)
             ++k;
         }
     } catch (overflow_error& e) {
-        cout << "Overflow lors de l'addition " << k << " \nApproximation finale de pi : " << pi2.simplifier() << " = " << (double)pi2 << endl;
+        cout << "Overflow lors de l'addition " << k << endl
+             << "Approximation finale de pi (Nilakantha) : " << pi2.simplifier() << " = " << (double)pi2 << endl;
     }
 }
 
@@ -77,15 +79,15 @@ int main() {
 
     cout << "\n***** Approximation de pi avec int *****\n";
     int numerateur = 4;
-    
-    calculApproximationPi<int>(numerateur);
+
+    calculApproximationPiLeibniz<int>(numerateur);
     cout << endl;
-    calculApproximationPi2<int>(numerateur);
+    calculApproximationPiNilakantha<int>(numerateur);
 
     cout << "\n***** Approximation de pi avec long long *****\n";
-    calculApproximationPi<long long>(numerateur);
+    calculApproximationPiLeibniz<long long>(numerateur);
     cout << endl;
-    calculApproximationPi2<long long>(numerateur);
+    calculApproximationPiNilakantha<long long>(numerateur);
 
 
     return EXIT_SUCCESS;
