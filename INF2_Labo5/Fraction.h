@@ -68,16 +68,16 @@ public:
     Fraction(T numerateur, T denominateur);
 
     /**
-     *
-     * @param rhs
-     * @return
+     * Vérifie si la valeur des deux fractions est égal.
+     * @param rhs Fraction à comparer
+     * @return true si elles sont égales, false sinon
      */
     bool operator==(const Fraction<T>& rhs) const;
 
     /**
-     *
-     * @param rhs
-     * @return
+     * Additionne une fraction avec une autre
+     * @param rhs Fraction à additionner.
+     * @return Fraction actuelle additionnée en référence.
      */
     Fraction<T>& operator+=(Fraction<T> rhs);
 
@@ -85,8 +85,8 @@ public:
      * Multiple une Fraction par une autre
      * @throws std::overflow_error en cas de dépassement de la multiplication du numérateur ou dénominateur
      * @throws std::underflow_error en cas de dépassement négatif de la multiplication du numérateur
-     * @param rhs Fraction a multiplier
-     * @return Fraction actuelle multiplié en reférence
+     * @param rhs Fraction à multiplier
+     * @return Fraction actuelle multipliée en reférence
      */
     Fraction<T>& operator*=(const Fraction<T>& rhs);
 
