@@ -1,13 +1,16 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
+ Laboratoire : 05
  Fichier     : Fraction.cpp
  Auteur(s)   : Robin Müller
  Date        : 20.03.2019
 
- But         : <à compléter>
+ But         : Créer une classe fraction permettant d'éffectuer plusieurs manipulations sur
+               des fractions.
+               On pourra effectuer des multiplications, des addtions ainsi que des 
+               simplifactions de fraction.
 
- Remarque(s) : <à compléter>
+ Remarque(s) : La classe fraction sera de type générique.
 
  Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
@@ -25,30 +28,30 @@ template<typename T> class Fraction;
 
 /**
  * Surcharge de l'opérateur + pour pouvoir additoner 2 fractions
- * @tparam T défini le type de l'opérateur
- * @param lhs Fraction de type T 
- * @param rhs Fraction de type T pour 
- * @return
+ * @tparam T défini le type de l'opérateur ainsi que celle des fractions
+ * @param lhs Fraction de type T à additionner
+ * @param rhs Deuxième fraction de type T à additioner 
+ * @return l'addition des 2 fractions sous forme de fraction
  */
 template<typename T>
 Fraction<T> operator+(Fraction<T> lhs, const Fraction<T>& rhs);
 
 /**
- *
- * @tparam T
- * @param lhs
- * @param rhs
- * @return
+ * Surhcarge de l'opérateur * pour multiplier 2 fractions
+ * @tparam T défini le type de l'opérateur ainsi que celle des fractions
+ * @param lhs Fraction de Type T à multiplier
+ * @param rhs deuxième fraction de type T à multiplier
+ * @return la multiplication des 2 fractions sous forme de fraction
  */
 template<typename T>
 Fraction<T> operator*(Fraction<T> lhs, const Fraction<T>& rhs);
 
 /**
- *
- * @tparam T
- * @param os
- * @param fraction
- * @return
+ * Surcharge de l'opérateur de flux pour afficher une fraction
+ * @tparam T indique le type de la fraction à afficher
+ * @param os flux de sortie dans lequel écrire
+ * @param fraction fraction de type T à afficher
+ * @return référence du flux sur lequel on a écrit
  */
 template<typename T>
 std::ostream& operator<<(std::ostream& os, Fraction<T> fraction);
@@ -61,9 +64,9 @@ class Fraction {
 
 public:
     /**
-     *
-     * @param numerateur
-     * @param denominateur
+     * Constructeur spécifique de la classe Fraction
+     * @param numerateur valeur de type T indiquant le numerateur de la fraction
+     * @param denominateur valeur de type T indiquant le denominateur de la fraction
      */
     Fraction(T numerateur, T denominateur);
 

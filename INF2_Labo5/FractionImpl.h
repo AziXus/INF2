@@ -18,7 +18,6 @@
 #include <cmath>
 #include <limits>
 #include <stdexcept>
-
 template <typename T>
 Fraction<T>::Fraction(T numerateur, T denominateur) : numerateur(numerateur), denominateur(denominateur) {
     if (denominateur == 0) {
@@ -74,7 +73,7 @@ Fraction<T>& Fraction<T>::operator*=(const Fraction<T>& rhs) {
     if (denominateur > std::numeric_limits<T>::max() / rhs.denominateur)
         throw std::overflow_error("Depassement detecte lors la multiplication du denominateur de la fraction");
 
-    numerateur *= rhs.numerateur;
+    numerateur   *= rhs.numerateur;
     denominateur *= rhs.denominateur;
 
     return *this;
