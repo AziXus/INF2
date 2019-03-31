@@ -65,6 +65,7 @@ class Fraction {
 public:
     /**
      * Constructeur spécifique de la classe Fraction
+     * @throws std::invalid_argument en cas de dénominateur égal à 0.
      * @param numerateur valeur de type T indiquant le numerateur de la fraction
      * @param denominateur valeur de type T indiquant le denominateur de la fraction
      */

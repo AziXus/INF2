@@ -59,7 +59,7 @@ Fraction<T>& Fraction<T>::operator+=(Fraction<T> rhs) {
 
     //Multiplier le dénominateur et le numérateur
     //On multiplie par une autre fraction afin de détecter un possible overflow
-    denominateur = multiple;
+    //denominateur = multiple;
 
     rhs   *= Fraction(multiple / rhs.denominateur, multiple / rhs.denominateur);
     *this *= Fraction(multiple / denominateur, multiple / denominateur);
