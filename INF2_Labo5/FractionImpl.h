@@ -18,6 +18,7 @@
 #include <cmath>
 #include <limits>
 #include <stdexcept>
+
 template <typename T>
 Fraction<T>::Fraction(T numerateur, T denominateur) : numerateur(numerateur), denominateur(denominateur) {
     if (denominateur == 0) {
@@ -34,8 +35,7 @@ Fraction<T>::Fraction(T numerateur, T denominateur) : numerateur(numerateur), de
 
 template<typename T>
 bool Fraction<T>::operator==(const Fraction<T>& rhs) const {
-    double epsilon = 0.000000000001;
-
+    double epsilon = 0.000000000001;//permet de définir jusqu'à quelle décimal une fraction est égale
     return std::abs((double)*this - (double)rhs) < epsilon;
 }
 
@@ -138,7 +138,6 @@ T Fraction<T>::ppcm(T a, T b) {
     T diviseur = pgcd(a, b);
     if (a / diviseur > std::numeric_limits<T>::max() / b)
         throw std::overflow_error("Depassement detecte lors du calcul du ppcm");
-
     return std::abs((a / diviseur) * b);
 }
 
@@ -146,7 +145,6 @@ template<typename T>
 T Fraction<T>::pgcd(T a, T b) {
     if (a == 0)
         return b;
-
     return pgcd(b % a, a);
 }
 
