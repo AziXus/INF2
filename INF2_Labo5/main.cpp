@@ -11,7 +11,7 @@ void calculApproximationPiLeibniz(int numerateur)
     cout << "Approximation de PI avec la serie de Leibniz" << endl;
     int k = 1;
     Fraction<T> pi(numerateur, 1);
-    try {       
+    try {
         while (true) {
             Fraction<T> fraction((T)pow(-1, k) * numerateur, 2*k + 1);
 

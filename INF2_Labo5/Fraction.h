@@ -82,50 +82,59 @@ public:
     Fraction<T>& operator+=(Fraction<T> rhs);
 
     /**
-     *
-     * @param rhs
-     * @return
+     * Multiple une Fraction par une autre
+     * @throws std::overflow_error en cas de dépassement de la multiplication du numérateur ou dénominateur
+     * @throws std::underflow_error en cas de dépassement négatif de la multiplication du numérateur
+     * @param rhs Fraction a multiplier
+     * @return Fraction actuelle multiplié en reférence
      */
     Fraction<T>& operator*=(const Fraction<T>& rhs);
 
     /**
-     *
-     * @return
+     * Converti la Fraction en un nombre décimal (float)
+     * @return Fraction en float
      */
     operator float() const;
 
     /**
-     *
-     * @return
+     * Converti la Fraction en un nombre décimal (double)
+     * @return Fraction en double
      */
     operator double() const;
 
     /**
-     *
-     * @param rhs
-     * @return
+     * Test l'égalité des numérateurs et dénominateurs avec une seconde fraction du même type.
+     * @param rhs Fraction du même type à comparer
+     * @return true si elles sont identiques, false sinon
      */
     bool identite(const Fraction<T>& rhs) const;
 
     /**
-     *
-     * @return
+     * Calcul la fraction irréductible et la retourne sans modifier la fraction actuelle.
+     * @return Fraction irréductible
      */
     Fraction<T> simplifier();
+
+    /**
+     * Fonction statique calculant le plus grand commun diviseur de deux élèments.
+     * @param a premier élément de type T
+     * @param b second élément de type T
+     * @return retourne le plus petit commun diviseur
+     */
+    static T pgcd(T a, T b);
+
+    /**
+     * Fonction statique calculant le plus petit commun multiples de deux élèments.
+     * @throws std::overflow_error en cas de dépassement du ppcm
+     * @param a premier élément de type T
+     * @param b second élément de type T
+     * @return retourne le plus petit commun multiple positif
+     */
+    static T ppcm(T a, T b);
 
 private:
     T numerateur;
     T denominateur;
-
-    static T pgcd(T a, T b);
-
-    /**
-     * Fonction statique permettant de calculer le plus petit commun multiples de deux élèments.
-     * @param a
-     * @param b
-     * @return
-     */
-    static T ppcm(T a, T b);
 };
 
 #include "FractionImpl.h"

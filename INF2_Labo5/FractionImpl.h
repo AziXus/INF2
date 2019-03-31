@@ -60,10 +60,12 @@ Fraction<T>& Fraction<T>::operator+=(Fraction<T> rhs) {
 
     //Multiplier le dénominateur et le numérateur
     //On multiplie par une autre fraction afin de détecter un possible overflow
+    denominateur = multiple;
+
     rhs   *= Fraction(multiple / rhs.denominateur, multiple / rhs.denominateur);
     *this *= Fraction(multiple / denominateur, multiple / denominateur);
 
-    //Maintenant que les fractions ont le même dénominateur, on rappel la fonction +=
+    //Maintenant que les fractions ont le même dénominateur, on peut additioner les numérateurs
     if (numerateur > std::numeric_limits<T>::max() - std::abs(rhs.numerateur))
         throw std::overflow_error("Depassement detecte lors l'addition de la fraction");
 
@@ -77,8 +79,12 @@ Fraction<T>& Fraction<T>::operator*=(const Fraction<T>& rhs) {
     //Si a * b > MAX, alors a > MAX / b
     if (numerateur > std::numeric_limits<T>::max() / rhs.numerateur)
         throw std::overflow_error("Depassement detecte lors la multiplication du numerateur de la fraction");
+    if (numerateur < std::numeric_limits<T>::lowest() / rhs.numerateur)
+        throw std::underflow_error("Depassement detecte lors la multiplication du numerateur de la fraction");
+
     if (denominateur > std::numeric_limits<T>::max() / rhs.denominateur)
         throw std::overflow_error("Depassement detecte lors la multiplication du denominateur de la fraction");
+    //Le denom est toujours positif, on a donc pas besoin de controler l'underflow
 
     numerateur *= rhs.numerateur;
     denominateur *= rhs.denominateur;
@@ -97,6 +103,7 @@ Fraction<T>::operator float() const {
 
 template<typename T>
 Fraction<T>::operator double() const {
+
 //    if (numerateur > std::numeric_limits<double>::max())
 //        throw;
 //    if (denominateur > std::numeric_limits<double>::max())
