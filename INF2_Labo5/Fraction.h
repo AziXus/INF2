@@ -8,7 +8,7 @@
  But         : Créer une classe générique fraction permettant d'éffectuer plusieurs manipulations sur
                des fractions.
                On pourra effectuer des multiplications, des additions ainsi que des 
-               simplifactions de fraction.
+               simplifications de fraction.
 
  Remarque(s) : La classe fraction sera de type générique.
 
@@ -22,7 +22,7 @@
 
 /**
  * Classe fraction générique permettant de stocker deux nombres sous forme d'une fraction.
- * @tparam T type de numérateur et du dénominateur de la fraction.
+ * @tparam T type du numérateur et du dénominateur de la fraction.
  */
 template<typename T> class Fraction;
 
@@ -31,17 +31,17 @@ template<typename T> class Fraction;
  * @tparam T défini le type de l'opérateur ainsi que celle des fractions
  * @param lhs Fraction de type T à additionner
  * @param rhs Deuxième fraction de type T à additioner 
- * @return l'addition des 2 fractions sous forme de fraction
+ * @return le résultat de l'addition des 2 fractions sous forme de fraction
  */
 template<typename T>
 Fraction<T> operator+(Fraction<T> lhs, const Fraction<T>& rhs);
 
 /**
- * Surhcarge de l'opérateur * pour multiplier 2 fractions
+ * Surcharge de l'opérateur * pour multiplier 2 fractions
  * @tparam T défini le type de l'opérateur ainsi que celle des fractions
  * @param lhs Fraction de Type T à multiplier
  * @param rhs deuxième fraction de type T à multiplier
- * @return la multiplication des 2 fractions sous forme de fraction
+ * @return le résultat de la multiplication des 2 fractions sous forme de fraction
  */
 template<typename T>
 Fraction<T> operator*(Fraction<T> lhs, const Fraction<T>& rhs);
@@ -72,7 +72,7 @@ public:
     Fraction(T numerateur, T denominateur);
 
     /**
-     * Vérifie si la valeur des deux fractions est égal.
+     * Vérifie si les numérateurs et dénominateurs des deux fractions sont égal.
      * @param rhs Fraction à comparer
      * @return true si elles sont égales, false sinon
      */
@@ -86,7 +86,7 @@ public:
     Fraction<T>& operator+=(const Fraction<T>& rhs);
 
     /**
-     * Multiple une Fraction par une autre
+     * Multiplie une Fraction par une autre
      * @throws std::overflow_error en cas de dépassement de la multiplication du numérateur ou dénominateur
      * @throws std::underflow_error en cas de dépassement négatif de la multiplication du numérateur
      * @param rhs Fraction à multiplier
