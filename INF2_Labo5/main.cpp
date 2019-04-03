@@ -5,11 +5,11 @@
  Auteur(s)   : Robin Müller, Teixeira Carvalho Stéphane
  Date        : 03.04.2019
 
- But         : Test des différentes focntionnalités de la classe Fractions.
+ But         : Test des différentes fonctionnalités de la classe Fractions.
                On affichera deux approximations de Pi grâce à au formules de Leibniz 
                et Nilakantha.
 
- Remarque(s) : L'approxiamtion s'arrêtera dès qu'il y a un overflow de détecté.
+ Remarque(s) : L'approximation s'arrêtera dès qu'il y a un overflow de détecté.
 
  Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
@@ -115,7 +115,6 @@ int main() {
     calculApproximationPiLeibniz<long long>();
     cout << endl;
     calculApproximationPiNilakantha<long long>();
-
 
     return EXIT_SUCCESS;
 }
