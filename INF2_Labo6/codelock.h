@@ -11,6 +11,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+//Pas de classe en c, utilisation d'une struct pour stocker les codes et des fonctions pour intéragir avec
+
 /**
  * @brief A representation of a digit-code lock.
  */
@@ -18,30 +20,31 @@ struct CodeLock {
     uint8_t secretCode, visibleCode;
 };
 
-void setCodes(struct CodeLock *this, uint8_t code);
-void incrementer(struct CodeLock *this);
-uint8_t getVisibleCode(struct CodeLock *this);
-bool open(struct CodeLock *this, uint8_t code);
+/**
+ * Créer une nouvelle structure avec secretCode et visibleCode initialisé à la valeur code
+ * @param code code à utiliser pour le CodeLock
+ * @return nouveau CodeLock
+ */
+struct CodeLock newCodeLock(uint8_t code);
 
-//class CodeLock
-//        {
-//                public:
-//                /**
-//                 * @brief Create a digit-code lock using given \p secretCode
-//                 */
-//                CodeLock(uint8_t secretCode);
-//
-//                int operator++();
-//
-//                int getVisibleCode() const;
-//
-//                /**
-//                 * @brief Try to open the lock using the given \p code
-//                 * @param the valid code
-//                 * @return `true`if successfully opened, `false` otherwise
-//                 */
-//                bool open(uint8_t code = 0);
-//
-//                private:
-//                uint8_t secretCode, visibleCode;
-//        };
+/**
+ * Incrémente le code visible du CodeLock de 1
+ * @param this CodeLock à incrémenter
+ * @return le nouveau code visible
+ */
+uint8_t incrementer(struct CodeLock *this);
+
+/**
+ * Retourne le code visible
+ * @param this CodeLock à utiliser
+ * @return code visible
+ */
+uint8_t getVisibleCode(struct CodeLock *this);
+
+/**
+ * @brief Try to open the lock using the given \p code
+ * @param this CodeLock to open
+ * @param code the valid code
+ * @return `true` if successfully opened, `false` otherwise
+ */
+bool open(struct CodeLock *this, uint8_t code);

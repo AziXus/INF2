@@ -83,7 +83,7 @@ public:
      * @param rhs Fraction à additionner.
      * @return Fraction actuelle additionnée en référence.
      */
-    Fraction<T>& operator+=(Fraction<T> rhs);
+    Fraction<T>& operator+=(const Fraction<T>& rhs);
 
     /**
      * Multiple une Fraction par une autre

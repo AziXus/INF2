@@ -5,6 +5,11 @@
 
 using namespace std;
 
+/**
+ *
+ * @tparam T
+ * @param numerateur
+ */
 template <typename T>
 void calculApproximationPiLeibniz(int numerateur)
 {
@@ -27,6 +32,11 @@ void calculApproximationPiLeibniz(int numerateur)
     }
 }
 
+/**
+ *
+ * @tparam T
+ * @param numerateur
+ */
 template <typename T>
 void calculApproximationPiNilakantha(int numerateur)
 {
@@ -54,6 +64,7 @@ int main() {
     Fraction<int> f1(4, 6);
     Fraction<int> f2(2, 3);
     Fraction<int> f3(4, 13);
+
     try {
         cout << "Initialisation d'une fraction avec un denominateur nul\n";
         Fraction<int> f4(2, 0);
@@ -61,7 +72,7 @@ int main() {
         cout << "Erreur: " << e.what() << endl;
     }
 
-    cout << boolalpha << fixed << setprecision(5);
+    cout << boolalpha << fixed << setprecision(10);
 
     cout << "f1 = " << f1 << " = " << float(f1) << endl;
     cout << "f2 = " << f2 << " = " << double(f2) << endl;

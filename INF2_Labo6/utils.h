@@ -15,35 +15,20 @@
 //#include <ostream>
 //#include <vector>
 
+//On remplace le template par plusieurs fonctions avec des noms différents
 /**
  * @brief Return the smallest value of \p a and \p b.
  */
-//template <typename T>
-static int min_value(int a, int b)
-{
-    return (a < b) ? a : b;
-}
-
-/**
- * @brief Return the smallest value of \p a and \p b.
- */
-static float min_value_2f(float a, float b)
-{
-    return (a < b) ? a : b;
-}
+double min_value(double a, double b);
 
 /**
  * @brief Return the smallest value of \p a, \p b and \p c.
  */
-//template <typename T>
-static float min_value_3f(float a, float b, float c)
-{
-    return (a < b) ? min_value_2f(a, c) : min_value_2f(b, c);
-}
+double min_value_3(double a, double b, double c);
 
 /**
  * @brief Divide \p a by \p b and returns the \p quotient and the \p remainder
  * @return `true` is division was possible, `false` otherwise
  */
-//bool divide(int a, int b, int &quotient, int &remainder);
+//On ne peut pas passer une référence donc on passe une adresse
 bool divide(int a, int b, int *quotient, int *remainder);
