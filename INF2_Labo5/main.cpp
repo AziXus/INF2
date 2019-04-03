@@ -6,10 +6,10 @@
  Date        : 03.04.2019
 
  But         : Test des différentes fonctionnalités de la classe Fractions.
-               On affichera deux approximations de Pi grâce à au formules de Leibniz 
+               On affichera deux approximations de Pi grâce au formules de Leibniz 
                et Nilakantha.
 
- Remarque(s) : L'approximation s'arrêtera dès qu'il y a un overflow de détecté.
+ Remarque(s) : L'approximation s'arrêtera dès qu'un overflow esr détecté.
 
  Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
@@ -22,19 +22,20 @@
 using namespace std;
 
 /**
- * Calcul de l'aproxiamtion de Pi grâce à la formule de Leibniz
+ * Calcul de l'aproximation de Pi grâce à la formule de Leibniz
  * @tparam T Type de la fraction
  */
 template <typename T>
 void calculApproximationPiLeibniz()
 {
-    int numerateur = 4;
     cout << "Approximation de PI avec la serie de Leibniz" << endl;
+    const int NUMERATEUR = 4;//numerateur utilisé par la formule
     int k = 1;
-    Fraction<T> pi(numerateur, 1);
+    Fraction<T> pi(NUMERATEUR, 1);
     try {
+        //On boucle jusqu'à ce que l'opérateur += nous renvoie un overflow
         while (true) {
-            Fraction<T> fraction((T)pow(-1, k) * numerateur, 2*k + 1);
+            Fraction<T> fraction((T)pow(-1, k) * NUMERATEUR, 2*k + 1);
 
             cout << "k = " << k << " : " << pi << " + " << fraction << " = ";
             pi += fraction;
@@ -56,12 +57,13 @@ template <typename T>
 void calculApproximationPiNilakantha()
 {
     cout << "Approximation de PI avec la serie de Nilakantha" << endl;
-    int numerateur = 4;
+    const int NUMERATEUR = 4;//numerateur utilisé par la formule
     int k = 1;
     Fraction<T> pi2(3, 1);
     try {
         while (true) {
-            Fraction<T> fraction((T)pow(-1, k - 1) * numerateur, (2 * k)*(2 * k + 1)*(2 * k + 2));
+            //On boucle jusqu'à ce que l'opérateur += nous renvoie un overflow
+            Fraction<T> fraction((T)pow(-1, k - 1) * NUMERATEUR, (2 * k)*(2 * k + 1)*(2 * k + 2));
 
             cout << "k = " << k << " : " << pi2 << " + " << fraction << " = ";
             pi2 += fraction;

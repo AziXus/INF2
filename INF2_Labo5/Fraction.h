@@ -22,7 +22,7 @@
 
 /**
  * Classe fraction générique permettant de stocker deux nombres sous forme d'une fraction.
- * @tparam T type du numérateur et du dénominateur de la fraction.
+ * @tparam T type de la fraction.
  */
 template<typename T> class Fraction;
 
@@ -72,7 +72,7 @@ public:
     Fraction(T numerateur, T denominateur);
 
     /**
-     * Vérifie si les numérateurs et dénominateurs des deux fractions sont égal.
+     * Vérifie si les numérateurs et dénominateurs des deux fractions sont égaux.
      * @param rhs Fraction à comparer
      * @return true si elles sont égales, false sinon
      */
