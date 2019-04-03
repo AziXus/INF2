@@ -107,7 +107,6 @@ int main() {
     cout << "f1 *= f2  " << (f1 *= f2) << endl;
 
     cout << "\n***** Approximation de pi avec int *****\n";
-
     calculApproximationPiLeibniz<int>();
     cout << endl;
     calculApproximationPiNilakantha<int>();
