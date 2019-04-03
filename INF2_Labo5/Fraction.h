@@ -80,8 +80,8 @@ public:
 
     /**
      * Additionne une fraction avec une autre
-     * @throws std::overflow_error en cas de dépassement de l'addition du numérateur ou dénominateur
-     * @throws std::underflow_error en cas de dépassement négatif de l'addition du numérateur
+     * @throws std::overflow_error en cas de dépassement de l'addition d'un des numérateurs ou d'un des dénominateurs
+     * @throws std::underflow_error en cas de dépassement négatif de l'addition d'un des numérateurs
      * @throws std::overflow_error en cas de dépassement de l'addition des numérateurs des 2 fractions
      * @throws std::underflow_error en cas de dépassement négatif de l'addition des numérateurs des 2 fractions
      * @param rhs Fraction à additionner.
@@ -91,8 +91,8 @@ public:
 
     /**
      * Multiplie une Fraction par une autre
-     * @throws std::overflow_error en cas de dépassement de la multiplication du numérateur ou dénominateur
-     * @throws std::underflow_error en cas de dépassement négatif de la multiplication du numérateur
+     * @throws std::overflow_error en cas de dépassement de la multiplication des numérateurs ou des dénominateurs
+     * @throws std::underflow_error en cas de dépassement négatif de la multiplication des numérateurs
      * @param rhs Fraction à multiplier
      * @return Fraction actuelle multipliée en reférence
      */
@@ -133,7 +133,7 @@ public:
 
     /**
      * Fonction statique calculant le plus petit commun multiples de deux élèments.
-     * @throws std::overflow_error en cas de dépassement du ppcm
+     * @throws std::overflow_error en cas de dépassement de type lors du calcul du ppcm
      * @param a premier élément de type T
      * @param b second élément de type T
      * @return retourne le plus petit commun multiple positif
