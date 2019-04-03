@@ -2,7 +2,7 @@
  -----------------------------------------------------------------------------------
  Laboratoire : 05
  Fichier     : Fraction.cpp
- Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
+ Auteur(s)   : Robin Müller, Teixeira Carvalho Stéphane
  Date        : 03.04.2019
 
  But         : Créer une classe générique fraction permettant d'effectuer plusieurs manipulations sur

@@ -2,7 +2,7 @@
  -----------------------------------------------------------------------------------
  Laboratoire : 05
  Fichier     : FractionImpl.cpp
- Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
+ Auteur(s)   : Robin Müller
  Date        : 20.03.2019
 
  Compilateur : MinGW-g++ 6.3.0

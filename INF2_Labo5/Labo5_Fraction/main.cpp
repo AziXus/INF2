@@ -2,14 +2,14 @@
  -----------------------------------------------------------------------------------
  Laboratoire : 05
  Fichier     : main.cpp
- Auteur(s)   : Robin Müller, Stéphane Teixeira Carvalho
+ Auteur(s)   : Robin Müller, Teixeira Carvalho Stéphane
  Date        : 03.04.2019
 
  But         : Test des différentes fonctionnalités de la classe générique Fractions.
                On affichera deux approximations de Pi grâce au formules de Leibniz
                et Nilakantha.
 
- Remarque(s) : L'approximation s'arrêtera dès qu'un overflow est détecté.
+ Remarque(s) : L'approximation s'arrêtera dès qu'un overflow esr détecté.
 
  Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ int main() {
     cout << "f1 + f2 = " << f1 + f2 << endl;
     cout << "f1 * f2 = " << f1 * f2 << endl;
     
-    cout << "f1 += f2 " << (f1 += f2)  << endl;
+    cout << "f1 += f2  " << (f1 += f2) << endl;
     cout << "f1 *= f2  " << (f1 *= f2) << endl;
 
     cout << "\n***** Approximation de pi avec int *****\n";
