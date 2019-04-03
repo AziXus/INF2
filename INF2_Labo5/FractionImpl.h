@@ -1,13 +1,9 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
+ Laboratoire : 05
  Fichier     : FractionImpl.cpp
  Auteur(s)   : Robin Müller
  Date        : 20.03.2019
-
- But         : <à compléter>
-
- Remarque(s) : <à compléter>
 
  Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------

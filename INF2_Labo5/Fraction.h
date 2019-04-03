@@ -2,10 +2,10 @@
  -----------------------------------------------------------------------------------
  Laboratoire : 05
  Fichier     : Fraction.cpp
- Auteur(s)   : Robin Müller
- Date        : 20.03.2019
+ Auteur(s)   : Robin Müller, Teixeira Carvalho Stéphane
+ Date        : 03.04.2019
 
- But         : Créer une classe fraction permettant d'éffectuer plusieurs manipulations sur
+ But         : Créer une classe générique fraction permettant d'éffectuer plusieurs manipulations sur
                des fractions.
                On pourra effectuer des multiplications, des addtions ainsi que des 
                simplifactions de fraction.

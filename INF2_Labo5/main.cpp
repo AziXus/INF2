@@ -1,3 +1,19 @@
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 05
+ Fichier     : main.cpp
+ Auteur(s)   : Robin Müller, Teixeira Carvalho Stéphane
+ Date        : 03.04.2019
+
+ But         : Test des différentes focntionnalités de la classe Fractions.
+               On affichera deux approximations de Pi grâce à au formules de Leibniz 
+               et Nilakantha.
+
+ Remarque(s) : L'approxiamtion s'arrêtera dès qu'il y a un overflow
+
+ Compilateur : MinGW-g++ 6.3.0
+ -----------------------------------------------------------------------------------
+ */
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -6,9 +22,8 @@
 using namespace std;
 
 /**
- *
- * @tparam T
- * @param numerateur
+ * Calcul de l'aproxiamtion de Pi grâce à la formule de Leibniz
+ * @tparam T Type de la fraction
  */
 template <typename T>
 void calculApproximationPiLeibniz(int numerateur)
@@ -33,9 +48,8 @@ void calculApproximationPiLeibniz(int numerateur)
 }
 
 /**
- *
- * @tparam T
- * @param numerateur
+ * Calcul de l'aproxiamtion de Pi grâce à la formule de Nilakantha
+ * @tparam T type de la fraction
  */
 template <typename T>
 void calculApproximationPiNilakantha(int numerateur)
@@ -87,18 +101,20 @@ int main() {
 
     cout << "f1 + f2 = " << f1 + f2 << endl;
     cout << "f1 * f2 = " << f1 * f2 << endl;
+    
+    cout << "f1 += f2  " << f1 += f2 << endl;
+    cout << "f1 *= f2  " << f1 *= f2 << endl;
 
     cout << "\n***** Approximation de pi avec int *****\n";
-    int numerateur = 4;
 
-    calculApproximationPiLeibniz<int>(numerateur);
+    calculApproximationPiLeibniz<int>();
     cout << endl;
-    calculApproximationPiNilakantha<int>(numerateur);
+    calculApproximationPiNilakantha<int>();
 
     cout << "\n***** Approximation de pi avec long long *****\n";
-    calculApproximationPiLeibniz<long long>(numerateur);
+    calculApproximationPiLeibniz<long long>();
     cout << endl;
-    calculApproximationPiNilakantha<long long>(numerateur);
+    calculApproximationPiNilakantha<long long>();
 
 
     return EXIT_SUCCESS;
