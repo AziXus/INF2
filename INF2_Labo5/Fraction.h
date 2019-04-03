@@ -7,7 +7,7 @@
 
  But         : Créer une classe générique fraction permettant d'éffectuer plusieurs manipulations sur
                des fractions.
-               On pourra effectuer des multiplications, des addtions ainsi que des 
+               On pourra effectuer des multiplications, des additions ainsi que des 
                simplifactions de fraction.
 
  Remarque(s) : La classe fraction sera de type générique.
