@@ -16,6 +16,25 @@
 #include <stdexcept>
 
 template <typename T>
+Fraction<T> operator+(Fraction<T> lhs, const Fraction<T>& rhs) {
+    lhs += rhs;
+    return lhs;
+}
+
+template <typename T>
+Fraction<T> operator*(Fraction<T> lhs, const Fraction<T>& rhs) {
+    lhs *= rhs;
+    return lhs;
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, Fraction<T> fraction)
+{
+    os << fraction.numerateur << "/" << fraction.denominateur;
+    return os;
+}
+
+template <typename T>
 Fraction<T>::Fraction(T numerateur, T denominateur) : numerateur(numerateur), denominateur(denominateur) {
     if (denominateur == 0) {
         throw std::invalid_argument("Le denominateur ne peut pas valoir 0");
@@ -121,6 +140,13 @@ Fraction<T> Fraction<T>::simplifier() {
 }
 
 template<typename T>
+T Fraction<T>::pgcd(T a, T b) {
+    if (a == 0)
+        return b;
+    return pgcd(b % a, a);
+}
+
+template<typename T>
 T Fraction<T>::ppcm(T a, T b) {
     T diviseur = pgcd(a, b);
     //Detecte s'il y a un dépassement dans le calcul du ppcm
@@ -128,32 +154,5 @@ T Fraction<T>::ppcm(T a, T b) {
         throw std::overflow_error("Depassement detecte lors du calcul du ppcm");
     return std::abs((a / diviseur) * b);
 }
-
-template<typename T>
-T Fraction<T>::pgcd(T a, T b) {
-    if (a == 0)
-        return b;
-    return pgcd(b % a, a);
-}
-
-template <typename T>
-std::ostream& operator<<(std::ostream& os, Fraction<T> fraction)
-{
-    os << fraction.numerateur << "/" << fraction.denominateur;
-    return os;
-}
-
-template <typename T>
-Fraction<T> operator+(Fraction<T> lhs, const Fraction<T>& rhs) {
-    lhs += rhs;
-    return lhs;
-}
-
-template <typename T>
-Fraction<T> operator*(Fraction<T> lhs, const Fraction<T>& rhs) {
-    lhs *= rhs;
-    return lhs;
-}
-
 
 #endif //FRACTIONIMPL_H

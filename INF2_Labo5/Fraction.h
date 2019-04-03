@@ -80,6 +80,10 @@ public:
 
     /**
      * Additionne une fraction avec une autre
+     * @throws std::overflow_error en cas de dépassement de l'addition du numérateur ou dénominateur
+     * @throws std::underflow_error en cas de dépassement négatif de l'addition du numérateur
+     * @throws std::overflow_error en cas de dépassement de l'addition des numérateurs des 2 fractions
+     * @throws std::underflow_error en cas de dépassement négatif de l'addition des numérateurs des 2 fractions
      * @param rhs Fraction à additionner.
      * @return Fraction actuelle additionnée en référence.
      */
