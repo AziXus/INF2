@@ -40,23 +40,27 @@ Fraction<T>& Fraction<T>::operator+=(const Fraction<T>& rhs) {
     //Trouve le plus petit multiple commun
     T multiple = ppcm(denominateur, rhs.denominateur);
 
-    //Overflow du numérateur de lhs
+    //Overflow du numérateur de lhs lors de la multiplication suivante numerateur * (ppcm / denominateur)
     if (numerateur / denominateur > std::numeric_limits<T>::max() / multiple)
         throw std::overflow_error("Debordement detecte lors de l'addition de la fraction");
+    if (numerateur / denominateur < std::numeric_limits<T>::lowest() / multiple)
+        throw std::underflow_error("Debordement négatif detecte lors de l'addition de la fraction");
 
-    //Overflow du numerateur de rhs
+    //Overflow du numerateur de rhs lors de la multiplication suivante numerateur * (ppcm / denominateur)
     if (rhs.numerateur / rhs.denominateur > std::numeric_limits<T>::max() / multiple)
         throw std::overflow_error("Debordement detecte lors de l'addition de la fraction");
+    if (rhs.numerateur / rhs.denominateur < std::numeric_limits<T>::lowest() / multiple)
+        throw std::underflow_error("Debordement négatif detecte lors de l'addition de la fraction");
 
-    //Si on a pas d'overflow, on calcul les deux dénominateurs sans modifier les fractions
+    //Si on a pas d'overflow, on calcul les deux dénominateurs sans modifier les fractions grâce à des variables temporaires
     T numerateurLhs = numerateur * (multiple / denominateur);
     T numerateurRhs = rhs.numerateur * (multiple / rhs.denominateur);
 
     //Overflow lors de l'addition des numérateurs
     if (numerateurRhs > 0 and numerateurLhs > std::numeric_limits<T>::max() - numerateurRhs)
         throw std::overflow_error("Debordement detecte lors de l'addition de la fraction, numerateurs trop grands");
-    if (numerateurRhs < 0 and numerateurLhs < std::numeric_limits<T>::min() - numerateurRhs)
-        throw std::underflow_error("Debordement detecte lors de l'addition de la fraction, numerateurs trop petits");
+    if (numerateurRhs < 0 and numerateurLhs < std::numeric_limits<T>::lowest() - numerateurRhs)
+        throw std::underflow_error("Debordement négatif detecte lors de l'addition de la fraction, numerateurs trop petits");
 
     //Si on a pas d'overflow, on additionne les numérateurs
     numerateur = numerateurLhs + numerateurRhs;
@@ -71,13 +75,13 @@ Fraction<T>& Fraction<T>::operator*=(const Fraction<T>& rhs) {
     if (numerateur > std::numeric_limits<T>::max() / rhs.numerateur)
         throw std::overflow_error("Debordement detecte lors la multiplication du numerateur de la fraction, numerateurs trop grands");
     if (numerateur < std::numeric_limits<T>::lowest() / rhs.numerateur)
-        throw std::underflow_error("Debordement detecte lors la multiplication du numerateur de la fraction, numerateurs trop petit");
+        throw std::underflow_error("Debordement négatif detecte lors la multiplication du numerateur de la fraction, numerateurs trop petit");
 
     //Overflow dénominateur
     if (denominateur > std::numeric_limits<T>::max() / rhs.denominateur)
         throw std::overflow_error("Debordement detecte lors la multiplication du denominateur de la fraction, denominateurs trop grands");
     //Le denom est toujours positif, on a donc pas besoin de controler l'underflow
-
+    
     numerateur   *= rhs.numerateur;
     denominateur *= rhs.denominateur;
 
@@ -128,6 +132,7 @@ Fraction<T> Fraction<T>::simplifier() {
 template<typename T>
 T Fraction<T>::ppcm(T a, T b) {
     T diviseur = pgcd(a, b);
+    //Detecte s'il y a un dépassement dans le calcul du ppcm
     if (a / diviseur > std::numeric_limits<T>::max() / b)
         throw std::overflow_error("Depassement detecte lors du calcul du ppcm");
     return std::abs((a / diviseur) * b);

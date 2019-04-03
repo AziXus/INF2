@@ -26,8 +26,9 @@ using namespace std;
  * @tparam T Type de la fraction
  */
 template <typename T>
-void calculApproximationPiLeibniz(int numerateur)
+void calculApproximationPiLeibniz()
 {
+    int numerateur = 4;
     cout << "Approximation de PI avec la serie de Leibniz" << endl;
     int k = 1;
     Fraction<T> pi(numerateur, 1);
@@ -52,10 +53,10 @@ void calculApproximationPiLeibniz(int numerateur)
  * @tparam T type de la fraction
  */
 template <typename T>
-void calculApproximationPiNilakantha(int numerateur)
+void calculApproximationPiNilakantha()
 {
     cout << "Approximation de PI avec la serie de Nilakantha" << endl;
-
+    int numerateur = 4;
     int k = 1;
     Fraction<T> pi2(3, 1);
     try {
@@ -102,8 +103,8 @@ int main() {
     cout << "f1 + f2 = " << f1 + f2 << endl;
     cout << "f1 * f2 = " << f1 * f2 << endl;
     
-    cout << "f1 += f2  " << f1 += f2 << endl;
-    cout << "f1 *= f2  " << f1 *= f2 << endl;
+    cout << "f1 += f2  " << (f1 += f2) << endl;
+    cout << "f1 *= f2  " << (f1 *= f2) << endl;
 
     cout << "\n***** Approximation de pi avec int *****\n";
 
