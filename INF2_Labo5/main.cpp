@@ -9,7 +9,7 @@
                On affichera deux approximations de Pi grâce à au formules de Leibniz 
                et Nilakantha.
 
- Remarque(s) : L'approxiamtion s'arrêtera dès qu'il y a un overflow
+ Remarque(s) : L'approxiamtion s'arrêtera dès qu'il y a un overflow de détecté.
 
  Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
