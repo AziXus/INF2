@@ -43,7 +43,7 @@ Fraction<T>::Fraction(T numerateur, T denominateur) : numerateur(numerateur), de
     //Comme on souhaite que le numérateur porte le signe, on le multiplie
     //par -1 si le dénominateur est négatif.
     if (denominateur < 0) {
-        this->numerateur *= -1;
+        this->numerateur   *= -1;
         this->denominateur *= -1;
     }
 }
