@@ -93,15 +93,6 @@ Fraction<T>::operator float() const {
     return (float)numerateur / (float)denominateur;
 }
 
-template<>
-Fraction<double>::operator float() const {
-//    if (numerateur > (double)std::numeric_limits<float>::max())
-//
-//    if (numerateur < (double)std::numeric_limits<float>::lowest())
-
-    return (float)numerateur / (float)denominateur;
-}
-
 template<typename T>
 Fraction<T>::operator double() const {
     return (double)numerateur / (double)denominateur;
