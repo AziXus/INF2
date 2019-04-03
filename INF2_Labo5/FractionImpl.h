@@ -28,7 +28,7 @@ Fraction<T> operator*(Fraction<T> lhs, const Fraction<T>& rhs) {
 }
 
 template <typename T>
-std::ostream& operator<<(std::ostream& os, Fraction<T> fraction)
+std::ostream& operator<<(std::ostream& os, const Fraction<T>& fraction)
 {
     os << fraction.numerateur << "/" << fraction.denominateur;
     return os;
@@ -63,13 +63,13 @@ Fraction<T>& Fraction<T>::operator+=(const Fraction<T>& rhs) {
     if (numerateur / denominateur > std::numeric_limits<T>::max() / multiple)
         throw std::overflow_error("Debordement detecte lors de l'addition de la fraction");
     if (numerateur / denominateur < std::numeric_limits<T>::lowest() / multiple)
-        throw std::underflow_error("Debordement négatif detecte lors de l'addition de la fraction");
+        throw std::underflow_error("Debordement negatif detecte lors de l'addition de la fraction");
 
     //Test si overflow du numerateur de rhs lors de la multiplication suivante numerateur * (ppcm / denominateur)
     if (rhs.numerateur / rhs.denominateur > std::numeric_limits<T>::max() / multiple)
         throw std::overflow_error("Debordement detecte lors de l'addition de la fraction");
     if (rhs.numerateur / rhs.denominateur < std::numeric_limits<T>::lowest() / multiple)
-        throw std::underflow_error("Debordement négatif detecte lors de l'addition de la fraction");
+        throw std::underflow_error("Debordement negatif detecte lors de l'addition de la fraction");
 
     //Si on a pas d'overflow, on calcul les deux dénominateurs sans modifier les fractions grâce à des variables temporaires
     T numerateurLhs = numerateur * (multiple / denominateur);
@@ -79,7 +79,7 @@ Fraction<T>& Fraction<T>::operator+=(const Fraction<T>& rhs) {
     if (numerateurRhs > 0 and numerateurLhs > std::numeric_limits<T>::max() - numerateurRhs)
         throw std::overflow_error("Debordement detecte lors de l'addition de la fraction, numerateurs trop grands");
     if (numerateurRhs < 0 and numerateurLhs < std::numeric_limits<T>::lowest() - numerateurRhs)
-        throw std::underflow_error("Debordement négatif detecte lors de l'addition de la fraction, numerateurs trop petits");
+        throw std::underflow_error("Debordement negatif detecte lors de l'addition de la fraction, numerateurs trop petits");
 
     //Si on a pas d'overflow, on additionne les numérateurs
     numerateur = numerateurLhs + numerateurRhs;
@@ -124,7 +124,7 @@ bool Fraction<T>::identite(const Fraction<T>& rhs) const {
 }
 
 template<typename T>
-Fraction<T> Fraction<T>::simplifier() {
+Fraction<T> Fraction<T>::simplifier() const {
     Fraction<T> irreductible = *this;
 
     //On calcul le plus grand commun diviseur

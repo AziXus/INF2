@@ -15,7 +15,7 @@
 //#include <ostream>
 //#include <vector>
 
-//On remplace le template par plusieurs fonctions avec des noms différents
+//On remplace le template par une fonction générale de type double
 /**
  * @brief Return the smallest value of \p a and \p b.
  */

@@ -6,7 +6,7 @@
  Date        : 03.04.2019
 
  But         : Test des différentes fonctionnalités de la classe Fractions.
-               On affichera deux approximations de Pi grâce au formules de Leibniz 
+               On affichera deux approximations de Pi grâce au formules de Leibniz
                et Nilakantha.
 
  Remarque(s) : L'approximation s'arrêtera dès qu'un overflow esr détecté.
@@ -22,7 +22,7 @@
 using namespace std;
 
 /**
- * Calcul de l'aproximation de Pi grâce à la formule de Leibniz
+ * Calcul de l'approximation de Pi grâce à la formule de Leibniz
  * @tparam T Type de la fraction
  */
 template <typename T>

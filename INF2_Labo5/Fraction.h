@@ -54,11 +54,11 @@ Fraction<T> operator*(Fraction<T> lhs, const Fraction<T>& rhs);
  * @return référence du flux sur lequel on a écrit
  */
 template<typename T>
-std::ostream& operator<<(std::ostream& os, Fraction<T> fraction);
+std::ostream& operator<<(std::ostream& os, const Fraction<T>& fraction);
 
 template<typename T>
 class Fraction {
-    friend std::ostream& operator<< <T>(std::ostream& os, Fraction<T> fraction);
+    friend std::ostream& operator<< <T>(std::ostream& os, const Fraction<T>& fraction);
     friend Fraction<T> operator+ <T>(Fraction<T> lhs, const Fraction<T>& rhs);
     friend Fraction<T> operator* <T>(Fraction<T> lhs, const Fraction<T>& rhs);
 
@@ -121,7 +121,7 @@ public:
      * Calcul la fraction irréductible et la retourne sans modifier la fraction actuelle.
      * @return Fraction irréductible
      */
-    Fraction<T> simplifier();
+    Fraction<T> simplifier() const;
 
     /**
      * Fonction statique calculant le plus grand commun diviseur de deux élèments.
