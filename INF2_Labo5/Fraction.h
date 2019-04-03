@@ -5,7 +5,7 @@
  Auteur(s)   : Robin Müller, Teixeira Carvalho Stéphane
  Date        : 03.04.2019
 
- But         : Créer une classe générique fraction permettant d'éffectuer plusieurs manipulations sur
+ But         : Créer une classe générique fraction permettant d'effectuer plusieurs manipulations sur
                des fractions.
                On pourra effectuer des multiplications, des additions ainsi que des 
                simplifications de fraction.
