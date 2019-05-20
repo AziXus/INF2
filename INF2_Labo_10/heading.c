@@ -8,8 +8,8 @@ void headingCreate(const char* mot, int nombreLigne){
     if(nombreLigne != 0){
         Location* ligne = (Location*)malloc(sizeof(Location));
         ligne->nombre = nombreLigne;
-        ligne->suivant = h->premier;
-        h->premier = ligne;
+        ligne->suivant = h.premier;
+        h.premier = ligne;
     }
 }
 
