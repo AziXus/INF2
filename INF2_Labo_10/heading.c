@@ -1,14 +1,15 @@
 #include "heading.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
-void headingCreate(const char* mot, int ligne){
-    Heading heading = {mot, NULL};
-    if(ligne != 0){
-        Location* ligne = malloc(sizeof(*Location));
-        ligne->nombre = ligne;
-        ligne->suivant = heading->premier;
-        heading->premier = ligne;
+void headingCreate(const char* mot, int nombreLigne){
+    Heading h = {mot, NULL};
+    if(nombreLigne != 0){
+        Location* ligne = (Location*)malloc(sizeof(Location));
+        ligne->nombre = nombreLigne;
+        ligne->suivant = h->premier;
+        h->premier = ligne;
     }
 }
 

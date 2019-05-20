@@ -11,11 +11,11 @@ struct Ligne
 
 typedef struct
 {
-    char* mot;
+    const char* mot;
     Location* premier;
 } Heading;
 
-void headingCreate(Heading* h);
+void headingCreate(const char* mot, int nombreLigne);
 
 void headingDestroy(Heading* h);
 
