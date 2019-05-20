@@ -2,11 +2,11 @@
 #define HEADING_H
 
 //Structure permettant de contenir la ligne ou est indexé le mot
-typedef struct Element Location;
-struct Element
+typedef struct Ligne Location;
+struct Ligne
 {
     int nombre;
-    Element* suivant;
+    Location* suivant;
 };
 
 typedef struct

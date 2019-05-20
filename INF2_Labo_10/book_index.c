@@ -1,5 +1,5 @@
 #include "book_index.h"
-
+#include <stdlib.h>
 //Structure permettant de contenir la ligne ou est indexé le mot
 typedef struct Element Element;
 struct Element
@@ -15,9 +15,9 @@ struct Liste
     Element* premier;
 };
 
-Heading* chercherHeading(Headings h, const char* mot){
+Heading* chercherHeading(Headings* h, const char* mot){
     Element* actuel = h->premier;
-    while(h != NULL)
+    while(actuel != NULL)
     {
         if(h->premier->heading->mot == mot)
             return actuel->heading;

@@ -1,5 +1,5 @@
 #include "heading.h"
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 
 void headingCreate(const char* mot, int ligne){
