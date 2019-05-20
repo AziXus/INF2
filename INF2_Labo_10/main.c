@@ -1,24 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   main.c
- * Author: stéphane
- *
- * Created on May 20, 2019, 10:37 AM
- */
-
 #include <stdio.h>
 #include <stdlib.h>
+#include "book_index.h"
+#include "heading.h"
 
-/*
- * 
- */
-int main(int argc, char** argv) {
-
-    return (EXIT_SUCCESS);
+int main(void) {
+    const char texte[] = "The five boxing\nwizards jump quickly.\n\nPack my box with five\ndozen liquor jugs.\n";
+    
+    return EXIT_SUCCESS;
 }
 
