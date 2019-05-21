@@ -1,9 +1,11 @@
 #ifndef BOOK_INDEX_H
 #define BOOK_INDEX_H
 #include "heading.h"
+typedef struct Liste Headings;
+typedef struct Element Element;
 
-void creerIndexVide();
-void remplirIndex(const char* texte);
+Headings* creerIndexVide();
+Headings* remplirIndex(const char* texte);
 void afficherIndex();
 void detruireIndex();
 
