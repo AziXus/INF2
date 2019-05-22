@@ -15,6 +15,11 @@ struct Liste
     Element* premier;
 };
 
+
+void InsererElement(Element* hPrev, Element* hInserer){
+    hInserer->suivant = hPrev->suivant;
+    hPrev->suivant = hInserer;
+}
 //Heading* chercherPosition()
 
 Heading* chercherHeading(Headings* h, const char* mot){
