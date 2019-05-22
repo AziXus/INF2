@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-Heading* headingCreate(const char* mot, int nombreLigne){
+Heading* headingCreate(const char* mot, size_t nombreLigne){
     Heading* h = (Heading*)malloc(sizeof(Heading));
     h->mot = mot;
     h->premier = NULL;

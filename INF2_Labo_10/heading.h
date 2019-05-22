@@ -15,7 +15,7 @@ typedef struct
     Location* premier;
 } Heading;
 
-Heading* headingCreate(const char* mot, int nombreLigne);
+Heading* headingCreate(const char* mot, unsigned long nombreLigne);
 
 void headingDestroy(Heading* h);
 
