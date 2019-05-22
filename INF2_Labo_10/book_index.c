@@ -29,7 +29,7 @@ Heading* chercherHeading(Headings* h, const char* mot){
 }
 
 Headings* creerIndexVide(){
-    Headings* h = (Headings*)malloc(sizeof(Headings));
+    Headings* h = (Headings*)calloc(1, sizeof(Headings));
     return h;
 }
 Headings* remplirIndex(const char* texte){

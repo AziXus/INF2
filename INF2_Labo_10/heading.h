@@ -1,5 +1,6 @@
 #ifndef HEADING_H
 #define HEADING_H
+#include <stdlib.h>
 
 //Structure permettant de contenir la ligne ou est indexé le mot
 typedef struct Ligne Location;
