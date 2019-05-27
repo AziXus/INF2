@@ -26,13 +26,18 @@ Element* chercherPosition(Headings* h, const char* mot) {
         return NULL;
 
     Element* actuel = h->premier;
+    Element* prev = NULL;
 
     //Tant que le mot est plus grand
-    while (actuel != NULL && strcmp(actuel->heading->mot, mot) > 0) {
+    //a - b - c
+    //
+    //On boucle tant que le char est plus grand et on s'arrête quand il est plus petit ou égal
+    while (actuel != NULL && strcmp(actuel->heading->mot, mot) < 0) {
+        prev = actuel;
         actuel = actuel->suivant;
     }
 
-    return actuel == NULL ? NULL : actuel->suivant;
+    return prev;// == NULL ? NULL : actuel->suivant;
 }
 
 Heading* chercherHeading(Headings* h, const char* mot){
@@ -57,7 +62,7 @@ void insertion(size_t noLigne, size_t j, Headings* h, char* ligne, struct Elemen
         el1->heading = headingCreate(mot, noLigne);
         el1->suivant = h->premier;
         h->premier = el1;
-    } else if (gauche->heading->mot != ligne + j) {
+    } else if (strcmp(gauche->heading->mot, ligne + j) != 0) {
         Element* el1 = (Element*)malloc(sizeof(Element));
         el1->heading = headingCreate(mot, noLigne);
         InsererElement(gauche, el1);
@@ -75,9 +80,9 @@ Headings* remplirIndex(const char* texte){
     while (ligne != NULL) {
         while(*(ligne + i) != '\0'){
             if(*(ligne + i) == ' '){
-                Element* gauche = chercherPosition(h, ligne + i);
                 char* mot = (char*) calloc(i, sizeof(char));
                 strncpy(mot, ligne + j, i);
+                Element* gauche = chercherPosition(h, mot);
                 insertion(noLigne, j, h, ligne, gauche, mot);
                 j = i + 1;
             }

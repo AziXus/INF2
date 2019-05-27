@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-//Pas de classe en c, utilisation d'une struct pour stocker les codes et des fonctions pour intéragir avec
+//Pas de classe en c, utilisation d'une struct pour stocker les codes et des fonctions annexes pour intéragir avec la struct
 
 /**
  * @brief A representation of a digit-code lock.
@@ -21,7 +21,7 @@ struct CodeLock {
 };
 
 /**
- * Créer une nouvelle structure avec secretCode et visibleCode initialisé à la valeur code
+ * Créer une nouvelle structure avec secretCode et visibleCode initialisés à la valeur code
  * @param code code à utiliser pour le CodeLock
  * @return nouveau CodeLock
  */
@@ -32,14 +32,14 @@ struct CodeLock newCodeLock(uint8_t code);
  * @param this CodeLock à incrémenter
  * @return le nouveau code visible
  */
-uint8_t incrementer(struct CodeLock *this);
+uint8_t incrementer(struct CodeLock* this);
 
 /**
  * Retourne le code visible
  * @param this CodeLock à utiliser
  * @return code visible
  */
-uint8_t getVisibleCode(struct CodeLock *this);
+uint8_t getVisibleCode(struct CodeLock* this);
 
 /**
  * @brief Try to open the lock using the given \p code
@@ -47,4 +47,4 @@ uint8_t getVisibleCode(struct CodeLock *this);
  * @param code the valid code
  * @return `true` if successfully opened, `false` otherwise
  */
-bool open(struct CodeLock *this, uint8_t code);
+bool open(struct CodeLock* this, uint8_t code);
