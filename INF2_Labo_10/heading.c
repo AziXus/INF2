@@ -16,12 +16,13 @@ Heading* headingCreate(const char* mot, size_t nombreLigne){
 }
 
 void headingDestroy(Heading* h){
-    if (h->premier != NULL)
+    while(h->premier != NULL)
     {
         Location* aSupprimer = h->premier;
         h->premier = h->premier->suivant;
         free(aSupprimer);
     }
+    free(h);
 }
 
 void headingPrint(Heading* h){
