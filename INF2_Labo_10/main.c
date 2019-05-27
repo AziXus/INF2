@@ -4,8 +4,9 @@
 
 
 int main(void) {
-    const char texte[] = "je\nteste\nnotre\nprogramme";
+    const char texte[] = "c\nb\nd\na";
     Headings* h = remplirIndex(texte);
+
     afficherIndex(h);
     
     return EXIT_SUCCESS;

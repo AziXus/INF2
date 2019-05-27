@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #ifndef HEADING_H
 #define HEADING_H
 #include <stdlib.h>

@@ -4,6 +4,7 @@
 typedef struct Liste Headings;
 typedef struct Element Element;
 
+Element* chercherPosition(Headings* h, const char* mot);
 Headings* creerIndexVide();
 Headings* remplirIndex(const char* texte);
 void afficherIndex();

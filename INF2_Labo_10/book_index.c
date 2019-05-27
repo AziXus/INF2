@@ -20,7 +20,20 @@ void InsererElement(Element* hPrev, Element* hInserer){
     hInserer->suivant = hPrev->suivant;
     hPrev->suivant = hInserer;
 }
-//Heading* chercherPosition()
+
+Element* chercherPosition(Headings* h, const char* mot) {
+    if (h->premier == NULL)
+        return NULL;
+
+    Element* actuel = h->premier;
+
+    //Tant que le mot est plus grand
+    while (actuel != NULL && strcmp(actuel->heading->mot, mot) > 0) {
+        actuel = actuel->suivant;
+    }
+
+    return actuel == NULL ? NULL : actuel->suivant;
+}
 
 Heading* chercherHeading(Headings* h, const char* mot){
     Element* actuel = h->premier;
@@ -46,13 +59,21 @@ Headings* remplirIndex(const char* texte){
 
     while (ligne != NULL) {
 //        char* mot = strtok(ligne, " ");
+        Element* gauche = chercherPosition(h, ligne);
 
-        Element* el1 = (Element*)malloc(sizeof(Element));
-        el1->heading = headingCreate(ligne, noLigne);
-        el1->suivant = h->premier;
-        h->premier = el1;
+        if (gauche == NULL) {
+            Element* el1 = (Element*)malloc(sizeof(Element));
+            el1->heading = headingCreate(ligne, noLigne);
+            el1->suivant = h->premier;
+            h->premier = el1;
+        } else if (gauche->heading->mot != ligne) {
+            Element* el1 = (Element*)malloc(sizeof(Element));
+            el1->heading = headingCreate(ligne, noLigne);
+
+            InsererElement(gauche, el1);
+        }
+
         noLigne++;
-
         ligne = strtok(NULL, "\n");
     }
 
