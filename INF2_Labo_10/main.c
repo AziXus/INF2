@@ -4,7 +4,7 @@
 
 
 int main(void) {
-    const char texte[] = "c\nb\nd\na";
+    const char texte[] = "c\nb e\nd f\na";
     Headings* h = remplirIndex(texte);
 
     afficherIndex(h);

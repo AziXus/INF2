@@ -50,31 +50,47 @@ Headings* creerIndexVide(){
     Headings* h = (Headings*)calloc(1, sizeof(Headings));
     return h;
 }
+
+void insertion(size_t noLigne, size_t j, Headings* h, char* ligne, struct Element* gauche, char* mot){
+    if (gauche == NULL) {
+        Element* el1 = (Element*)malloc(sizeof(Element));
+        el1->heading = headingCreate(mot, noLigne);
+        el1->suivant = h->premier;
+        h->premier = el1;
+    } else if (gauche->heading->mot != ligne + j) {
+        Element* el1 = (Element*)malloc(sizeof(Element));
+        el1->heading = headingCreate(mot, noLigne);
+        InsererElement(gauche, el1);
+    }
+}
+
 Headings* remplirIndex(const char* texte){
     size_t noLigne = 1;
-//    size_t i = 0;
+    size_t i = 0;
+    size_t j = 0;
     Headings* h = creerIndexVide();
 
     char* ligne = strtok((char*)texte, "\n");
 
     while (ligne != NULL) {
-//        char* mot = strtok(ligne, " ");
-        Element* gauche = chercherPosition(h, ligne);
-
-        if (gauche == NULL) {
-            Element* el1 = (Element*)malloc(sizeof(Element));
-            el1->heading = headingCreate(ligne, noLigne);
-            el1->suivant = h->premier;
-            h->premier = el1;
-        } else if (gauche->heading->mot != ligne) {
-            Element* el1 = (Element*)malloc(sizeof(Element));
-            el1->heading = headingCreate(ligne, noLigne);
-
-            InsererElement(gauche, el1);
+        while(*(ligne + i) != '\0'){
+            if(*(ligne + i) == ' '){
+                Element* gauche = chercherPosition(h, ligne + i);
+                char* mot = (char*) calloc(i, sizeof(char));
+                strncpy(mot, ligne + j, i);
+                insertion(noLigne, j, h, ligne, gauche, mot);
+                j = i + 1;
+            }
+            i++;
         }
+        Element* gauche = chercherPosition(h, ligne + j);
+
+        insertion(noLigne, j, h, ligne, gauche, ligne + j);
 
         noLigne++;
         ligne = strtok(NULL, "\n");
+        j = 0;
+        i = 0;
     }
 
 
