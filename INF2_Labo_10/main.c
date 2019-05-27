@@ -4,11 +4,9 @@
 
 
 int main(void) {
-    const char texte[] = "c\nb e\nd f aabc\na";
+    const char texte[] = "c\nb e sdada\n \nd f aabc\na";
     Headings* h = remplirIndex(texte);
-
     afficherIndex(h);
-    
     return EXIT_SUCCESS;
 }
 
