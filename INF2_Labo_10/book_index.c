@@ -73,18 +73,25 @@ Headings* remplirIndex(const char* texte){
     size_t noLigne = 1;
     size_t i = 0;
     size_t j = 0;
+    size_t k = 1;
     Headings* h = creerIndexVide();
 
     char* ligne = strtok((char*)texte, "\n");
 
     while (ligne != NULL) {
+        int nbMot = 0;
         while(*(ligne + i) != '\0'){
             if(*(ligne + i) == ' '){
                 char* mot = (char*) calloc(i, sizeof(char));
-                strncpy(mot, ligne + j, i);
+                strncpy(mot, ligne + j, k);
                 Element* gauche = chercherPosition(h, mot);
                 insertion(noLigne, j, h, ligne, gauche, mot);
                 j = i + 1;
+                nbMot++;
+                k = 0;
+            }
+            else{
+                k++;
             }
             i++;
         }
@@ -96,6 +103,7 @@ Headings* remplirIndex(const char* texte){
         ligne = strtok(NULL, "\n");
         j = 0;
         i = 0;
+        k = 0;
     }
 
 
