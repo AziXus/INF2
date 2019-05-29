@@ -115,8 +115,8 @@ void detruireIndex(Headings* h){
     {
         Element* aSupprimer = h->premier;
         headingDestroy(aSupprimer->heading);
-        free(aSupprimer);
         h->premier = h->premier->suivant;
+        free(aSupprimer);
     }
 }
 

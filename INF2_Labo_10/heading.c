@@ -22,6 +22,7 @@ void headingDestroy(Heading* h){
         h->premier = h->premier->suivant;
         free(aSupprimer);
     }
+    free(h->mot);//Comme les mots sont allouées dynamiquement on doit les free également
     free(h);
 }
 
