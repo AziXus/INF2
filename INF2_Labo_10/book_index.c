@@ -56,84 +56,48 @@ Headings* creerIndexVide(){
     return h;
 }
 
-void insertion(size_t noLigne, size_t j, Headings* h, char* ligne, struct Element* gauche, char* mot){
+void insertion(size_t noLigne, Headings* h, struct Element* gauche, char* mot){
+    Element* el1 = (Element*)malloc(sizeof(Element));
+    el1->heading = headingCreate(mot, noLigne);
     if (gauche == NULL) {
-        Element* el1 = (Element*)malloc(sizeof(Element));
-        el1->heading = headingCreate(mot, noLigne);
         el1->suivant = h->premier;
         h->premier = el1;
-    } else if (strcmp(gauche->heading->mot, ligne + j) != 0) {
-        Element* el1 = (Element*)malloc(sizeof(Element));
-        el1->heading = headingCreate(mot, noLigne);
+    } else if (strcmp(gauche->heading->mot, mot) != 0) {
         InsererElement(gauche, el1);
     }
 }
 
 Headings* remplirIndex(const char* texte){
-    size_t noLigne = 1;
-    size_t i = 0;
-    size_t j = 0;
-    size_t k = 1;
-    Headings* h = creerIndexVide();
-
-    char* ligne = strtok((char*)texte, "\n");
-
+    size_t noLigne       = 1;//Indique le numéro de ligne ue nous lisons
+    size_t i             = 0;//Va permettre de parcourt le mot de la ligne caractère par caractère 
+    size_t dernierEspace = 0;//Permet de parcourir le mot contenu dans une ligne
+    Headings* h          = creerIndexVide();
+    char* ligne          = strtok((char*)texte, "\n");//Divise le texte en tableau de plusieurs éléments le délimiteur est \n
+    //Parcourt toute les lignes
     while (ligne != NULL) {
-        int nbMot = 0;
+        //Parcourt tous les caractère de la ligne i
         while(*(ligne + i) != '\0'){
+            //Si un espace est detecté on en sort le mot
             if(*(ligne + i) == ' '){
                 char* mot = (char*) calloc(i, sizeof(char));
-                strncpy(mot, ligne + j, k);
+                //On copie les i - j caractère de l'élément ligne + j
+                strncpy(mot, ligne + dernierEspace, i - dernierEspace);
+                //On cherche la position dans laquelle ajouter le mot 
                 Element* gauche = chercherPosition(h, mot);
-                insertion(noLigne, j, h, ligne, gauche, mot);
-                j = i + 1;
-                nbMot++;
-                k = 0;
-            }
-            else{
-                k++;
+                insertion(noLigne, h, gauche, mot);
+                dernierEspace = i + 1;
             }
             i++;
         }
-        Element* gauche = chercherPosition(h, ligne + j);
+        Element* gauche = chercherPosition(h, ligne + dernierEspace);
 
-        insertion(noLigne, j, h, ligne, gauche, ligne + j);
+        insertion(noLigne, h, gauche, ligne + dernierEspace);
 
         noLigne++;
         ligne = strtok(NULL, "\n");
-        j = 0;
+        dernierEspace = 0;
         i = 0;
-        k = 0;
     }
-
-
-//        while ((mot = strtok(ligne, " ")) != NULL) {
-//
-//        }
-//    }
-
-//    while(*(texte + i) != '\0'){
-//        if(*(texte + i) == ' '){
-//            char* mot = (char*) malloc(i * sizeof(char));
-//            strncpy(mot, texte, i);
-//            Element* el1 = (Element*)malloc(sizeof(Element));
-//            el1->heading = headingCreate(mot,ligne);
-//            el1->suivant = h->premier;
-//            h->premier = el1;
-//
-//        }
-//        if(*(texte + i) == '\n')
-//        {
-//            char* mot = (char*) malloc(i * sizeof(char));
-//            strncpy(mot, texte, i);
-//            Element* el1 = (Element*)malloc(sizeof(Element));
-//y            el1->heading = headingCreate(mot,ligne);
-//            el1->suivant = h->premier;
-//            h->premier = el1;
-//            ligne++;
-//        }
-//        i++;
-//    }
     return h;
 }
 void afficherIndex(Headings* h){
