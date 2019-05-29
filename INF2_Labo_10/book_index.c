@@ -17,8 +17,10 @@ struct Liste
 
 
 void InsererElement(Element* hPrev, Element* hInserer){
-    hInserer->suivant = hPrev->suivant;
-    hPrev->suivant = hInserer;
+    if(hPrev->heading->mot != hInserer->heading->mot){
+        hInserer->suivant = hPrev->suivant;
+        hPrev->suivant = hInserer;
+    }
 }
 
 Element* chercherPosition(Headings* h, const char* mot) {
@@ -56,7 +58,12 @@ Headings* creerIndexVide(){
     return h;
 }
 
-void insertion(size_t noLigne, Headings* h, Element* gauche, char* mot){
+void insertion(size_t noLigne, Headings* h, char* ligne, size_t nbCaractere, size_t dernierEspace){
+    char* mot = (char*) calloc(nbCaractere, sizeof(char));
+    //On copie les i - j caractère de l'élément ligne + j
+    strncpy(mot, ligne + dernierEspace, nbCaractere - dernierEspace);
+    //On cherche la position dans laquelle ajouter le mot 
+    Element* gauche = chercherPosition(h, mot);
     Element* el1 = (Element*)malloc(sizeof(Element));
     el1->heading = headingCreate(mot, noLigne);
     if (gauche == NULL) {
@@ -79,23 +86,12 @@ Headings* remplirIndex(const char* texte){
         while(*(ligne + i) != '\0'){
             //Si un espace est detecté on en sort le mot
             if(*(ligne + i) == ' '){
-                char* mot = (char*) calloc(i, sizeof(char));
-                //On copie les i - j caractère de l'élément ligne + j
-                strncpy(mot, ligne + dernierEspace, i - dernierEspace);
-                //On cherche la position dans laquelle ajouter le mot 
-                Element* gauche = chercherPosition(h, mot);
-                insertion(noLigne, h, gauche, mot);
+                insertion(noLigne, h, ligne, i, dernierEspace);
                 dernierEspace = i + 1;
             }
             i++;
         }
-        char* mot = (char*) calloc(i, sizeof(char));
-        //On copie les i - j caractère de l'élément ligne + j
-        strncpy(mot, ligne + dernierEspace, i - dernierEspace);
-
-        Element* gauche = chercherPosition(h, mot);
-
-        insertion(noLigne, h, gauche, mot);
+        insertion(noLigne, h, ligne, i, dernierEspace);
 
         noLigne++;
         ligne = strtok(NULL, "\n");

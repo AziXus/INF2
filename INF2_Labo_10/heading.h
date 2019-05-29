@@ -8,7 +8,7 @@
 typedef struct Ligne Location;
 struct Ligne
 {
-    int nombre;
+    size_t nombre;
     Location* suivant;
 };
 
