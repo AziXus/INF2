@@ -65,6 +65,7 @@ void insertion(size_t noLigne, Headings* h, struct Element* gauche, char* mot){
     } else if (strcmp(gauche->heading->mot, mot) != 0) {
         InsererElement(gauche, el1);
     }
+    free(el1);
 }
 
 Headings* remplirIndex(const char* texte){
@@ -86,6 +87,7 @@ Headings* remplirIndex(const char* texte){
                 Element* gauche = chercherPosition(h, mot);
                 insertion(noLigne, h, gauche, mot);
                 dernierEspace = i + 1;
+                free(mot);
             }
             i++;
         }
@@ -110,7 +112,13 @@ void afficherIndex(Headings* h){
 
     printf("\n");
 }
-void detruireIndex(){
-    
+void detruireIndex(Headings* h){
+    while(h->premier != NULL)
+    {
+        Element* aSupprimer = h->premier;
+        headingDestroy(aSupprimer->heading);
+        free(aSupprimer);
+        h->premier = h->premier->suivant;
+    }
 }
 
