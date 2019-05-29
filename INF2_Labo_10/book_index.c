@@ -37,7 +37,7 @@ Element* chercherPosition(Headings* h, const char* mot) {
         actuel = actuel->suivant;
     }
 
-    return prev;// == NULL ? NULL : actuel->suivant;
+    return prev;
 }
 
 Heading* chercherHeading(Headings* h, const char* mot){
@@ -56,7 +56,7 @@ Headings* creerIndexVide(){
     return h;
 }
 
-void insertion(size_t noLigne, Headings* h, struct Element* gauche, char* mot){
+void insertion(size_t noLigne, Headings* h, Element* gauche, char* mot){
     Element* el1 = (Element*)malloc(sizeof(Element));
     el1->heading = headingCreate(mot, noLigne);
     if (gauche == NULL) {
@@ -89,15 +89,20 @@ Headings* remplirIndex(const char* texte){
             }
             i++;
         }
-        Element* gauche = chercherPosition(h, ligne + dernierEspace);
+        char* mot = (char*) calloc(i, sizeof(char));
+        //On copie les i - j caractère de l'élément ligne + j
+        strncpy(mot, ligne + dernierEspace, i - dernierEspace);
 
-        insertion(noLigne, h, gauche, ligne + dernierEspace);
+        Element* gauche = chercherPosition(h, mot);
+
+        insertion(noLigne, h, gauche, mot);
 
         noLigne++;
         ligne = strtok(NULL, "\n");
         dernierEspace = 0;
         i = 0;
     }
+
     return h;
 }
 void afficherIndex(Headings* h){
@@ -115,8 +120,10 @@ void detruireIndex(Headings* h){
     {
         Element* aSupprimer = h->premier;
         headingDestroy(aSupprimer->heading);
-        free(aSupprimer);
         h->premier = h->premier->suivant;
+        free(aSupprimer);
     }
+
+    free(h);
 }
 
