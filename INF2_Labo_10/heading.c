@@ -12,6 +12,12 @@
 #include <stdio.h>
 #include <string.h>
 
+struct Ligne
+{
+    size_t nombre;
+    Location* suivant;
+};
+
 Heading* headingCreate(const char* mot, size_t nombreLigne){
     //Allocation en mémoire du heading à créer
     Heading* h = (Heading*)malloc(sizeof(Heading));
@@ -19,7 +25,7 @@ Heading* headingCreate(const char* mot, size_t nombreLigne){
     h->premier = NULL;
     //Si la ligne ne vaut pas 0 alors elle est valide et on peut ajouter une ligne au mot
     if(nombreLigne != 0){
-        //Allocation en mémoire de la taille que va prendre Loction
+        //Allocation en mémoire de la taille pour une variable Location
         Location* ligne = (Location*)malloc(sizeof(Location));
         ligne->nombre = nombreLigne;
         ligne->suivant = h->premier;
@@ -29,7 +35,7 @@ Heading* headingCreate(const char* mot, size_t nombreLigne){
 }
 
 void headingDestroy(Heading* h){
-    //Boucle permettant de supprimer toutes les struct Location d'un Heading
+    //Boucle permettant de supprimer touts les objets Location d'un Heading
     while(h->premier != NULL)
     {
         Location* aSupprimer = h->premier;

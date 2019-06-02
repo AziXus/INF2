@@ -1,7 +1,18 @@
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 10
+ Fichier     : book_index.c
+ Auteur(s)   : Müller Robin, Stéphane Teixeira Carvalho
+ Date        : 01.05.2019
+
+ Compilateur : MinGW-gcc 6.3.0
+ -----------------------------------------------------------------------------------
+ */
 #include "book_index.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
 //Structure permettant de contenir la ligne ou est indexé le mot
 struct Element
 {
@@ -15,8 +26,13 @@ struct Liste
     Element* premier;
 };
 
-
+/**
+ * Permet d'insérer en élément à la suite d'un élément donnée
+ * @param hPrev adresse de l'élément étant le mot qui sera juste avant le futur mot à ajouter
+ * @param hInserer adresse de l'élément étant le futur mot à ajouter
+ */
 void InsererElement(Element* hPrev, Element* hInserer){
+    //si les mot dont les mêmes on ne l'insère pas
     if(hPrev->heading->mot != hInserer->heading->mot){
         hInserer->suivant = hPrev->suivant;
         hPrev->suivant = hInserer;
@@ -58,26 +74,38 @@ Headings* creerIndexVide(){
     return h;
 }
 
+/**
+ * Permet d'insérer un mot dans la liste 
+ * @param noLigne size_t étant le valeur du noLigne du mot à insérer
+ * @param h adresse d'un Headings étant la liste des mots indexer
+ * @param ligne adresse vers le début d'une ligne du texte
+ * @param nbCaractere size_t étant le taille du mot
+ * @param dernierEspace size_t indiuant l'emplcaement du dernier espace dans la ligne
+ */
 void insertion(size_t noLigne, Headings* h, char* ligne, size_t nbCaractere, size_t dernierEspace){
+    //Allocation de la place en mémoire du mot
     char* mot = (char*) calloc(nbCaractere, sizeof(char));
-    //On copie les i - j caractère de l'élément ligne + j
+    //On copie les nbCaractères - dernierEspace caractère de l'élément ligne + dernierEpsace
+    //ligne + dernierEpsace = début du nouveau mot et nbCaractères - dernierEspace permet de ne pas prendre l'espace comme caractère
     strncpy(mot, ligne + dernierEspace, nbCaractere - dernierEspace);
     //On cherche la position dans laquelle ajouter le mot 
-    Element* gauche = chercherPosition(h, mot);
+    Element* elementGauche = chercherPosition(h, mot);
+    //Allocation en mémoire du nouvel élément à ajouter
     Element* el1 = (Element*)malloc(sizeof(Element));
     el1->heading = headingCreate(mot, noLigne);
-    if (gauche == NULL) {
+    //Si l'élément de gauche est NULL cela signifie qu'on ajout au début
+    if (elementGauche == NULL) {
         el1->suivant = h->premier;
         h->premier = el1;
-    } else if (strcmp(gauche->heading->mot, mot) != 0) {
-        InsererElement(gauche, el1);
+    } else if (strcmp(elementGauche->heading->mot, mot) != 0) {
+        InsererElement(elementGauche, el1);
     }
 }
 
 Headings* remplirIndex(const char* texte){
-    size_t noLigne       = 1;//Indique le numéro de ligne ue nous lisons
-    size_t i             = 0;//Va permettre de parcourt le mot de la ligne caractère par caractère 
-    size_t dernierEspace = 0;//Permet de parcourir le mot contenu dans une ligne
+    size_t noLigne       = 1;//Indique le numéro de ligne que nous lisons
+    size_t i             = 0;//Va permettre de parcourir le mot de la ligne caractère par caractère 
+    size_t dernierEspace = 0;//Permet de savoir au se situe le dernier espace dans une ligne
     Headings* h          = creerIndexVide();
     char* ligne          = strtok((char*)texte, "\n");//Divise le texte en tableau de plusieurs éléments le délimiteur est \n
     //Parcourt toute les lignes
@@ -87,6 +115,7 @@ Headings* remplirIndex(const char* texte){
             //Si un espace est detecté on en sort le mot
             if(*(ligne + i) == ' '){
                 insertion(noLigne, h, ligne, i, dernierEspace);
+                //dernierEspace vaut i + 1 car on saut le caractère valant espace
                 dernierEspace = i + 1;
             }
             i++;
