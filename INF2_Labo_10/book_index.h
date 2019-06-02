@@ -52,6 +52,7 @@ Headings* remplirIndex(const char* texte);
  * @param h adresse vers la liste des mot indexés
  */
 void afficherIndex(Headings* h);
+
 /**
  * Permet de détruire(suprrimer) une liste de mot indexer
  * @param h adresse vers la liste des mot indexés
