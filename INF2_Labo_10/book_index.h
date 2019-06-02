@@ -17,6 +17,7 @@
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
  */ 
+
 #ifndef BOOK_INDEX_H
 #define BOOK_INDEX_H
 #include "heading.h"

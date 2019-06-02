@@ -8,6 +8,7 @@
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
  */
+
 #include "book_index.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -29,6 +30,10 @@ void insererElement(Element* hPrev, Element* hInserer);
  */
 void insertion(size_t noLigne, Index* h, const char* mot);
 
+/**
+ * Permet de convertir en minuscule une chaîne de caractère
+ * @param c adresse vers le début de la chaîne de caractère
+ */
 void strtolower(char* c);
 
 //Structure permettant de contenir la ligne ou est indexé le mot
@@ -39,7 +44,7 @@ struct Element
 };
 
 void insererElement(Element* hPrev, Element* hInserer) {
-    //si les mot dont les mêmes on ne l'insère pas
+    //si les mot sont les mêmes on ne l'insère pas
     if(hPrev->heading->mot != hInserer->heading->mot){
         hInserer->suivant = hPrev->suivant;
         hPrev->suivant = hInserer;
@@ -84,7 +89,7 @@ void insertion(size_t noLigne, Index* h, const char* mot){
     Element* el1 = (Element*)malloc(sizeof(Element));
     el1->heading = headingCreate(mot, noLigne);
 
-    //Si l'élément de gauche est NULL cela signifie qu'on ajout au début
+    //Si l'élément de gauche est NULL cela signifie qu'on ajoute au début
     if (elementGauche == NULL) {
         el1->suivant = *h;
         *h = el1;
@@ -99,7 +104,7 @@ void insertion(size_t noLigne, Index* h, const char* mot){
 Index* remplirIndex(char* texte){
     size_t noLigne       = 1;//Indique le numéro de ligne ue nous lisons
     size_t i             = 0;//Va permettre de parcourt le mot de la ligne caractère par caractère
-    size_t debutMot      = 0;//Permet de parcourir le mot contenu dans une ligne
+    size_t debutMot      = 0;//Permet de donner le début du mot dans la ligne
     Index* h             = creerIndexVide();
 
     while(*(texte + i) != '\0') {

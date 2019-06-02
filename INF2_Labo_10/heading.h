@@ -9,8 +9,8 @@
                La structure Location contiendra les numéro du ligne ou le mot à été trouvé.
                La structure Heading permettra de contenir tout les mot trouvés.
 
- Remarque(s) :  La structure Heading a été créee dans le fichiers heading.h pour permettre à book_index.c d'utiliser 
-                les varibales de cette structure.
+ Remarque(s) : La structure Heading a été créee dans le fichiers heading.h pour permettre à book_index.c d'utiliser 
+               les variables de cette structure.
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -30,6 +30,11 @@ typedef struct
     Location* premier;
 } Heading;
 
+/**
+ * Insère une ligne dans le heading(mot indexer) passé par paramètre
+ * @param heading adresse de l'objet heading auquel ajouter une ligne
+ * @param noLigne size_t étant la ligne à ajouter
+ */
 void insererLigne(Heading* heading, size_t noLigne);
 
 /**
