@@ -14,7 +14,7 @@
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
- */ 
+ */
 
 #ifndef HEADING_H
 #define HEADING_H
@@ -29,6 +29,8 @@ typedef struct
     const char* mot;
     Location* premier;
 } Heading;
+
+void insererLigne(Heading* heading, size_t noLigne);
 
 /**
  * Permet de créer un objet de type Heading(mot à indexer)

@@ -17,14 +17,19 @@
  */ 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "book_index.h"
 
 
 int main(void) {
     const char texte[] = "The five boxing\nwizards jump quickly.\n\nPack my box with five\ndozen liquor jugs.";
-    Headings* h = remplirIndex(texte);
-    afficherIndex(h);
-    detruireIndex(h);
+
+    char* copieTexte = malloc(sizeof(texte));
+    strcpy(copieTexte, texte);
+
+    Index* index = remplirIndex(copieTexte);
+    afficherIndex(index);
+    detruireIndex(index);
     return EXIT_SUCCESS;
 }
 

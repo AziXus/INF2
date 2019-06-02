@@ -34,6 +34,18 @@ Heading* headingCreate(const char* mot, size_t nombreLigne){
     return h;
 }
 
+void insererLigne(Heading* heading, size_t noLigne) {
+    Location* loc = (Location*)malloc(sizeof(Location));
+    loc->nombre = noLigne;
+    loc->suivant = NULL;
+
+    while (heading->premier->suivant != NULL) {
+        heading->premier = heading->premier->suivant;
+    }
+
+    heading->premier->suivant = loc;
+}
+
 void headingDestroy(Heading* h){
     //Boucle permettant de supprimer touts les objets Location d'un Heading
     while(h->premier != NULL)
@@ -42,7 +54,6 @@ void headingDestroy(Heading* h){
         h->premier = h->premier->suivant;
         free(aSupprimer);
     }
-    free((void*)h->mot);//Comme les mots sont allouées dynamiquement on doit les free également
     free(h);
 }
 
@@ -50,8 +61,10 @@ void headingPrint(Heading* h){
     printf("%s,", h->mot);
     Location* actuel = h->premier;
     while(actuel != NULL){
-        printf(" %d", actuel->nombre);
+        printf(" %zu", actuel->nombre);
         actuel = actuel->suivant;
+        if (actuel != NULL)
+            printf(", ");
     }
 }
 

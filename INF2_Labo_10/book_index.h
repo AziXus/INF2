@@ -20,10 +20,10 @@
 #ifndef BOOK_INDEX_H
 #define BOOK_INDEX_H
 #include "heading.h"
-//Liste allant contenir tout les éléments de type Heading(mot)
-typedef struct Liste Headings;
 //Element allant contenir le mot indexé et l'élément suivant dans la liste
 typedef struct Element Element;
+//Liste allant contenir tout les éléments de type Heading(mot)
+typedef Element* Index;
 
 /**
  * Renvoie la postion à laquelle ajouter un nouveau mot.
@@ -32,33 +32,33 @@ typedef struct Element Element;
  * @param mot chaîne de caractère constante étant le mot à ajouter
  * @return la position de l'élément à gauche du nouveau mot.
  */
-Element* chercherPosition(Headings* h, const char* mot);
+Element* chercherPosition(Index* h, const char* mot);
 
 /**
  * Permet de créer une liste de mot à indexer vide
  * @return la liste vide
  */
-Headings* creerIndexVide();
+Index* creerIndexVide();
 
 /**
  * Rempli un index de mot avec un texte passé en paramètre
  * @param texte chaîne de caractère constante étant le texte à indexer
  * @return le liste avec tous les mots indexés
  */
-Headings* remplirIndex(const char* texte);
+Index* remplirIndex(char* texte);
 
 /**
  * Permet d'afficher la liste avec les mot indexés
  * @param h adresse vers la liste des mot indexés
  */
-void afficherIndex(Headings* h);
+void afficherIndex(Index* h);
 
 /**
  * Permet de détruire(suprrimer) une liste de mot indexer.
  * Cette fonction détruit l'espace en mémoire pris par la liste chainée.
  * @param h adresse vers la liste des mot indexés
  */
-void detruireIndex(Headings* h);
+void detruireIndex(Index* h);
 
 #endif /* BOOK_INDEX_H */
 
