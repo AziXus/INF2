@@ -162,7 +162,6 @@ void insertion(Index* h, const char* mot, size_t noLigne){
     } else if (strcmp(elementGauche->heading->mot, mot) != 0) {
         insererElement(elementGauche, el1);
     } else if (strcmp(elementGauche->heading->mot, mot) == 0) {
-        //Ajouter une ligne
         insererLigne(elementGauche->heading, noLigne);
     }
 }
