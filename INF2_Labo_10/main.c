@@ -22,7 +22,7 @@
 
 
 int main(void) {
-    const char texte[] = "The five boxing\nwizards jump quickly.\n\nPack my box with five\ndozen liquor jugs.";
+    const char texte[] = "The five boxing asjdaj\nwizards jump quickly. ajjh\n\nPack my box with five\ndozen liquor jugs.";
 
     char* copieTexte = malloc(sizeof(texte));
     strcpy(copieTexte, texte);
@@ -30,6 +30,7 @@ int main(void) {
     Index* index = remplirIndex(copieTexte);
     afficherIndex(index);
     detruireIndex(index);
+    free(copieTexte);
     return EXIT_SUCCESS;
 }
 
