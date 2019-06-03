@@ -18,6 +18,7 @@
 #define DELIMITEUR_LIGNE '\n'
 #define DELIMITEUR_MOT ' '
 
+//Par la suite il sera possible de vouloir ajouter d'autres séparteurs par exmple ; : ou /
 const char SEPARATION_MOT[] = {'.', ','};
 const size_t TAILLE_SEPARATION_MOT = 2;
 
@@ -34,7 +35,7 @@ void insererElement(Element* hPrev, Element* hInserer);
  * @param h adresse d'un Index étant la liste des mots indexer
  * @param mot premier caractère du mot à insérer
  */
-void insertion(size_t noLigne, Index* h, const char* mot);
+void insertion(Index* h, const char* mot, size_t noLigne);
 
 /**
  * Permet de convertir en minuscule une chaîne de caractère
@@ -56,10 +57,7 @@ struct Element
     Element* suivant;
 };
 
-void insererElement(Element* hPrev, Element* hInserer) {
-    hInserer->suivant = hPrev->suivant;
-    hPrev->suivant = hInserer;
-}
+
 
 Element* chercherPosition(Index* h, const char* mot) {
     if (*h == NULL)
@@ -82,24 +80,6 @@ Index* creerIndexVide(){
     return h;
 }
 
-void insertion(size_t noLigne, Index* h, const char* mot){
-    //On cherche la position dans laquelle ajouter le mot
-    Element* elementGauche = chercherPosition(h, mot);
-    Element* el1 = (Element*)malloc(sizeof(Element));
-    el1->heading = headingCreate(mot, noLigne);
-
-    //Si l'élément de gauche est NULL cela signifie qu'on ajoute au début
-    if (elementGauche == NULL) {
-        el1->suivant = *h;
-        *h = el1;
-    } else if (strcmp(elementGauche->heading->mot, mot) != 0) {
-        insererElement(elementGauche, el1);
-    } else if (strcmp(elementGauche->heading->mot, mot) == 0) {
-        //Ajouter une ligne
-        insererLigne(elementGauche->heading, noLigne);
-    }
-}
-
 Index* remplirIndex(char* texte){
     size_t noLigne       = 1;//Indique le numéro de ligne que nous lisons
     size_t i             = 0;//Va permettre de parcourir les mot de la ligne caractère par caractère
@@ -108,8 +88,8 @@ Index* remplirIndex(char* texte){
     bool   finLigne      = false;
 
     while(*(texte + i) != '\0') {
-        //Si un seprateur de mot, une nouvelle ligne ou la fin de la chaine est detecté on en sort le mot
-        //*(texte + i + 1) == '\0' permet de nous arrêter un caractère avant que la condition de la boucle soit vraie
+        //Si un espace, une nouvelle ligne ou la fin de la chaine est detecté on en sort le mot
+        //*(texte + i + 1) == '\0' permet de nous arrêter un caractère avant que la condition de la boucle soit vraie pour en ressortir le mot
         if (*(texte + i) == DELIMITEUR_MOT || *(texte + i) == DELIMITEUR_LIGNE || *(texte + i + 1) == '\0') {
             size_t finMot = i;
             //Comme on va modifier le dernier caractère on garde une variable qui indique que le mot était en fin de ligne
@@ -125,8 +105,8 @@ Index* remplirIndex(char* texte){
                 *(texte + finMot) = '\0';
                 //On converti le mot en miniscule
                 strtolower(texte + debutMot);
-
-                insertion(noLigne, h, texte + debutMot);
+                //on insert le mot dans la liste
+                insertion(h, texte + debutMot, noLigne);
             }
             //on stocke le début du prochain mot
             debutMot = i + 1;
@@ -161,9 +141,32 @@ void detruireIndex(Index* h){
         *h = (*h)->suivant;
         free(aSupprimer);
     }
-
     free(h);
 }
+
+void insererElement(Element* hPrev, Element* hInserer) {
+    hInserer->suivant = hPrev->suivant;
+    hPrev->suivant = hInserer;
+}
+
+void insertion(Index* h, const char* mot, size_t noLigne){
+    //On cherche la position dans laquelle ajouter le mot
+    Element* elementGauche = chercherPosition(h, mot);
+    Element* el1 = (Element*)malloc(sizeof(Element));
+    el1->heading = headingCreate(mot, noLigne);
+
+    //Si l'élément de gauche est NULL cela signifie qu'on ajoute au début
+    if (elementGauche == NULL) {
+        el1->suivant = *h;
+        *h = el1;
+    } else if (strcmp(elementGauche->heading->mot, mot) != 0) {
+        insererElement(elementGauche, el1);
+    } else if (strcmp(elementGauche->heading->mot, mot) == 0) {
+        //Ajouter une ligne
+        insererLigne(elementGauche->heading, noLigne);
+    }
+}
+
 
 void strtolower(char* c) {
     while (*c != '\0') {

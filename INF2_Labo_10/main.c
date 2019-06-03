@@ -6,8 +6,8 @@
  Date        : 03.06.2019
 
  But         : Initialiser une chaine de caractère sous forme de texte.
-               Le texte sera ensuite donner à une fonction qui va indexer les mot contenus dans celui-ci. 
-               Les mots et le numéro des lignes dans lequel il a été trouvé vont être affiché.
+               Le texte sera ensuite donner à une fonction qui va indexer les mots contenus dans celui-ci. 
+               Les mots et les numéros des lignes dans lesquel il ont été trouvés vont être affiché.
                La liste des mots doit être sous forme alphabétique.
 
  Remarque(s) :  -

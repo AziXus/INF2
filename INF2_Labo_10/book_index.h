@@ -24,13 +24,13 @@
 #define MIN_CAR_MOT 3
 //Element allant contenir le mot indexé et l'élément suivant dans la liste
 typedef struct Element Element;
-//Pointeur vers le début de la liste(mot indexer)
+//Pointeur vers le début de la liste(mots indexés)
 typedef Element* Index;
 
 /**
  * Renvoie la postion à laquelle ajouter un nouveau mot.
  * Il renvoie l'élément qui devra être à gauche du nouveau mot.
- * @param h liste des mots déjà indexer
+ * @param h adresse vers le debut de la liste des mots déjà indexés
  * @param mot chaîne de caractère constante étant le mot à ajouter
  * @return la position de l'élément à gauche du nouveau mot.
  */

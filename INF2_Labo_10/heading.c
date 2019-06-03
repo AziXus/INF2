@@ -3,7 +3,7 @@
  Laboratoire : 10
  Fichier     : Heading.c
  Auteur(s)   : Müller Robin, Stéphane Teixeira Carvalho
- Date        : 01.05.2019
+ Date        : 03.06.2019
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ Heading* headingCreate(const char* mot, size_t nombreLigne){
     h->premier = NULL;
     //Si la ligne ne vaut pas 0 alors elle est valide et on peut ajouter une ligne au mot
     if(nombreLigne != 0){
-        //Allocation en mémoire de la taille pour une variable Location
+        //Allocation en mémoire de la taille pour une variable Location(numéro de ligne)
         Location* ligne = (Location*)malloc(sizeof(Location));
         ligne->nombre = nombreLigne;
         ligne->suivant = h->premier;
@@ -35,15 +35,15 @@ Heading* headingCreate(const char* mot, size_t nombreLigne){
 }
 
 void insererLigne(Heading* heading, size_t noLigne) {
-    Location* loc = (Location*)malloc(sizeof(Location));
-    loc->nombre = noLigne;
-    loc->suivant = NULL;
+    Location* ligne = (Location*)malloc(sizeof(Location));
+    ligne->nombre = noLigne;
+    ligne->suivant = NULL;
 
     while (heading->premier->suivant != NULL) {
         heading->premier = heading->premier->suivant;
     }
 
-    heading->premier->suivant = loc;
+    heading->premier->suivant = ligne;
 }
 
 void headingDestroy(Heading* h){

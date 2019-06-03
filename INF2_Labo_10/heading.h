@@ -3,9 +3,9 @@
  Laboratoire : 10
  Fichier     : heading.h
  Auteur(s)   : Müller Robin, Stéphane Teixeira Carvalho
- Date        : 01.05.2019
+ Date        : 03.06.2019
 
- But         : Initialiser deux structures pour créer le principe de liste chainée.
+ But         : Initialiser deux structures qui seront sous forme de liste chainée.
                La structure Location contiendra les numéro du ligne ou le mot à été trouvé.
                La structure Heading permettra de contenir tout les mot trouvés.
 
