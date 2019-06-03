@@ -3,7 +3,7 @@
  Laboratoire : 10
  Fichier     : book_index.c
  Auteur(s)   : Müller Robin, Stéphane Teixeira Carvalho
- Date        : 01.05.2019
+ Date        : 03.06.2019
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ void insererElement(Element* hPrev, Element* hInserer);
 /**
  * Permet d'insérer un mot dans la liste
  * @param noLigne size_t étant le valeur du noLigne du mot à insérer
- * @param h adresse d'un Headings étant la liste des mots indexer
+ * @param h adresse d'un Index étant la liste des mots indexer
  * @param mot premier caractère du mot à insérer
  */
 void insertion(size_t noLigne, Index* h, const char* mot);
@@ -36,7 +36,7 @@ void insertion(size_t noLigne, Index* h, const char* mot);
  */
 void strtolower(char* c);
 
-//Structure permettant de contenir la ligne ou est indexé le mot
+//Structure permettant de contenir la mot et l'élément suivant dans la liste
 struct Element
 {
     Heading* heading;
@@ -44,11 +44,8 @@ struct Element
 };
 
 void insererElement(Element* hPrev, Element* hInserer) {
-    //si les mot sont les mêmes on ne l'insère pas
-    if(hPrev->heading->mot != hInserer->heading->mot){
-        hInserer->suivant = hPrev->suivant;
-        hPrev->suivant = hInserer;
-    }
+    hInserer->suivant = hPrev->suivant;
+    hPrev->suivant = hInserer;
 }
 
 Element* chercherPosition(Index* h, const char* mot) {
@@ -65,17 +62,6 @@ Element* chercherPosition(Index* h, const char* mot) {
     }
 
     return prev;
-}
-
-Heading* chercherHeading(Index* h, const char* mot){
-    Element* actuel = *h;
-    while(actuel != NULL)
-    {
-        if((*h)->heading->mot == mot)
-            return actuel->heading;
-        actuel = actuel->suivant;
-    }
-    return NULL;
 }
 
 Index* creerIndexVide(){

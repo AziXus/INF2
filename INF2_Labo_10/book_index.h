@@ -3,11 +3,11 @@
  Laboratoire : 10
  Fichier     : book_index.h
  Auteur(s)   : Müller Robin, Stéphane Teixeira Carvalho
- Date        : 01.05.2019
+ Date        : 03.06.2019
 
- But         : Initialiser une structures Headings pour créer le principe de liste chainée dans le stockage des différents mots.
-               La structure Headings contiendra tout les mot du texte à indexer.
-               On doit pouvoir remplir et détruire une struct Headings.
+ But         : Initialiser une structure nommée Element pour créer le principe de liste chainée pour le stockage des différents mots.
+               L'élément pointé Index indique le début de la liste de tout les mot du texte à indexer.
+               On doit pouvoir remplir et détruire la liste.
 
  Remarque(s) : Les mots à indexer (headings) sont définis ainsi : une suite de caractères alphanumériques sans
                espace entre eux.
@@ -23,7 +23,7 @@
 #include "heading.h"
 //Element allant contenir le mot indexé et l'élément suivant dans la liste
 typedef struct Element Element;
-//Liste allant contenir tout les éléments de type Heading(mot)
+//Pointeur vers le début de la liste(mot indexer)
 typedef Element* Index;
 
 /**
@@ -44,7 +44,7 @@ Index* creerIndexVide();
 /**
  * Rempli un index de mot avec un texte passé en paramètre
  * @param texte chaîne de caractère constante étant le texte à indexer
- * @return le liste avec tous les mots indexés
+ * @return adresse vers le début de la liste avec tous les mots indexés
  */
 Index* remplirIndex(char* texte);
 
