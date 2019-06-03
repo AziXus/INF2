@@ -21,6 +21,7 @@
 #ifndef BOOK_INDEX_H
 #define BOOK_INDEX_H
 #include "heading.h"
+#define MIN_CAR_MOT 3
 //Element allant contenir le mot indexé et l'élément suivant dans la liste
 typedef struct Element Element;
 //Pointeur vers le début de la liste(mot indexer)
