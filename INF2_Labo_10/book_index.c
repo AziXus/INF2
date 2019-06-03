@@ -14,6 +14,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
+#define DELIMITEUR_LIGNE '\n'
+
+const char SEPARATION_MOT[] = {'.', ',', ' '};
+const size_t TAILLE_SEPARATION_MOT = 3;
 
 /**
  * Permet d'insérer en élément à la suite d'un élément donnée
@@ -35,6 +40,13 @@ void insertion(size_t noLigne, Index* h, const char* mot);
  * @param c adresse vers le début de la chaîne de caractère
  */
 void strtolower(char* c);
+
+/**
+ * Permet de savoir si le caractère passé par paramètre est un delimiteur de mot
+ * @param c caractère passé en paramètre
+ * @return vrai si le caractère est dans le tableau, faux sinon
+ */
+bool delimiteurMot(char c);
 
 //Structure permettant de contenir la mot et l'élément suivant dans la liste
 struct Element
@@ -92,21 +104,20 @@ Index* remplirIndex(char* texte){
     size_t i             = 0;//Va permettre de parcourir les mot de la ligne caractère par caractère
     size_t debutMot      = 0;//Permet de donner le début du mot dans la ligne
     Index* h             = creerIndexVide();
-    size_t finLigne      = 0;
+    bool   finLigne      = false;
 
     while(*(texte + i) != '\0') {
         //Si un espace, une nouvelle ligne ou la fin de la chaine est detecté on en sort le mot
         //*(texte + i + 1) == '\0' permet de nous arrêter un caractère avant que la condition de la boucle soit vraie
-        if (*(texte + i) == ' ' || *(texte + i) == '\n' || *(texte + i + 1) == '\0') {
+        if (delimiteurMot(*(texte + i)) || *(texte + i) == DELIMITEUR_LIGNE || *(texte + i + 1) == '\0') {
             size_t finMot = i;
-            //Si le dernier caractère du mot est un point ou une virgule, on réduit la taille du mot de 1
-            if (*(texte + finMot - 1) == '.' || *(texte + finMot - 1) == ',')
-                --finMot;
             //Comme on va modifier le dernier caractère on garde une variable qui indique que le mot était en fin de ligne
-            if(*(texte + finMot) == '\n'){
-                finLigne = 1;
+            if(*(texte + finMot) == DELIMITEUR_LIGNE){
+                finLigne = true;
             }
-            
+            //Si le dernier caractère du mot est un point ou une virgule, on réduit la taille du mot de 1
+            if (delimiteurMot(*(texte + finMot - 1)))
+                --finMot; 
             //On garde uniquement les mots de plus de 3 caractères
             if (finMot - debutMot >= MIN_CAR_MOT) {
                 //On remplace le dernier caractère par un \0 afin de terminer le mot
@@ -116,13 +127,13 @@ Index* remplirIndex(char* texte){
 
                 insertion(noLigne, h, texte + debutMot);
             }
-            //on stcoke le debut du prochain mot
+            //on stocke le début du prochain mot
             debutMot = finMot + 1;
         }
         //Si on est en fin de ligne on incrémente la ligne
         if(finLigne){
             ++noLigne;
-            finLigne = 0;
+            finLigne = false;
         }
 
         ++i;
@@ -158,4 +169,11 @@ void strtolower(char* c) {
         *c = (char)tolower(*c);
         ++c;
     }
+}
+
+bool delimiteurMot(char c){
+    for(size_t i = 0; i < TAILLE_SEPARATION_MOT; i++)
+        if(c == SEPARATION_MOT[i])
+            return true;
+    return false;        
 }
