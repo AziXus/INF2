@@ -6,8 +6,8 @@
  Date        : 03.06.2019
 
  But         : Initialiser deux structures qui seront sous forme de liste chainée.
-               La structure Location contiendra les numéro du ligne ou le mot à été trouvé.
-               La structure Heading permettra de contenir tout les mot trouvés.
+               La structure Location contiendra les numéros des lignes ou le mot à été trouvé.
+               La structure Heading permettra de contenir le mot trouvé.
 
  Remarque(s) : La structure Heading a été créee dans le fichiers heading.h pour permettre à book_index.c d'utiliser 
                les variables de cette structure.

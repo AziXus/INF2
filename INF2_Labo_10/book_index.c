@@ -17,8 +17,9 @@
 #include <stdbool.h>
 #define DELIMITEUR_LIGNE '\n'
 #define DELIMITEUR_MOT ' '
+#define FIN_TEXTE '\0'
 
-//Par la suite il sera possible de vouloir ajouter d'autres séparteurs par exmple ; : ou /
+//Par la suite, il sera possible de vouloir ajouter d'autres séparteurs par exmple ; : ou /
 const char SEPARATION_MOT[] = {'.', ','};
 const size_t TAILLE_SEPARATION_MOT = 2;
 
@@ -31,33 +32,31 @@ void insererElement(Element* hPrev, Element* hInserer);
 
 /**
  * Permet d'insérer un mot dans la liste
- * @param noLigne size_t étant le valeur du noLigne du mot à insérer
  * @param h adresse d'un Index étant la liste des mots indexer
  * @param mot premier caractère du mot à insérer
+ * @param noLigne size_t étant le valeur du noLigne du mot à insérer
  */
-void insertion(Index* h, const char* mot, size_t noLigne);
+void insertionListe(Index* h, const char* mot, size_t noLigne);
 
 /**
  * Permet de convertir en minuscule une chaîne de caractère
  * @param c adresse vers le début de la chaîne de caractère
  */
-void strtolower(char* c);
+void strToLower(char* c);
 
 /**
- * Permet de savoir si le caractère passé par paramètre est un delimiteur de mot
+ * Permet de savoir si le caractère passé par paramètre est un separateur de mot
  * @param c caractère passé en paramètre
  * @return vrai si le caractère est dans le tableau, faux sinon
  */
 bool separateurMot(char c);
 
-//Structure permettant de contenir la mot et l'élément suivant dans la liste
+//Structure permettant de contenir le mot et l'élément suivant dans la liste
 struct Element
 {
     Heading* heading;
     Element* suivant;
 };
-
-
 
 Element* chercherPosition(Index* h, const char* mot) {
     if (*h == NULL)
@@ -66,7 +65,7 @@ Element* chercherPosition(Index* h, const char* mot) {
     Element* actuel = *h;
     Element* prev = NULL;
 
-    //On boucle tant que le char est plus grand et on s'arrête quand il est plus petit ou égal
+    //On boucle tant que le mot est plus grand et on s'arrête quand il est plus petit ou égal
     while (actuel != NULL && strcmp(actuel->heading->mot, mot) <= 0) {
         prev = actuel;
         actuel = actuel->suivant;
@@ -82,15 +81,15 @@ Index* creerIndexVide(){
 
 Index* remplirIndex(char* texte){
     size_t noLigne       = 1;//Indique le numéro de ligne que nous lisons
-    size_t i             = 0;//Va permettre de parcourir les mot de la ligne caractère par caractère
     size_t debutMot      = 0;//Permet de donner le début du mot dans la ligne
     Index* h             = creerIndexVide();
-    bool   finLigne      = false;
-
-    while(*(texte + i) != '\0') {
+    bool   finLigne      = false;//Permet de savoir si nous sommes en fin de ligne
+    
+    //Va permettre de parcourir les mot de la ligne caractère par caractère
+    for(size_t i = 0; *(texte + i) != FIN_TEXTE; i++) {
         //Si un espace, une nouvelle ligne ou la fin de la chaine est detecté on en sort le mot
         //*(texte + i + 1) == '\0' permet de nous arrêter un caractère avant que la condition de la boucle soit vraie pour en ressortir le mot
-        if (*(texte + i) == DELIMITEUR_MOT || *(texte + i) == DELIMITEUR_LIGNE || *(texte + i + 1) == '\0') {
+        if (*(texte + i) == DELIMITEUR_MOT || *(texte + i) == DELIMITEUR_LIGNE || *(texte + i + 1) == FIN_TEXTE) {
             size_t finMot = i;
             //Comme on va modifier le dernier caractère on garde une variable qui indique que le mot était en fin de ligne
             if(*(texte + finMot) == DELIMITEUR_LIGNE){
@@ -102,11 +101,11 @@ Index* remplirIndex(char* texte){
             //On garde uniquement les mots de plus de 3 caractères
             if (finMot - debutMot >= MIN_CAR_MOT) {
                 //On remplace le dernier caractère par un \0 afin de terminer le mot
-                *(texte + finMot) = '\0';
+                *(texte + finMot) = FIN_TEXTE;
                 //On converti le mot en miniscule
-                strtolower(texte + debutMot);
-                //on insert le mot dans la liste
-                insertion(h, texte + debutMot, noLigne);
+                strToLower(texte + debutMot);
+                //on insère le mot dans la liste
+                insertionListe(h, texte + debutMot, noLigne);
             }
             //on stocke le début du prochain mot
             debutMot = i + 1;
@@ -116,8 +115,6 @@ Index* remplirIndex(char* texte){
             ++noLigne;
             finLigne = false;
         }
-
-        ++i;
     }
 
     return h;
@@ -149,7 +146,7 @@ void insererElement(Element* hPrev, Element* hInserer) {
     hPrev->suivant = hInserer;
 }
 
-void insertion(Index* h, const char* mot, size_t noLigne){
+void insertionListe(Index* h, const char* mot, size_t noLigne){
     //On cherche la position dans laquelle ajouter le mot
     Element* elementGauche = chercherPosition(h, mot);
     Element* el1 = (Element*)malloc(sizeof(Element));
@@ -167,7 +164,7 @@ void insertion(Index* h, const char* mot, size_t noLigne){
 }
 
 
-void strtolower(char* c) {
+void strToLower(char* c) {
     while (*c != '\0') {
         *c = (char)tolower(*c);
         ++c;

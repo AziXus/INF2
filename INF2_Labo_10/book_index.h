@@ -10,7 +10,7 @@
                On doit pouvoir remplir et détruire la liste.
 
  Remarque(s) : Les mots à indexer (headings) sont définis ainsi : une suite de caractères alphanumériques sans
-               espace entre eux.
+               espaces entre eux.
                Il est composé d'au moins 3 caractères. Les lettres sont converties en minuscules.
                Les ponctuations accolées aux mots (point ou virgule) sont supprimées.
 
@@ -56,7 +56,7 @@ Index* remplirIndex(char* texte);
 void afficherIndex(Index* h);
 
 /**
- * Permet de détruire(suprrimer) une liste de mot indexer.
+ * Permet de détruire(suprrimer) une liste de mot indexé.
  * Cette fonction détruit l'espace en mémoire pris par la liste chainée.
  * @param h adresse vers la liste des mot indexés
  */

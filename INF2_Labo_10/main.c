@@ -7,7 +7,7 @@
 
  But         : Initialiser une chaine de caractère sous forme de texte.
                Le texte sera ensuite donner à une fonction qui va indexer les mots contenus dans celui-ci. 
-               Les mots et les numéros des lignes dans lesquel il ont été trouvés vont être affiché.
+               Les mots et les numéros des lignes dans lesquel ils ont été trouvés vont être affiché.
                La liste des mots doit être sous forme alphabétique.
 
  Remarque(s) :  -
