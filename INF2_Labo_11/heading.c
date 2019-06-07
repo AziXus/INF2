@@ -9,7 +9,6 @@
  -----------------------------------------------------------------------------------
  */ 
 #include "heading.h"
-#include <stdio.h>
 #include <string.h>
 
 struct Ligne
@@ -38,12 +37,13 @@ void insererLigne(Heading* heading, size_t noLigne) {
     Location* ligne = (Location*)malloc(sizeof(Location));
     ligne->nombre = noLigne;
     ligne->suivant = NULL;
+    Location* current = heading->premier;
 
-    while (heading->premier->suivant != NULL) {
-        heading->premier = heading->premier->suivant;
+    while (current->suivant != NULL) {
+        current = current->suivant;
     }
 
-    heading->premier->suivant = ligne;
+    current->suivant = ligne;
 }
 
 void headingDestroy(Heading* h){
@@ -61,10 +61,21 @@ void headingPrint(Heading* h){
     printf("%s,", h->mot);
     Location* actuel = h->premier;
     while(actuel != NULL){
-        printf(" %zu", actuel->nombre);
+        printf(" %d", actuel->nombre);
         actuel = actuel->suivant;
         if (actuel != NULL)
             printf(", ");
+    }
+}
+
+void saveToFileHeading(Heading* h, FILE* fichier){
+    fprintf(fichier, "%s, ", h->mot);
+    Location* actuel = h->premier;
+    while(actuel != NULL){
+        fprintf(fichier, " %d", actuel->nombre);
+        actuel = actuel->suivant;
+        if (actuel != NULL)
+            fprintf(fichier, ", ");
     }
 }
 

@@ -54,13 +54,16 @@ int main(int argc, char* argv[]) {
     fread(texte, 1, fsize, fichierAIndexer);
     fclose(fichierAIndexer);
     texte[fsize] = '\0';
-    fclose(fichierIndex);
+
 
     Index* index = remplirIndex(texte);
     afficherIndex(index);
+    saveToFileIndex(index, fichierIndex);
     detruireIndex(index);
 
     free(texte);
+    
+    fclose(fichierIndex);
 
     return EXIT_SUCCESS;
 

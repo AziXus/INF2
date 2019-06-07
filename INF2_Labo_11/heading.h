@@ -19,6 +19,7 @@
 #ifndef HEADING_H
 #define HEADING_H
 #include <stdlib.h>
+#include <stdio.h>
 
 //Structure permettant de contenir la ligne ou est indexé le mot
 typedef struct Ligne Location;
@@ -57,6 +58,8 @@ void headingDestroy(Heading* h);
  * @param h adresse du Heading à supprimer
  */
 void headingPrint(Heading* h);
+
+void saveToFileHeading(Heading* h, FILE* fichier);
 
 #endif /* HEADING_H */
 

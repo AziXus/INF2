@@ -19,8 +19,8 @@
 #define DELIMITEUR_MOT ' '
 
 //Par la suite il sera possible de vouloir ajouter d'autres séparteurs par exmple ; : ou /
-const char SEPARATION_MOT[] = {'.', ','};
-const size_t TAILLE_SEPARATION_MOT = 2;
+const char SEPARATION_MOT[] = {'.', ',', ':', '?', ';', '!'};
+const size_t TAILLE_SEPARATION_MOT = 6;
 
 /**
  * Permet d'insérer en élément à la suite d'un élément donnée
@@ -122,6 +122,18 @@ Index* remplirIndex(char* texte){
 
     return h;
 }
+
+void saveToFileIndex(Index* h, FILE* fichier){
+    Element* actuel = *h;
+    while(actuel != NULL){
+        saveToFileHeading(actuel->heading, fichier);
+        fprintf(fichier, "\n");
+        actuel = actuel->suivant;
+    }
+
+    fprintf(fichier, "\n");
+}
+
 void afficherIndex(Index* h){
     Element* actuel = *h;
     while(actuel != NULL){

@@ -49,6 +49,8 @@ Index* creerIndexVide();
  */
 Index* remplirIndex(char* texte);
 
+void saveToFileIndex(Index* h, FILE* fichier);
+
 /**
  * Permet d'afficher la liste avec les mot indexés
  * @param h adresse vers la liste des mot indexés
