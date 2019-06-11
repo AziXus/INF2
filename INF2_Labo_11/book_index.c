@@ -51,10 +51,10 @@ void strtolower(char* c);
 bool separateurMot(char c);
 
 /**
- * Determine si le mot est valide. Un mot valide ne contient pas de chiffres
- * @param mot
- * @param stopwords
- * @return
+ * Determine si le mot est valide. Un mot valide ne contient pas d'autres caractères que ceux alphanumerique(A-Z et 0-9)
+ * @param mot chaîne de caractère étant le mot à vérifier
+ * @param stopwords Fichier contenant des mots invalide(paramètre non-nécessaire peut être nul)
+ * @return vrai si le mot est valide, false sinon
  */
 bool motValide(char* mot, FILE* stopwords);
 
@@ -102,9 +102,10 @@ Index* remplirIndex(char* texte, FILE* stopwords){
             if(*(texte + finMot) == DELIMITEUR_LIGNE){
                 finLigne = true;
             }
-            //Si le dernier caractère du mot est un point ou une virgule, on réduit la taille du mot de 1
+            //Tant que le dernier caractère du mot est un caractère spécial on reduit la taille du mot
             while (separateurMot(*(texte + finMot - 1)))
                 --finMot;
+            //Tant que le premier caractère du mot est un caractère spécial on reduit la taille du mot
             while(separateurMot(*(texte + debutMot))){
                 debutMot++;
             }
@@ -227,6 +228,5 @@ bool motValide(char* mot, FILE* stopwords) {
                 return false;
         }
     }
-
     return true;
 }

@@ -49,6 +49,11 @@ Index* creerIndexVide();
  */
 Index* remplirIndex(char* texte, FILE* stopwords);
 
+/**
+ * Permet de stocker la liste d'index dans le fichier passé en paramètre
+ * @param h adresse vers la liste des mots indexés
+ * @param fichier adresse vers le fichier dans lequelle écrire la liste
+ */
 void saveToFileIndex(Index* h, FILE* fichier);
 
 /**

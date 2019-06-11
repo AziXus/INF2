@@ -59,6 +59,11 @@ void headingDestroy(Heading* h);
  */
 void headingPrint(Heading* h);
 
+/**
+ * Permet d'écrire dans le fichier passé en paramètre le mot indexé désiré
+ * @param h adresse du Heading(mot indexé) à écrire dans le fichier
+ * @param fichier adresse vers le fichier dans lequel écrire
+ */
 void saveToFileHeading(Heading* h, FILE* fichier);
 
 #endif /* HEADING_H */
