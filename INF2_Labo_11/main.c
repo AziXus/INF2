@@ -5,12 +5,14 @@
  Auteur(s)   : Müller Robin, Stéphane Teixeira Carvalho
  Date        : 03.06.2019
 
- But         : Initialiser une chaine de caractère sous forme de texte.
+ But         : Lire dans un fichier passé en paramètre un texte.
+               Le texte sera contenu sous forme de chaîne de caractère.
                Le texte sera ensuite donner à une fonction qui va indexer les mots contenus dans celui-ci. 
                Les mots et les numéros des lignes dans lesquel il ont été trouvés vont être affiché.
                La liste des mots doit être sous forme alphabétique.
+               La liste sera ensuite écrite dans un fichier se nommant index.txt 
 
- Remarque(s) :  -
+ Remarque(s) : Une liste de mot invalide peut être donné en paramètre ou non.
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
