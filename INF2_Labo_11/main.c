@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     }
     FILE* fichierIndexExiste  = fopen(argv[FICHIER_INDEX], "r");
     if(fichierIndexExiste){
-        printf("! Fichier déjà existant voulez-vous l'écraser ? [Y/N] ");
+        printf("! Fichier deja existant voulez-vous l'ecraser ? [Y/N] ");
         fflush(stdin);
         scanf("%c", &choix);
         fflush(stdout);

@@ -19,8 +19,8 @@
 #define DELIMITEUR_MOT ' '
 
 //Par la suite il sera possible de vouloir ajouter d'autres séparteurs par exmple ; : ou /
-const char SEPARATION_MOT[] = {'.', ',', ':', '?', ';', '!'};
-const size_t TAILLE_SEPARATION_MOT = 6;
+const char SEPARATION_MOT[] = {'.', ',', ':', '?', ';', '!', '"', '-', '[', ']', '(', ')', '<', '\''};
+const size_t TAILLE_SEPARATION_MOT = 14;
 
 /**
  * Permet d'insérer en élément à la suite d'un élément donnée
@@ -101,6 +101,9 @@ Index* remplirIndex(char* texte, FILE* stopwords){
             //Si le dernier caractère du mot est un point ou une virgule, on réduit la taille du mot de 1
             if (separateurMot(*(texte + finMot - 1)))
                 --finMot;
+            if(separateurMot(*(texte + debutMot))){
+                debutMot++;
+            }
 
             //On garde uniquement les mots de plus de 3 caractères
             if (finMot - debutMot >= MIN_CAR_MOT) {
