@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "book_index.h"
 
 #define FICHER_A_INDEXER 1
@@ -49,13 +50,13 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
     FILE* fichierStopWords = fopen(argv[FICHER_STOPWORDS], "r");
-    if(!fichierAIndexer){
+    if(!fichierStopWords){
         printf("Le fichier des stopwords n'existe pas");
         return EXIT_FAILURE;
     }
     FILE* fichierIndexExiste  = fopen(argv[FICHIER_INDEX], "r");
     if(fichierIndexExiste){
-        printf("! Fichier déjà existant voulez-vous l'écraser ? [Y/N]");
+        printf("! Fichier déjà existant voulez-vous l'écraser ? [Y/N] ");
         fflush(stdin);
         scanf("%c", &choix);
         fflush(stdout);
@@ -79,7 +80,7 @@ int main(int argc, char* argv[]) {
 
     fread(texte, NB_OCTETS, 1, fichierAIndexer);
 
-    Index* index = remplirIndex(texte);
+    Index* index = remplirIndex(texte, fichierStopWords);
     afficherIndex(index);
     saveToFileIndex(index, fichierIndex);
     detruireIndex(index);

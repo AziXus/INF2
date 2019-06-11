@@ -50,6 +50,8 @@ void strtolower(char* c);
  */
 bool separateurMot(char c);
 
+bool motValide(char* mot, FILE* stopwords);
+
 //Structure permettant de contenir la mot et l'élément suivant dans la liste
 struct Element
 {
@@ -101,14 +103,16 @@ Index* remplirIndex(char* texte, FILE* stopwords){
                 --finMot;
 
             //On garde uniquement les mots de plus de 3 caractères
-            //Si le mot n'est pas dans stopwords
             if (finMot - debutMot >= MIN_CAR_MOT) {
                 //On remplace le dernier caractère par un \0 afin de terminer le mot
                 *(texte + finMot) = '\0';
                 //On converti le mot en miniscule
                 strtolower(texte + debutMot);
-                //on insert le mot dans la liste
-                insertion(h, texte + debutMot, noLigne);
+
+                if (motValide(texte + debutMot, stopwords)) {
+                    //on insert le mot dans la liste
+                    insertion(h, texte + debutMot, noLigne);
+                }
             }
             //on stocke le début du prochain mot
             debutMot = i + 1;
@@ -193,4 +197,21 @@ bool separateurMot(char c){
         if(c == SEPARATION_MOT[i])
             return true;
     return false;        
+}
+
+bool motValide(char* mot, FILE* stopwords) {
+    const size_t TAILLE_MAX = 256;
+    char buf[256];
+
+    rewind(stopwords);
+
+    while(fgets(buf, sizeof(buf), stopwords)) {
+        if (buf[strlen(buf) - 1] == '\n')
+            buf[strlen(buf) - 1] = '\0';
+
+        if (strcmp(mot, buf) == 0)
+            return false;
+    }
+
+    return true;
 }
