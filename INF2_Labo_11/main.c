@@ -43,40 +43,30 @@ int main(int argc, char* argv[]) {
 //        char* fichierIndex = argv[FICHIER_INDEX];
 
     FILE* fichierAIndexer = fopen(argv[FICHER_A_INDEXER], "r");
-    FILE* fichierIndex    = fopen(argv[FICHIER_INDEX], "w");
+    FILE* fichierIndex    = fopen(argv[FICHIER_INDEX], "w"); //Confirmer ecrasement si le fichier existe
     //        char* fichierStopwords = argv[3];
 
     fseek(fichierAIndexer, 0, SEEK_END);
-    long fsize = ftell(fichierAIndexer);
-    fseek(fichierAIndexer, 0, SEEK_SET);  /* same as rewind(f); */
 
-    char *texte = malloc(fsize + 1);
-    fread(texte, 1, fsize, fichierAIndexer);
+    const size_t NB_OCTETS = (size_t)ftell(fichierAIndexer) + 1;
+    char* texte = calloc(NB_OCTETS, sizeof(char));
+
+    if (texte != NULL) {
+        rewind(fichierAIndexer);
+
+        fread(texte, NB_OCTETS, 1, fichierAIndexer);
+
+        Index* index = remplirIndex(texte);
+        afficherIndex(index);
+        saveToFileIndex(index, fichierIndex);
+        detruireIndex(index);
+
+        free(texte);
+    }
+
     fclose(fichierAIndexer);
-    texte[fsize] = '\0';
-
-
-    Index* index = remplirIndex(texte);
-    afficherIndex(index);
-    saveToFileIndex(index, fichierIndex);
-    detruireIndex(index);
-
-    free(texte);
-    
     fclose(fichierIndex);
 
     return EXIT_SUCCESS;
-
-
-//    const char texte[] = "The five boxing\nwizards jump quickly.\n\nPack my box with five\ndozen liquor jugs.";
-//
-//    char* copieTexte = malloc(sizeof(texte));
-//    strcpy(copieTexte, texte);
-//
-//    Index* index = remplirIndex(copieTexte);
-//    afficherIndex(index);
-//    detruireIndex(index);
-//    free(copieTexte);
-//    return EXIT_SUCCESS;
 }
 

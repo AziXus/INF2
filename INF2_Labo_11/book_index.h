@@ -47,7 +47,7 @@ Index* creerIndexVide();
  * @param texte chaîne de caractère constante étant le texte à indexer
  * @return adresse vers le début de la liste avec tous les mots indexés
  */
-Index* remplirIndex(char* texte);
+Index* remplirIndex(char* texte, FILE* stopwords);
 
 void saveToFileIndex(Index* h, FILE* fichier);
 

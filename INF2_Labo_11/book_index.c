@@ -80,7 +80,7 @@ Index* creerIndexVide(){
     return h;
 }
 
-Index* remplirIndex(char* texte){
+Index* remplirIndex(char* texte, FILE* stopwords){
     size_t noLigne       = 1;//Indique le numéro de ligne que nous lisons
     size_t i             = 0;//Va permettre de parcourir les mot de la ligne caractère par caractère
     size_t debutMot      = 0;//Permet de donner le début du mot dans la ligne
@@ -99,7 +99,9 @@ Index* remplirIndex(char* texte){
             //Si le dernier caractère du mot est un point ou une virgule, on réduit la taille du mot de 1
             if (separateurMot(*(texte + finMot - 1)))
                 --finMot;
+
             //On garde uniquement les mots de plus de 3 caractères
+            //Si le mot n'est pas dans stopwords
             if (finMot - debutMot >= MIN_CAR_MOT) {
                 //On remplace le dernier caractère par un \0 afin de terminer le mot
                 *(texte + finMot) = '\0';
