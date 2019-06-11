@@ -41,9 +41,30 @@ int main(int argc, char* argv[]) {
 
 //        char* fichierAIndexer = argv[FICHER_A_INDEXER];
 //        char* fichierIndex = argv[FICHIER_INDEX];
+    char choix;
 
     FILE* fichierAIndexer = fopen(argv[FICHER_A_INDEXER], "r");
+    if(!fichierAIndexer){
+        printf("Le fichier à indexer n'existe pas");
+        return EXIT_FAILURE;
+    }
+    FILE* fichierStopWords = fopen(argv[FICHER_STOPWORDS], "r");
+    if(!fichierAIndexer){
+        printf("Le fichier des stopwords n'existe pas");
+        return EXIT_FAILURE;
+    }
+    FILE* fichierIndexExiste  = fopen(argv[FICHIER_INDEX], "r");
+    if(fichierIndexExiste){
+        printf("! Fichier déjà existant voulez-vous l'écraser ? [Y/N]");
+        fflush(stdin);
+        scanf("%c", &choix);
+        fflush(stdout);
+        if('N' == tolower(choix)){
+            return EXIT_SUCCESS;
+        }
+    }
     FILE* fichierIndex    = fopen(argv[FICHIER_INDEX], "w"); //Confirmer ecrasement si le fichier existe
+    
     //        char* fichierStopwords = argv[3];
 
     fseek(fichierAIndexer, 0, SEEK_END);
@@ -51,18 +72,19 @@ int main(int argc, char* argv[]) {
     const size_t NB_OCTETS = (size_t)ftell(fichierAIndexer) + 1;
     char* texte = calloc(NB_OCTETS, sizeof(char));
 
-    if (texte != NULL) {
-        rewind(fichierAIndexer);
-
-        fread(texte, NB_OCTETS, 1, fichierAIndexer);
-
-        Index* index = remplirIndex(texte);
-        afficherIndex(index);
-        saveToFileIndex(index, fichierIndex);
-        detruireIndex(index);
-
-        free(texte);
+    if (!texte){
+        return EXIT_FAILURE;
     }
+    rewind(fichierAIndexer);
+
+    fread(texte, NB_OCTETS, 1, fichierAIndexer);
+
+    Index* index = remplirIndex(texte);
+    afficherIndex(index);
+    saveToFileIndex(index, fichierIndex);
+    detruireIndex(index);
+
+    free(texte);
 
     fclose(fichierAIndexer);
     fclose(fichierIndex);
