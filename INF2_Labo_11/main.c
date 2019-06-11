@@ -24,15 +24,19 @@
 #define FICHER_A_INDEXER 1
 #define FICHIER_INDEX 2
 #define FICHER_STOPWORDS 3
+#define NB_ARG_AIDE 2
+#define NB_ARG_INDEX 3
+#define NB_ARG_STOPWORDS 4
+#define ARG_AIDE 1
 #define OPTION_AIDE "-h"
 
 
 int main(int argc, char* argv[]) {
     //Affichage de l'aide
-    if (argc == 2 && strcmp(OPTION_AIDE, argv[1]) == 0) {
+    if (argc == NB_ARG_AIDE && strcmp(OPTION_AIDE, argv[ARG_AIDE]) == 0) {
         printf("Aide");
         return EXIT_SUCCESS;
-    } else if (argc < 3) {
+    } else if (argc < NB_ARG_INDEX) {
         return EXIT_FAILURE;
     }
 
@@ -50,7 +54,7 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
     FILE* fichierStopWords = fopen(argv[FICHER_STOPWORDS], "r");
-    if(!fichierStopWords){
+    if(!fichierStopWords  && argc == NB_ARG_STOPWORDS){
         printf("Le fichier des stopwords n'existe pas");
         return EXIT_FAILURE;
     }
@@ -60,7 +64,7 @@ int main(int argc, char* argv[]) {
         fflush(stdin);
         scanf("%c", &choix);
         fflush(stdout);
-        if('N' == tolower(choix)){
+        if('y' != tolower(choix)){
             return EXIT_SUCCESS;
         }
     }

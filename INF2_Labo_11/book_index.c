@@ -50,8 +50,12 @@ void strtolower(char* c);
  */
 bool separateurMot(char c);
 
-
-
+/**
+ * Determine si le mot est valide. Un mot valide ne contient pas de chiffres
+ * @param mot
+ * @param stopwords
+ * @return
+ */
 bool motValide(char* mot, FILE* stopwords);
 
 //Structure permettant de contenir la mot et l'élément suivant dans la liste
@@ -99,9 +103,9 @@ Index* remplirIndex(char* texte, FILE* stopwords){
                 finLigne = true;
             }
             //Si le dernier caractère du mot est un point ou une virgule, on réduit la taille du mot de 1
-            if (separateurMot(*(texte + finMot - 1)))
+            while (separateurMot(*(texte + finMot - 1)))
                 --finMot;
-            if(separateurMot(*(texte + debutMot))){
+            while(separateurMot(*(texte + debutMot))){
                 debutMot++;
             }
 
@@ -203,17 +207,25 @@ bool separateurMot(char c){
 }
 
 bool motValide(char* mot, FILE* stopwords) {
-    const size_t TAILLE_MAX = 256;
-    char buf[256];
-
-    rewind(stopwords);
-
-    while(fgets(buf, sizeof(buf), stopwords)) {
-        if (buf[strlen(buf) - 1] == '\n')
-            buf[strlen(buf) - 1] = '\0';
-
-        if (strcmp(mot, buf) == 0)
+    //Si le mot contient des chiffres, il est invalide
+    for (size_t i = 0; i < strlen(mot); ++i) {
+        if (!isalnum(mot[i]))
             return false;
+    }
+
+    if (stopwords != NULL) {
+        const size_t TAILLE_MAX = 256;
+        char buf[TAILLE_MAX];
+
+        rewind(stopwords);
+
+        while (fgets(buf, (int)sizeof(buf), stopwords)) {
+            if (buf[strlen(buf) - 1] == '\n')
+                buf[strlen(buf) - 1] = '\0';
+
+            if (strcmp(mot, buf) == 0)
+                return false;
+        }
     }
 
     return true;
