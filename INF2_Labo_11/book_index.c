@@ -50,6 +50,8 @@ void strtolower(char* c);
  */
 bool separateurMot(char c);
 
+
+
 bool motValide(char* mot, FILE* stopwords);
 
 //Structure permettant de contenir la mot et l'élément suivant dans la liste
@@ -58,8 +60,6 @@ struct Element
     Heading* heading;
     Element* suivant;
 };
-
-
 
 Element* chercherPosition(Index* h, const char* mot) {
     if (*h == NULL)
