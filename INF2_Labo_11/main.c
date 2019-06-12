@@ -1,9 +1,9 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : 10
+ Laboratoire : 11
  Fichier     : main.c
  Auteur(s)   : Müller Robin, Stéphane Teixeira Carvalho
- Date        : 03.06.2019
+ Date        : 12.06.2019
 
  But         : Lire dans un fichier passé en paramètre un texte.
                Le texte sera contenu sous forme de chaîne de caractère.

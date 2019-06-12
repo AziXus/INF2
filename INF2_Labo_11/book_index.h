@@ -1,9 +1,9 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : 10
+ Laboratoire : 11
  Fichier     : book_index.h
  Auteur(s)   : Müller Robin, Stéphane Teixeira Carvalho
- Date        : 03.06.2019
+ Date        : 12.06.2019
 
  But         : Initialiser une structure nommée Element pour créer le principe de liste chainée pour le stockage des différents mots.
                L'élément pointé Index indique le début de la liste de tout les mot du texte à indexer.

@@ -1,9 +1,9 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : 10
+ Laboratoire : 11
  Fichier     : heading.h
  Auteur(s)   : Müller Robin, Stéphane Teixeira Carvalho
- Date        : 03.06.2019
+ Date        : 12.06.2019
 
  But         : Initialiser deux structures qui seront sous forme de liste chainée.
                La structure Location contiendra les numéro du ligne ou le mot à été trouvé.
