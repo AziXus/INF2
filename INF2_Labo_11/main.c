@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
     FILE* fichierIndex = fopen(argv[FICHIER_INDEX], "w"); //Confirmer ecrasement si le fichier existe
 
     fseek(fichierAIndexer, 0, SEEK_END);
-
+    
     const size_t NB_OCTETS = (size_t)ftell(fichierAIndexer) + 1;
     char* texte = calloc(NB_OCTETS, sizeof(char));
     if (!texte){
