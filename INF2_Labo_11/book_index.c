@@ -83,6 +83,10 @@ Element* chercherPosition(Index* h, const char* mot) {
 
 Index* creerIndexVide(){
     Index* h = (Index*)calloc(1, sizeof(Index));
+    if(!h){
+        printf("Allocation en mémoire echouee");
+        return NULL;
+    }
     return h;
 }
 
@@ -102,13 +106,13 @@ Index* remplirIndex(char* texte, FILE* stopwords){
             if(*(texte + finMot) == DELIMITEUR_LIGNE){
                 finLigne = true;
             }
-            //Tant que le dernier caractère du mot est un caractère spécial on reduit la taille du mot
-            while (separateurMot(*(texte + finMot - 1)))
-                --finMot;
             //Tant que le premier caractère du mot est un caractère spécial on reduit la taille du mot
-            while(separateurMot(*(texte + debutMot))){
+            while(!isalnum(*(texte + debutMot))){
                 debutMot++;
             }
+            //Tant que le dernier caractère du mot est un caractère spécial on reduit la taille du mot
+            while (!isalnum(*(texte + finMot - 1)))
+                --finMot;
 
             //On garde uniquement les mots de plus de 3 caractères
             if (finMot - debutMot >= MIN_CAR_MOT) {
@@ -179,16 +183,20 @@ void insertion(Index* h, const char* mot, size_t noLigne){
     //On cherche la position dans laquelle ajouter le mot
     Element* elementGauche = chercherPosition(h, mot);
     Element* el1 = (Element*)malloc(sizeof(Element));
-    el1->heading = headingCreate(mot, noLigne);
+    if(el1){
+        el1->heading = headingCreate(mot, noLigne);
 
-    //Si l'élément de gauche est NULL cela signifie qu'on ajoute au début
-    if (elementGauche == NULL) {
-        el1->suivant = *h;
-        *h = el1;
-    } else if (strcmp(elementGauche->heading->mot, mot) != 0) {
-        insererElement(elementGauche, el1);
-    } else if (strcmp(elementGauche->heading->mot, mot) == 0) {
-        insererLigne(elementGauche->heading, noLigne);
+        //Si l'élément de gauche est NULL cela signifie qu'on ajoute au début
+        if (elementGauche == NULL) {
+            el1->suivant = *h;
+            *h = el1;
+        } else if (strcmp(elementGauche->heading->mot, mot) != 0) {
+            insererElement(elementGauche, el1);
+        } else if (strcmp(elementGauche->heading->mot, mot) == 0) {
+            insererLigne(elementGauche->heading, noLigne);
+        }
+    }else{
+        printf("Allocation en mémoire echouee");
     }
 }
 
@@ -208,7 +216,7 @@ bool separateurMot(char c){
 }
 
 bool motValide(char* mot, FILE* stopwords) {
-    //Si le mot contient des chiffres, il est invalide
+    //Si le mot contient un carcatère non alphanumérique, il est invalide
     for (size_t i = 0; i < strlen(mot); ++i) {
         if (!isalnum(mot[i]))
             return false;

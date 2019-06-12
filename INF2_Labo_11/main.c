@@ -12,7 +12,7 @@
                La liste des mots doit être sous forme alphabétique.
                La liste sera ensuite écrite dans un fichier se nommant index.txt 
 
- Remarque(s) : Une liste de mot invalide(stopwords) peut être donné en paramètre ou non.
+ Remarque(s) : Une liste de mot exclus(stopwords) peut être donné en paramètre ou non.
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -36,7 +36,7 @@
 int main(int argc, char* argv[]) {
     //Affichage de l'aide
     if (argc == NB_ARG_AIDE && strcmp(OPTION_AIDE, argv[ARG_AIDE]) == 0) {
-        printf("Aide");
+        printf("Entré [fichier] [fichier_Index] [Liste_Exclusion]");
         return EXIT_SUCCESS;
     } else if (argc < NB_ARG_INDEX) {
         return EXIT_FAILURE;
@@ -69,10 +69,10 @@ int main(int argc, char* argv[]) {
 
     const size_t NB_OCTETS = (size_t)ftell(fichierAIndexer) + 1;
     char* texte = calloc(NB_OCTETS, sizeof(char));
-
     if (!texte){
         return EXIT_FAILURE;
     }
+    
     rewind(fichierAIndexer);
 
     fread(texte, NB_OCTETS, 1, fichierAIndexer);

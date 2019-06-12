@@ -20,12 +20,20 @@ struct Ligne
 Heading* headingCreate(const char* mot, size_t nombreLigne){
     //Allocation en mémoire du heading à créer
     Heading* h = (Heading*)malloc(sizeof(Heading));
+    if(!h){
+        printf("Allocation en mémoire échouée");
+        return NULL;
+    }
     h->mot = mot;
     h->premier = NULL;
     //Si la ligne ne vaut pas 0 alors elle est valide et on peut ajouter une ligne au mot
     if(nombreLigne != 0){
         //Allocation en mémoire de la taille pour une variable Location(numéro de ligne)
         Location* ligne = (Location*)malloc(sizeof(Location));
+        if(!ligne){
+            printf("Allocation en mémoire echouee");
+            return h;
+        }
         ligne->nombre = nombreLigne;
         ligne->suivant = h->premier;
         h->premier = ligne;
@@ -35,15 +43,20 @@ Heading* headingCreate(const char* mot, size_t nombreLigne){
 
 void insererLigne(Heading* heading, size_t noLigne) {
     Location* ligne = (Location*)malloc(sizeof(Location));
-    ligne->nombre = noLigne;
-    ligne->suivant = NULL;
-    Location* current = heading->premier;
+    if(ligne){
+        ligne->nombre = noLigne;
+        ligne->suivant = NULL;
+        Location* current = heading->premier;
 
-    while (current->suivant != NULL) {
-        current = current->suivant;
+        while (current->suivant != NULL) {
+            current = current->suivant;
+        }
+
+        current->suivant = ligne;
     }
-
-    current->suivant = ligne;
+    else{
+        printf("Allocation en mémoire echouee");
+    }
 }
 
 void headingDestroy(Heading* h){
