@@ -137,8 +137,6 @@ void saveToFileIndex(Index* h, FILE* fichier){
         fprintf(fichier, "\n");
         actuel = actuel->suivant;
     }
-
-    fprintf(fichier, "\n");
 }
 
 void afficherIndex(Index* h){
