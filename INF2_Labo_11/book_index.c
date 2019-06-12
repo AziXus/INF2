@@ -18,10 +18,6 @@
 #define DELIMITEUR_LIGNE '\n'
 #define DELIMITEUR_MOT ' '
 
-//Par la suite il sera possible de vouloir ajouter d'autres séparteurs par exmple ; : ou /
-const char SEPARATION_MOT[] = {'.', ',', ':', '?', ';', '!', '"', '-', '[', ']', '(', ')', '<', '\''};
-const size_t TAILLE_SEPARATION_MOT = 14;
-
 /**
  * Permet d'insérer en élément à la suite d'un élément donnée
  * @param hPrev adresse de l'élément étant le mot qui sera juste avant le futur mot à ajouter
@@ -42,13 +38,6 @@ void insertion(Index* h, const char* mot, size_t noLigne);
  * @param c adresse vers le début de la chaîne de caractère
  */
 void strtolower(char* c);
-
-/**
- * Permet de savoir si le caractère passé par paramètre est un delimiteur de mot
- * @param c caractère passé en paramètre
- * @return vrai si le caractère est dans le tableau, faux sinon
- */
-bool separateurMot(char c);
 
 /**
  * Determine si le mot est valide. Un mot valide ne contient pas d'autres caractères que ceux alphanumerique(A-Z et 0-9)
@@ -111,7 +100,7 @@ Index* remplirIndex(char* texte, FILE* stopwords){
                 debutMot++;
             }
             //Tant que le dernier caractère du mot est un caractère spécial on reduit la taille du mot
-            while (!isalnum(*(texte + finMot - 1)))
+            while(!isalnum(*(texte + finMot - 1)))
                 --finMot;
 
             //On garde uniquement les mots de plus de 3 caractères
@@ -195,7 +184,8 @@ void insertion(Index* h, const char* mot, size_t noLigne){
         } else if (strcmp(elementGauche->heading->mot, mot) == 0) {
             insererLigne(elementGauche->heading, noLigne);
         }
-    }else{
+    } 
+    else{
         printf("Allocation en mémoire echouee");
     }
 }
@@ -206,13 +196,6 @@ void strtolower(char* c) {
         *c = (char)tolower(*c);
         ++c;
     }
-}
-
-bool separateurMot(char c){
-    for(size_t i = 0; i < TAILLE_SEPARATION_MOT; i++)
-        if(c == SEPARATION_MOT[i])
-            return true;
-    return false;        
 }
 
 bool motValide(char* mot, FILE* stopwords) {

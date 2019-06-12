@@ -36,7 +36,7 @@
 int main(int argc, char* argv[]) {
     //Affichage de l'aide
     if (argc == NB_ARG_AIDE && strcmp(OPTION_AIDE, argv[ARG_AIDE]) == 0) {
-        printf("Entré [fichier] [fichier_Index] [Liste_Exclusion]");
+        printf("Syntaxe commande : [fichierAIndexer] [fichierIndex] [listeExclusion]");
         return EXIT_SUCCESS;
     } else if (argc < NB_ARG_INDEX) {
         return EXIT_FAILURE;
