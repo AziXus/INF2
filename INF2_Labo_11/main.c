@@ -12,7 +12,7 @@
                La liste des mots doit être sous forme alphabétique.
                La liste sera ensuite écrite dans un fichier se nommant index.txt 
 
- Remarque(s) : Une liste de mot invalide peut être donné en paramètre ou non.
+ Remarque(s) : Une liste de mot invalide(stopwords) peut être donné en paramètre ou non.
 
  Compilateur : MinGW-gcc 6.3.0
  -----------------------------------------------------------------------------------
@@ -42,14 +42,6 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-    //arg[1] == fichier à indexer
-        //arg[2] == fichier d'index
-        //arg[3] == fichier stopwords, optionnel
-
-//        char* fichierAIndexer = argv[FICHER_A_INDEXER];
-//        char* fichierIndex = argv[FICHIER_INDEX];
-    char choix;
-
     FILE* fichierAIndexer = fopen(argv[FICHER_A_INDEXER], "r");
     if(!fichierAIndexer){
         printf("Le fichier à indexer n'existe pas");
@@ -60,19 +52,18 @@ int main(int argc, char* argv[]) {
         printf("Le fichier des stopwords n'existe pas");
         return EXIT_FAILURE;
     }
-    FILE* fichierIndexExiste  = fopen(argv[FICHIER_INDEX], "r");
+    FILE* fichierIndexExiste = fopen(argv[FICHIER_INDEX], "r");        
+    char choix;
     if(fichierIndexExiste){
         printf("! Fichier deja existant voulez-vous l'ecraser ? [Y/N] ");
-        fflush(stdin);
-        scanf("%c", &choix);
         fflush(stdout);
+        scanf("%c", &choix);
+        fflush(stdin);
         if('y' != tolower(choix)){
             return EXIT_SUCCESS;
         }
     }
-    FILE* fichierIndex    = fopen(argv[FICHIER_INDEX], "w"); //Confirmer ecrasement si le fichier existe
-    
-    //        char* fichierStopwords = argv[3];
+    FILE* fichierIndex = fopen(argv[FICHIER_INDEX], "w"); //Confirmer ecrasement si le fichier existe
 
     fseek(fichierAIndexer, 0, SEEK_END);
 
